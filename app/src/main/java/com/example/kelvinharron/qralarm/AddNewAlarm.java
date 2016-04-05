@@ -50,16 +50,10 @@ public class AddNewAlarm extends AppCompatActivity {
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             display.setText("Chosen time is :" + hourOfDay + ":" + minute);
+
         }
     };
 
-    /**
-     *
-     */
-
-    private void locationFinder(){
-
-    }
 
     /**
      * Method for Choosing the type of alarm
@@ -85,7 +79,8 @@ public class AddNewAlarm extends AppCompatActivity {
 
                 if (spinner.getSelectedItem().equals("Time")) {
                     setAlarmDialog();
-                }if(spinner.getSelectedItem().equals("Location")) {
+                }
+                if (spinner.getSelectedItem().equals("Location")) {
                     Intent mapIntent = new Intent(view.getContext(), MapsActivity.class);
                     startActivity(mapIntent);
                 }
