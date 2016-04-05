@@ -1,5 +1,6 @@
 package com.example.kelvinharron.qralarm;
 
+import android.app.FragmentManager;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,9 +9,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -19,6 +24,7 @@ public class AddNewAlarm extends AppCompatActivity {
     private TextView display;
     private Calendar calendar = Calendar.getInstance();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +32,7 @@ public class AddNewAlarm extends AppCompatActivity {
 
         //setAlarmDialog();
         setAlarmType();
+        setOverride();
     }
 
     /**
@@ -50,26 +57,47 @@ public class AddNewAlarm extends AppCompatActivity {
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             display.setText("Chosen time is :" + hourOfDay + ":" + minute);
+
         }
     };
 
     /**
-     *
+     * Method for setting an override to the QR alarm
      */
+    private void setOverride() {
 
-    private void locationFinder(){
+        final android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
+        final AlarmOverrideDialogFragment dialogFragment = new AlarmOverrideDialogFragment();
+
+        String passcode;
+
+        final Switch overrideSwitch = (Switch) findViewById(R.id.overrideSwitch);
+        final EditText passcodeEditText = (EditText) findViewById(R.id.editTextPasscode);
+        overrideSwitch.setChecked(false);
+        overrideSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    Toast.makeText(AddNewAlarm.this, "CHECKED", Toast.LENGTH_SHORT).show();
+                    dialogFragment.show(manager, "fragment");
+
+
+                }
+            }
+        });
+
 
     }
+
 
     /**
      * Method for Choosing the type of alarm
      */
     private void setAlarmType() {
 
-
         String[] timeLocation = {"Time", "Location"};
 
-        final Spinner spinner = (Spinner) findViewById(R.id.chooseTimeSpinner);
+        final Spinner alarmTypeSpinner = (Spinner) findViewById(R.id.chooseTimeSpinner);
 
         // Create array adapter
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
@@ -77,15 +105,16 @@ public class AddNewAlarm extends AppCompatActivity {
         // Specify the layout to use
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        alarmTypeSpinner.setAdapter(adapter);
+        alarmTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                if (spinner.getSelectedItem().equals("Time")) {
+                if (alarmTypeSpinner.getSelectedItem().equals("Time")) {
                     setAlarmDialog();
-                }if(spinner.getSelectedItem().equals("Location")) {
+                }
+                if (alarmTypeSpinner.getSelectedItem().equals("Location")) {
                     Intent mapIntent = new Intent(view.getContext(), MapsActivity.class);
                     startActivity(mapIntent);
                 }
@@ -96,36 +125,32 @@ public class AddNewAlarm extends AppCompatActivity {
 
             }
         });
+
     }
 
 
 }
 
-
-
-
-
-
-
-/*
-   private void alarmTimeIntent(){
-        Intent alarmIntent = new Intent(AlarmClock.ACTION_SET_ALARM);
-        alarmIntent.putExtra(AlarmClock.EXTRA_HOUR,true);
-        alarmIntent.putExtra(AlarmClock.EXTRA_MINUTES,true);
-        startActivity(alarmIntent);
-    }
-
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // Use the current time as the default values for the picker
-
-
-        final Calendar c = Calendar.getInstance();
-        hour_local = c.get(Calendar.HOUR_OF_DAY);
-        minute_local = c.get(Calendar.MINUTE);
-
-        // Create a new instance of TimePickerDialog and return it
-        return new TimePickerDialog(getActivity(), this, hour_local, minute_local,
-                DateFormat.is24HourFormat(getActivity()));
-    }
-    */
+//Todo:implement alarm intent below
+/***
+ * <p/>
+ * <p/>
+ * private void alarmTimeIntent(){
+ * Intent alarmIntent = new Intent(AlarmClock.ACTION_SET_ALARM);
+ * alarmIntent.putExtra(AlarmClock.EXTRA_HOUR,true);
+ * alarmIntent.putExtra(AlarmClock.EXTRA_MINUTES,true);
+ * startActivity(alarmIntent);}
+ * <p/>
+ * public Dialog onCreateDialog(Bundle savedInstanceState) {
+ * // Use the current time as the default values for the picker
+ * <p/>
+ * <p/>
+ * final Calendar c = Calendar.getInstance();
+ * hour_local = c.get(Calendar.HOUR_OF_DAY);
+ * minute_local = c.get(Calendar.MINUTE);
+ * <p/>
+ * // Create a new instance of TimePickerDialog and return it
+ * return new TimePickerDialog(getActivity(), this, hour_local, minute_local,
+ * DateFormat.is24HourFormat(getActivity()));}
+ */
 

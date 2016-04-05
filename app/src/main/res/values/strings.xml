@@ -7,5 +7,6 @@
     <string name="empty_state">Better set an alarm\n before you sleep in...\n ...again!</string>
     <string name="user_record">Your record:</string>
     <string name="title_activity_maps">Map</string>
+    <string name="dialog">Enter a passcode to override the alarm\nif the code cannot be found.</string>
 
 </resources>
