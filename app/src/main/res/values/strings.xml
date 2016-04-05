@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">QR Alarm</string>
+    <string name="alarms_tab">Alarms</string>
+    <string name="action_settings">Settings</string>
+    <string name="leaderboard_tab">Leaderboard</string>
+    <string name="settings_tab">Settings</string>
+    <string name="empty_state">Better set an alarm\n before you sleep in...\n ...again!</string>
+    <string name="user_record">Your record:</string>
+    <string name="title_activity_maps">Map</string>
+
+</resources>
