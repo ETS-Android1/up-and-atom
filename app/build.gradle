@@ -12,6 +12,10 @@ android {
         versionName "1.0"
     }
     buildTypes {
+
+        debug {
+            manifestPlaceholders = [google_map_key: "AIzaSyA0b7gqqloEmuytOLJYkoeyHFTHUVkJNWM"]
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
