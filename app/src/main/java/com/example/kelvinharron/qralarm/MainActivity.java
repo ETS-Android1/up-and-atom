@@ -2,6 +2,7 @@ package com.example.kelvinharron.qralarm;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -30,42 +31,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /**
-         *Intent addNewAlarm = new Intent(v.getContext(), AddNewAlarm.class );
-         startActivity(addNewAlarm);
-         *
-         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-         addAlarmFAB = (FloatingActionButton) findViewById(R.id.floating_action_button);
-         addAlarmFAB.setOnClickListener(new View.OnClickListener() {
-        @Override public void onClick(View v) {
-        Intent newAlarm = new Intent(MainActivity.this, NewAlarmActivity.class))
-        startActivityForResult();
-        }
-        });
-         *
-         */
 
 
-        toolbar = (Toolbar)
 
-                findViewById(R.id.toolbar);
-
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        viewPager = (ViewPager)
-
-                findViewById(R.id.viewpager);
-
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
-
-        tabLayout = (TabLayout)
-
-                findViewById(R.id.tabs);
-
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floating_action_button);
+        FloatingActionButton addAlarmFAB = (FloatingActionButton) findViewById(R.id.floating_action_button);
+        addAlarmFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AddNewAlarm.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
