@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- This fragment is displayed when the tab selected by the user is set to Alarms
+TODO: Establish connection to a dataset to enable empty state that shows text and image when no cards/alarm objects exist
+-->
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,38 +11,40 @@
     android:layout_height="match_parent"
     tools:context="com.example.kelvinharron.qralarm.AlarmsFragment">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:paddingTop="140dp"
-            android:text="@string/empty_state"
-            android:textColor="@color/textColorEmptyState"
-            android:textSize="25dp"
-            android:textStyle="normal" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:src="@mipmap/ic_launcher" />
-
-    </LinearLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/alarmList"
+    <ViewSwitcher
+        android:id="@+id/viewswitcher"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/alarmListRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-    </android.support.v7.widget.RecyclerView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:paddingTop="140dp"
+                android:text="@string/empty_state"
+                android:textColor="@color/textColorEmptyState"
+                android:textSize="25dp"
+                android:textStyle="normal" />
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/ic_launcher" />
+
+        </LinearLayout>
+
+    </ViewSwitcher>
 
 
 </android.support.design.widget.CoordinatorLayout>

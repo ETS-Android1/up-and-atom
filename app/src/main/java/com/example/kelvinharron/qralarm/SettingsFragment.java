@@ -12,28 +12,23 @@ import android.widget.ListView;
 import com.example.kelvinharron.qralarm.R;
 
 /**
+ * Stub class for settings. Class was used for settings tab fragment but settings will be accessable from toolbar.
  * Created by kelvinharron on 04/04/2016.
  */
 public class SettingsFragment extends Fragment {
 
-
     public SettingsFragment() {
-// Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-// Inflate the layout for this fragment
         return inflater.inflate(R.layout.settings_fragment, container, false);
     }
-
-
 }
 

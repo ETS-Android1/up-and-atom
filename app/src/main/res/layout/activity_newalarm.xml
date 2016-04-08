@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- This activity represents the users view when creating a new alarm
+
+TODO: overhaul UI to bring it into line with material design.
+TODO: implement if alarm repeats, then show days of the week as view objects-->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -174,7 +180,7 @@
             android:layout_height="wrap_content"
             android:layout_column="1"
             android:layout_row="5"
-            android:text="YEOOO"
+            android:text="Alarm set to: "
             android:textSize="30dp" />
 
     </GridLayout>

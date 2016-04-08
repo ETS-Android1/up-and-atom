@@ -9,6 +9,8 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 /**
+ * Currently a stub class that might not be needed. Was attempting to create a settings tab but relegated it to the soon to be created menu.
+ * The settings menu will likely rely on a PreferencesActivity or Fragment.
  * Created by kelvinharron on 04/04/2016.
  */
 public class SettingsActivity extends Activity {
@@ -25,10 +27,7 @@ public class SettingsActivity extends Activity {
         settingsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
             }
         });
-
-
     }
 }
