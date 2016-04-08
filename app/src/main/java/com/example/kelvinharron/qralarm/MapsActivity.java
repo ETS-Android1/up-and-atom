@@ -1,64 +1,75 @@
 package com.example.kelvinharron.qralarm;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.location.Location;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.widget.EditText;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+/**
+ * This class is used when a user is adding a new alarm and chooses the location alarm type. This class will open a Google Maps screen allowing a user to long press and add a marker of their location.
+ * TODO: Create a Dialog when the user first opens the map view with simple instructions on what to do.
+ * TODO: Add a button to the map to confirm the location.
+ * TODO: Get the location and store it in the database.
+ * TODO: Remove Google buttons that appear on the bottom right of the map when a user taps their location marker.
+ */
 public class MapsActivity extends FragmentActivity {
 
-    private GoogleMap mMap;
+    /**
+     * Main class for the GoogleMap object that will allow us to setup an entry point to creating and interacting with GoogleMaps.
+     */
+    private GoogleMap googleMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         setUpMapIfNeeded();
+        setMarkerLocation();
+    }
 
-        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+    /**
+     * Method where a user can long press a location on a map to set as their location.
+     * TODO: get and store LatLng from user.
+     */
+    private void setMarkerLocation() {
+        googleMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
 
             @Override
             public void onMapLongClick(LatLng latLng) {
-                mMap.clear();
-                mMap.addMarker(new MarkerOptions().position(latLng));
+                googleMap.clear();
+                googleMap.addMarker(new MarkerOptions().position(latLng));
             }
         });
     }
 
-
-
-
+    /**
+     * Method checks if we have already instantiated a googlemap view.
+     * If not instantiated, we use the supportMapFragment to obtain a reference to the map.
+     * Calls setUpMap method.
+     */
     private void setUpMapIfNeeded() {
-        // Do a null check to confirm that we have not already instantiated the map.
-        if (mMap == null) {
-            // Try to obtain the map from the SupportMapFragment.
-            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
+        if (googleMap == null) {
+            googleMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                     .getMap();
-            // Check if we were successful in obtaining the map.
-            if (mMap != null) {
+            if (googleMap != null) {
                 setUpMap();
             }
         }
     }
 
+    /**
+     * Method sets up camera view with predefined location and uses functions to set marker on map at specific zoom level.
+     */
     private void setUpMap() {
-
-        LatLng me = new LatLng(54.5731707, -5.9428905);
-        CameraUpdate centre = CameraUpdateFactory.newLatLng(me);
+        LatLng userLocation = new LatLng(54.5731707, -5.9428905); // default for now
+        CameraUpdate centre = CameraUpdateFactory.newLatLng(userLocation);
         CameraUpdate zoom = CameraUpdateFactory.zoomTo(20);
-        mMap.addMarker(new MarkerOptions().position(me).title("My place"));
-        mMap.moveCamera(centre);
-        mMap.animateCamera(zoom);
+        googleMap.addMarker(new MarkerOptions().position(userLocation).title("My place")); // string on marker when user clicks
+        googleMap.moveCamera(centre);
+        googleMap.animateCamera(zoom);
     }
 }

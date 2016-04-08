@@ -1,6 +1,5 @@
 package com.example.kelvinharron.qralarm;
 
-import android.app.FragmentManager;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -19,28 +18,42 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
+/**
+ * This Activity handles the behavior for adding a new alarm. Appears once the floating action button is pressed.
+ * Extending AppCompatActivity allows us to target older android devices.
+ */
 public class AddNewAlarm extends AppCompatActivity {
 
-    private TextView display;
+    /**
+     * Blank text view that once a user selects a time from the TimePicker dialog, it appears in the add new alarm activity.
+     */
+    private TextView displaySelectedTimeTextView;
+
+    /**
+     * Creates a reference to the calendar allowing us to get the hour and minute as integers.
+     */
     private Calendar calendar = Calendar.getInstance();
 
 
+    /**
+     * Start of activity lifecycle. Sets the view of the AddNewAlarm activity and calls the methods enabling behavior.
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_newalarm);
-
-        //setAlarmDialog();
         setAlarmType();
         setOverride();
     }
 
     /**
-     * Method for setting the time of an alarm
+     * Method for setting the time value of a time based alarm. Launched if spinner selection is set to time based alarm.
      */
     private void setAlarmDialog() {
 
-        display = (TextView) findViewById(R.id.displayTimeText);
+        displaySelectedTimeTextView = (TextView) findViewById(R.id.displayTimeText);
         Button button = (Button) findViewById(R.id.timeButton);
         button.setOnClickListener(new View.OnClickListener() {
 
@@ -56,20 +69,20 @@ public class AddNewAlarm extends AppCompatActivity {
 
         @Override
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            display.setText("Chosen time is :" + hourOfDay + ":" + minute);
-
+            displaySelectedTimeTextView.setText("Chosen time is :" + hourOfDay + ":" + minute);
         }
     };
 
     /**
-     * Method for setting an override to the QR alarm
+     * Method used to create an override when creating a new Alarm.
+     * Calls the AlarmOverrideDialogFragment that displays after a button press a dialog box where the user can submit a passcode override.
      */
     private void setOverride() {
 
-        final android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
-        final AlarmOverrideDialogFragment dialogFragment = new AlarmOverrideDialogFragment();
+        final android.support.v4.app.FragmentManager manager = getSupportFragmentManager(); // fragment manager allows us to instantiate the dialog fragment
+        final AlarmOverrideDialogFragment dialogFragment = new AlarmOverrideDialogFragment(); // create an object of the dialogfragment that will allow us to display it once a button is pressed.
 
-        String passcode;
+        String passcode; //TODO: implement a way to get the passcode from the fragment and store & display it as a test
 
         final Switch overrideSwitch = (Switch) findViewById(R.id.overrideSwitch);
         final EditText passcodeEditText = (EditText) findViewById(R.id.editTextPasscode);
@@ -80,34 +93,36 @@ public class AddNewAlarm extends AppCompatActivity {
                 if (isChecked) {
                     Toast.makeText(AddNewAlarm.this, "CHECKED", Toast.LENGTH_SHORT).show();
                     dialogFragment.show(manager, "fragment");
-
-
                 }
             }
         });
-
-
     }
 
-
     /**
-     * Method for Choosing the type of alarm
+     * Method for Choosing the type of alarm between time based or location.
+     * Depending on user choice, carries out required behavior through method/intent call.
      */
     private void setAlarmType() {
 
-        String[] timeLocation = {"Time", "Location"};
-
+        String[] alarmTypes = {"Time", "Location"};
         final Spinner alarmTypeSpinner = (Spinner) findViewById(R.id.chooseTimeSpinner);
 
         // Create array adapter
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_dropdown_item, timeLocation);
+                android.R.layout.simple_spinner_dropdown_item, alarmTypes);
         // Specify the layout to use
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         alarmTypeSpinner.setAdapter(adapter);
         alarmTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
+            /**
+             * Depending on what option the user chooses, launches necessary behavior.
+             * @param parent
+             * @param view
+             * @param position
+             * @param id
+             */
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -115,23 +130,31 @@ public class AddNewAlarm extends AppCompatActivity {
                     setAlarmDialog();
                 }
                 if (alarmTypeSpinner.getSelectedItem().equals("Location")) {
-                    Intent mapIntent = new Intent(view.getContext(), MapsActivity.class);
-                    startActivity(mapIntent);
+                    launchMapIntent(view);
                 }
             }
 
+            /**
+             * Launches the map activity allowing a user to set their location for the alarm.
+             * @param view
+             */
+            private void launchMapIntent(View view) {
+                Intent mapIntent = new Intent(view.getContext(), MapsActivity.class);
+                startActivity(mapIntent);
+            }
+
+            /**
+             * Method handles if spinner is blank. Currently spinner defaults to time.
+             * @param parent
+             */
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
-
     }
-
-
 }
 
-//Todo:implement alarm intent below
+//Todo: implement alarm setter intent as below
 /***
  * <p/>
  * <p/>
@@ -153,4 +176,3 @@ public class AddNewAlarm extends AppCompatActivity {
  * return new TimePickerDialog(getActivity(), this, hour_local, minute_local,
  * DateFormat.is24HourFormat(getActivity()));}
  */
-

@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Main userinterface for our application. The views are used together with fragments that are inflated as the content views.
+ The Toolbar, tabs and floating action button will be constant between the two fragments that we use as we want the functionality
+ to remain the same across both of these screens. -->
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -33,7 +34,6 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floating_action_button"
         android:layout_width="wrap_content"
@@ -43,6 +43,5 @@
         android:src="@android:drawable/ic_input_add"
         app:backgroundTint="@color/colorAccent"
         app:layout_anchorGravity="bottom|right|end" />
-
 
 </android.support.design.widget.CoordinatorLayout>

@@ -9,12 +9,15 @@ import android.view.ViewGroup;
 import com.example.kelvinharron.qralarm.R;
 
 /**
+ * lass is used to inflate the alarm fragment view on our interface.
  * Created by kelvinharron on 04/04/2016.
+ * TODO: Replace hardcoded leaderboard fragment and view with a dynamic system that pulls from web server. Conor suggests using AWS for web storage.
  */
 public class LeaderboardFragment extends Fragment {
-
+    /**
+     * Default class constructor, empty as standard
+     */
     public LeaderboardFragment() {
-// Required empty public constructor
     }
 
     @Override
@@ -22,9 +25,16 @@ public class LeaderboardFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * This method inflates the leaderboard fragment view object so that it displays on our activity interface.
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-// Inflate the layout for this fragment
         return inflater.inflate(R.layout.leaderboard_fragment, container, false);
     }
 }
