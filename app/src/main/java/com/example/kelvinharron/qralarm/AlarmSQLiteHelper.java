@@ -42,7 +42,7 @@ public class AlarmSQLiteHelper extends SQLiteOpenHelper{
             + ALARM_DAYS + " text, "
             + ALARM_HOUR + " int, "
             + ALARM_MIN + " int, "
-            + ALARM_QR_CODE + " blob, "
+            + ALARM_QR_CODE + " text, "
             + ALARM_ON + " numeric, "
             + ");";
 
@@ -73,7 +73,7 @@ public class AlarmSQLiteHelper extends SQLiteOpenHelper{
         values.put(ALARM_DAYS, alarm.storeDays());
         values.put(ALARM_HOUR, alarm.getHour());
         values.put(ALARM_MIN, alarm.getMin());
-        values.put(ALARM_QR_CODE, alarm.storeQr());
+        values.put(ALARM_QR_CODE, alarm.getQrResult());
         values.put(ALARM_ON, alarm.isOn());
         db.insert(ALARMS, null, values);
         db.close();
@@ -102,7 +102,7 @@ public class AlarmSQLiteHelper extends SQLiteOpenHelper{
         alarm.setDays(cursor.getString(6));
         alarm.setHour(cursor.getInt(7));
         alarm.setMin(cursor.getInt(8));
-        alarm.setQr(cursor.getBlob(9));
+        alarm.setQrResult(cursor.getString(9));
         alarm.setOn(cursor.getInt(10));
         return alarm;
     }
@@ -129,7 +129,7 @@ public class AlarmSQLiteHelper extends SQLiteOpenHelper{
                 alarm.setDays(cursor.getString(6));
                 alarm.setHour(cursor.getInt(7));
                 alarm.setMin(cursor.getInt(8));
-                alarm.setQr(cursor.getBlob(9));
+                alarm.setQrResult(cursor.getString(9));
                 alarm.setOn(cursor.getInt(10));
                 alarms.add(alarm);
             } while (cursor.moveToNext());
@@ -150,7 +150,7 @@ public class AlarmSQLiteHelper extends SQLiteOpenHelper{
         values.put(ALARM_DAYS, alarm.storeDays());
         values.put(ALARM_HOUR, alarm.getHour());
         values.put(ALARM_MIN, alarm.getMin());
-        values.put(ALARM_QR_CODE, alarm.storeQr());
+        values.put(ALARM_QR_CODE, alarm.getQrResult());
         values.put(ALARM_ON, alarm.isOn());
 
         int i = db.update(ALARMS, values, ALARM_ID + " = ?", new String[]
