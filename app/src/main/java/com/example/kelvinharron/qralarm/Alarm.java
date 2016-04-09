@@ -23,7 +23,7 @@ public class Alarm {
     private Integer[] days;
     private int hour;
     private int min;
-    private Bitmap qr;
+    private String qrResult;
     private boolean on;
 
     public static final int MIN_HOUR = 0;
@@ -102,30 +102,15 @@ public class Alarm {
         return str;
     }
 
-    public void setQr(ImageView qrImage) {
-        qrImage.buildDrawingCache();
-        this.qr = qrImage.getDrawingCache();
+    public void setQrResult(String qrResult) {
+       this.qrResult = qrResult;
     }
 
-    public void setQr(Bitmap qrImage) {
-        this.qr = qrImage;
+    public String getQrResult() {
+        return this.qrResult;
     }
 
-    public void setQr(byte[] qrBlob) {
-        this.qr = BitmapFactory.decodeByteArray(qrBlob, 0, qrBlob.length);
-    }
-
-    public Bitmap getQr() {
-        return qr;
-    }
-
-    public byte[] storeQr() {
-        ByteArrayOutputStream qrBlob = new ByteArrayOutputStream();
-        qr.compress(Bitmap.CompressFormat.PNG, 0, qrBlob);
-        return qrBlob.toByteArray();
-    }
-
-    public int getId() {
+   public int getId() {
         return id;
     }
 
@@ -236,6 +221,6 @@ public class Alarm {
                 "Volume : " + "\n" + +this.volume + "\n" +
                 "Sound URI : " + "\n" + this.sound + "\n" +
                 "Alarm On  : " + "\n" + this.on + "\n" +
-                "Bitmap Saved : " + "\n" + ((this.qr != null));
+                "Bitmap Saved : " + "\n" + this.qrResult;
     }
 }
