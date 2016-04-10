@@ -30,12 +30,12 @@
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyAlvVjKwz8pFrX9LqtPOmdeNvFcoFLB0wE" />
 
-        <uses-feature
+       <!-- <uses-feature
             android:glEsVersion="0x00020000"
             android:required="true" />
 
         <uses-feature android:name="android.hardware.camera" />
-
+-->
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />

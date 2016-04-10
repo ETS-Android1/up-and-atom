@@ -17,6 +17,11 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.example.kelvinharron.qralarm.QRReader;
+import com.google.zxing.integration.android.IntentResult;
+import com.google.zxing.qrcode.encoder.QRCode;
+
 import java.util.Calendar;
 
 /**
@@ -29,6 +34,7 @@ public class AddNewAlarm extends AppCompatActivity {
      * Blank text view that once a user selects a time from the TimePicker dialog, it appears in the add new alarm activity.
      */
     private TextView displaySelectedTimeTextView;
+    private TextView QRTest;
 
     /**
      * Creates a reference to the calendar allowing us to get the hour and minute as integers.
@@ -39,6 +45,12 @@ public class AddNewAlarm extends AppCompatActivity {
      *
      */
     private Toolbar toolbar;
+
+    private Button scanQR;
+
+    private IntentIntegrator integrator;
+
+    public static final int REQUEST_CODE = 0x0000c0de;
 
     /**
      * Start of activity lifecycle. Sets the view of the AddNewAlarm activity and calls the methods enabling behavior.
@@ -54,8 +66,11 @@ public class AddNewAlarm extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        QRTest = (TextView) findViewById(R.id.QRTest);
+
         setAlarmType();
         setOverride();
+        setScanQR();
     }
 
     /**
@@ -82,6 +97,49 @@ public class AddNewAlarm extends AppCompatActivity {
             displaySelectedTimeTextView.setText("Chosen time is :" + hourOfDay + ":" + minute);
         }
     };
+
+    private void setScanQR() {
+        scanQR = (Button) findViewById(R.id.QRButton);
+
+        scanQR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                integrator = new IntentIntegrator(AddNewAlarm.this);
+                integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
+                integrator.setPrompt("Scan QR Code");
+                integrator.setCameraId(0);  // Use a specific camera of the device
+                integrator.setBeepEnabled(false);
+                integrator.initiateScan();
+
+
+            }
+        });
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        IntentResult scanResult = integrator.parseActivityResult(requestCode, resultCode,intent);
+        if (scanResult !=null){
+            String data[] = scanResult.getContents().split("\n");
+            for (String string:data){
+                QRTest.append(string);
+            }
+
+
+        }
+
+       // if (requestCode == 0) {
+         //   if (resultCode == RESULT_OK) {
+           //     String contents = intent.getStringExtra("SCAN_RESULT");
+             //   String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
+               // QRTest.setText("woeks");
+           // } else if (resultCode == RESULT_CANCELED) {
+                //handle cancel
+         //   }
+       // }
+
+
+    }
+
 
     /**
      * Method used to create an override when creating a new Alarm.
@@ -166,22 +224,22 @@ public class AddNewAlarm extends AppCompatActivity {
 
 //Todo: implement alarm setter intent as below
 /***
- * <p/>
- * <p/>
+ * <p>
+ * <p>
  * private void alarmTimeIntent(){
  * Intent alarmIntent = new Intent(AlarmClock.ACTION_SET_ALARM);
  * alarmIntent.putExtra(AlarmClock.EXTRA_HOUR,true);
  * alarmIntent.putExtra(AlarmClock.EXTRA_MINUTES,true);
  * startActivity(alarmIntent);}
- * <p/>
+ * <p>
  * public Dialog onCreateDialog(Bundle savedInstanceState) {
  * // Use the current time as the default values for the picker
- * <p/>
- * <p/>
+ * <p>
+ * <p>
  * final Calendar c = Calendar.getInstance();
  * hour_local = c.get(Calendar.HOUR_OF_DAY);
  * minute_local = c.get(Calendar.MINUTE);
- * <p/>
+ * <p>
  * // Create a new instance of TimePickerDialog and return it
  * return new TimePickerDialog(getActivity(), this, hour_local, minute_local,
  * DateFormat.is24HourFormat(getActivity()));}
