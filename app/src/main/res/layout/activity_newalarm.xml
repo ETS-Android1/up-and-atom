@@ -7,49 +7,29 @@ TODO: implement if alarm repeats, then show days of the week as view objects-->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/windowBackground"
     android:orientation="vertical"
     tools:context=".AddNewAlarm">
 
-    <LinearLayout
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <ImageButton
-            android:id="@+id/cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
-            android:clickable="true"
-            android:src="@drawable/ic_clear_white_36dp" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:title="Add New Alarm"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-        <TextView
-            android:id="@+id/newAlarm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
-            android:padding="15dp"
-            android:paddingEnd="75dp"
-            android:paddingStart="75dp"
-            android:text="New Alarm"
-            android:textColor="@color/textColorPrimary"
-            android:textSize="20dp" />
+    </android.support.design.widget.AppBarLayout>
 
-        <ImageButton
-            android:id="@+id/confirm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:background="@color/colorPrimaryDark"
-            android:baselineAlignBottom="false"
-            android:clickable="true"
-            android:cropToPadding="false"
-            android:src="@drawable/ic_done_white_36dp" />
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -113,7 +93,8 @@ TODO: implement if alarm repeats, then show days of the week as view objects-->
             android:hint="  Time/Location"
             android:inputType="time"
             android:singleLine="true"
-            android:textSize="12dp" />
+            android:textSize="12dp"
+            style="?android:attr/borderlessButtonStyle"/>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -125,6 +106,7 @@ TODO: implement if alarm repeats, then show days of the week as view objects-->
             android:src="@drawable/ic_camera_alt_black_24dp" />
 
         <Button
+            android:id="@+id/QRButton"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_column="1"
@@ -134,7 +116,9 @@ TODO: implement if alarm repeats, then show days of the week as view objects-->
             android:background="@color/windowBackground"
             android:text="   Scan QR Code"
             android:textAlignment="textStart"
-            android:textSize="12dp" />
+            android:textSize="12dp"
+            android:clickable="true"
+            style="?android:attr/borderlessButtonStyle"/>
 
         <ImageView
             android:layout_width="wrap_content"

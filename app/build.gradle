@@ -14,7 +14,7 @@ android {
     buildTypes {
 
         debug {
-            manifestPlaceholders = [google_map_key: "AIzaSyA0b7gqqloEmuytOLJYkoeyHFTHUVkJNWM"]
+            manifestPlaceholders = [google_map_key: "AIzaSyAlvVjKwz8pFrX9LqtPOmdeNvFcoFLB0wE"]
         }
         release {
             minifyEnabled false

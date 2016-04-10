@@ -23,6 +23,7 @@ public class MapsActivity extends FragmentActivity {
      */
     private GoogleMap googleMap;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
