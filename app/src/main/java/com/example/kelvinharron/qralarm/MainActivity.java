@@ -9,9 +9,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -49,14 +48,12 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout;
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+    }
 
-
-        //TODO: implement recycler view functionality via class and adapter
-        RecyclerView recyclerview = (RecyclerView) findViewById(R.id.alarmListRecyclerView);
-        //recyclerview.setHasFixedSize(true);
-        //LinearLayoutManager llm = new LinearLayoutManager(context);
-        //recyclerview.setLayoutManager(llm);
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
     /**
@@ -74,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+        if (id == R.id.action_about) {
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -150,28 +150,3 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
-/**
- * TODO: link with our local database alarm and enable storage, deletion and editing of alarm objects
- * RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
- * recyclerView.setHasFixedSize(true);
- * LinearLayoutManager llm = new LinearLayoutManager(this);
- * llm.setOrientation(LinearLayoutManager.VERTICAL);
- * recyclerView.setLayoutManager(llm);
- * <p>
- * AlarmAdapter alarmAdapter = new AlarmAdapter(createList(1));
- * recyclerView.setAdapter(alarmAdapter);
- * <p>
- * <p>
- * private List<AlarmInfo> createList(int size) {
- * List<AlarmInfo> result = new ArrayList<AlarmInfo>();
- * for (int loop = 1; loop <= size; loop++){
- * AlarmInfo alarms = new AlarmInfo();
- * alarms.title = AlarmInfo.TYPE_PREFIX + loop;
- * alarms.memo = AlarmInfo.TYPE_PREFIX + loop;
- * <p>
- * result.add(alarms);
- * }
- * return result;
- * }
- * }
- **/

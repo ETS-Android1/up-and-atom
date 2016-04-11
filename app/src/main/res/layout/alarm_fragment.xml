@@ -11,16 +11,20 @@ TODO: Establish connection to a dataset to enable empty state that shows text an
     android:layout_height="match_parent"
     tools:context="com.example.kelvinharron.qralarm.AlarmsFragment">
 
-    <ViewSwitcher
-        android:id="@+id/viewswitcher"
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/alarmListRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="100dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_scrollFlags="scroll|enterAlways" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/alarmListRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+</android.support.design.widget.CoordinatorLayout>
 
+    <!--
+    TODO: check if recycler view data is empty and if so, display the below layout instead of a blank screen
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -44,7 +48,4 @@ TODO: Establish connection to a dataset to enable empty state that shows text an
 
         </LinearLayout>
 
-    </ViewSwitcher>
-
-
-</android.support.design.widget.CoordinatorLayout>
+    -->

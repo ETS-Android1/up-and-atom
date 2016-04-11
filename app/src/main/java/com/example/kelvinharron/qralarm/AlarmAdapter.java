@@ -1,33 +1,37 @@
 package com.example.kelvinharron.qralarm;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
  * This class acts as an adapter between alarm objects data and card view objects.
  * When alarm objects are created we can add them to the alarm view as card layouts through this process.
- * TODO: STUB CLASS GOTTA REWORK IT FROM TUTORIAL. DEPENDED ON LOCAL ALARM OBJECT
- * Created by kelvinharron on 07/04/2016.
+ * Created by kelvinharron on 10/04/2016.
  */
 public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHolder> {
 
+
+    private LayoutInflater inflater;
+    private List<Alarm> alarmData = Collections.emptyList();
+
     /**
-     * AlarmList is a left over variable from a local tutorial I completed before importing into the project.
-     * It needs to be linked to our database of alarm objects.
-     * OBJECT IS PLACEHOLDER AS getItemCount() method will not compile without an object type in the ara
+     * Constructor with arguments
+     *
+     * @param context
+     * @param alarmData
      */
-    private List<Object> alarmList;
-    /**
-     * Default constructor
-     */
-    //  public AlarmAdapter(List<> alarmList) {
-    //      this.alarmList = alarmList;
-    //   }
+    public AlarmAdapter(Context context, List<Alarm> alarmData) {
+        inflater = LayoutInflater.from(context);
+        this.alarmData = alarmData;
+    }
 
     /**
      * Creates an alarm object card view.
@@ -37,37 +41,28 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
      * @return
      */
     @Override
-    public AlarmAdapter.AlarmViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.alarm_card, parent, false);
-        return new AlarmViewHolder(itemView);
+    public AlarmViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View alarmView = inflater.inflate(R.layout.alarm_card, parent, false);
+        AlarmViewHolder holder = new AlarmViewHolder(alarmView);
+        return holder;
     }
 
     /**
      * Method binds database alarm object data to the view objects for text fields.
      * Allows us to set the name of the alarm, memos etc that are stored each time an alarm is created.
      *
-     * @param alarmViewHolder
+     * @param holder
      * @param position
      */
     @Override
-    public void onBindViewHolder(AlarmAdapter.AlarmViewHolder alarmViewHolder, int position) {
-        //AlarmInfo alarms = alarmList.get(position);
-        //alarmViewHolder.vTitle.setText(alarms.title);
-        //alarmViewHolder.vMemo.setText(alarms.memo);
-    }
-
-    /**
-     * Inner class, left over from the tutorial and needs to be reworked.
-     */
-    public static class AlarmViewHolder extends RecyclerView.ViewHolder {
-        protected TextView vTitle;
-        protected TextView vMemo;
-
-        public AlarmViewHolder(View itemView) {
-            super(itemView);
-            vTitle = (TextView) itemView.findViewById(R.id.alarm_name);
-            vMemo = (TextView) itemView.findViewById(R.id.alarm_memo);
-        }
+    public void onBindViewHolder(AlarmViewHolder holder, int position) {
+        Alarm alarm = alarmData.get(position);
+        holder.alarmName.setText(alarm.getName());
+        holder.alarmMemo.setText(alarm.getMemo());
+        holder.alarmTimeHour.setText(String.valueOf(alarm.getHour()));
+        holder.alarmTimeMin.setText(String.valueOf(alarm.getMin()));
+        holder.alarmDays.setText(String.valueOf(alarm.getDays()));
+        holder.alarmIsOn.setChecked(alarm.isOn());
     }
 
     /**
@@ -77,6 +72,30 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
      */
     @Override
     public int getItemCount() {
-        return alarmList.size();
+        return alarmData.size();
+    }
+
+
+    /**
+     * Inner class that links the view objects from the card layout object and object properties together.
+     */
+    public static class AlarmViewHolder extends RecyclerView.ViewHolder {
+
+        protected TextView alarmName;
+        protected TextView alarmMemo;
+        protected TextView alarmTimeHour;
+        protected TextView alarmTimeMin;
+        protected TextView alarmDays;
+        protected Switch alarmIsOn;
+
+        public AlarmViewHolder(View itemView) {
+            super(itemView);
+            alarmName = (TextView) itemView.findViewById(R.id.alarm_name);
+            alarmMemo = (TextView) itemView.findViewById(R.id.alarm_memo);
+            alarmTimeHour = (TextView) itemView.findViewById(R.id.alarm_time_hour);
+            alarmTimeMin = (TextView) itemView.findViewById(R.id.alarm_time_min);
+            alarmDays = (TextView) itemView.findViewById(R.id.alarm_days);
+            alarmIsOn = (Switch) itemView.findViewById(R.id.toggleAlarmSwitch);
+        }
     }
 }

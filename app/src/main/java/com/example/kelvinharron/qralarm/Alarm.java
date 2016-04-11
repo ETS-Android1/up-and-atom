@@ -38,7 +38,24 @@ public class Alarm {
     public static String strSeparator = ",";
 
     public Alarm() {
+    }
 
+    /**
+     * DOES NOT HAVE ALL THE ARGUMENTS, ONLY TESTED ENOUGH TO DISPLAY ON CARD VIEW
+     * @param name
+     * @param memo
+     * @param days
+     * @param hour
+     * @param min
+     * @param on
+     */
+    public Alarm(String name, String memo, Integer[] days, int hour, int min, boolean on) {
+        this.name = name;
+        this.memo = memo;
+        this.days = days;
+        this.hour = hour;
+        this.min = min;
+        this.on = on;
     }
 
     public void setRingtone(String soundFile) {
@@ -103,14 +120,14 @@ public class Alarm {
     }
 
     public void setQrResult(String qrResult) {
-       this.qrResult = qrResult;
+        this.qrResult = qrResult;
     }
 
     public String getQrResult() {
         return this.qrResult;
     }
 
-   public int getId() {
+    public int getId() {
         return id;
     }
 
