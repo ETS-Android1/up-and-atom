@@ -15,19 +15,13 @@ import android.widget.ListView;
  */
 public class SettingsActivity extends Activity {
 
-    protected void onCreate(Bundle savedInstanceBundle){
+    protected void onCreate(Bundle savedInstanceBundle) {
         super.onCreate(savedInstanceBundle);
-        setContentView(R.layout.settings_fragment);
+        setContentView(R.layout.activity_settings);
 
-        String[] SETTINGS = {"Time Style", "Home Location", "Alarm Override","Alarm Volume", "Leaderboard Refresh", "About"};
+        String[] SETTINGS = {"Time Style", "Home Location", "Alarm Override", "Alarm Volume", "Leaderboard Refresh", "About"};
         ListAdapter settingsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, SETTINGS);
         ListView settingsListView = (ListView) findViewById(R.id.list);
         settingsListView.setAdapter(settingsAdapter);
-
-        settingsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            }
-        });
     }
 }

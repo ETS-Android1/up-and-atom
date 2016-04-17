@@ -54,7 +54,7 @@ public class LocationAlarmFragment extends Fragment {
      * LinearLayoutManager is set by default to display data vertically, but can also show grids or staggered views of data.
      */
     private void createRecyclerView() {
-        recyclerView = (RecyclerView) layout.findViewById(R.id.alarmListRecyclerView);
+        recyclerView = (RecyclerView) layout.findViewById(R.id.location_alarm_recycler_view);
         adapter = new TimeAlarmAdapter(getActivity(), getData());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
