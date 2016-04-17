@@ -8,8 +8,11 @@ import android.widget.ImageView;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
+ * TODO: UPDATE DAYS SETTER AND GETTER
  * Created by Conor on 08-Apr-16.
  */
 public class Alarm {
@@ -157,9 +160,12 @@ public class Alarm {
         }
     }
 
-    public String getMin() {
-        String stringMin;
-        String minPattern = "[0-5][0-9]";
+    //TODO change regex for 01, 02, etc
+    public int getMin() {
+        //String stringMin;
+        //String minPattern = "[0-5][0-9]";
+        //Pattern pattern = new Pattern.compile(minPattern);
+        //Matcher matcher = pattern.matcher()
         return min;
     }
 

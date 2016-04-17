@@ -1,19 +1,18 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Main userinterface for our application. The views are used together with fragments that are inflated as the content views.
+<?xml version="1.0" encoding="utf-8"?><!-- Main userinterface for our application. The views are used together with fragments that are inflated as the content views.
  The Toolbar, tabs and floating action button will be constant between the two fragments that we use as we want the functionality
  to remain the same across both of these screens. -->
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
-    android:fitsSystemWindows="true"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:overScrollMode="never"
         android:layout_height="match_parent"
+        android:overScrollMode="never"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <android.support.design.widget.AppBarLayout
@@ -29,11 +28,15 @@
             app:popupTheme="@style/MyMaterialTheme.PopupOverlay" />
 
         <android.support.design.widget.TabLayout
+            app:tabTextColor="@color/textWhite"
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:tabGravity="fill"
-            app:tabMode="fixed" />
+            app:tabIndicatorColor="@color/themeAccent"
+            app:tabIndicatorHeight="2dp"
+            app:tabMode="fixed"
+            app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget" />
     </android.support.design.widget.AppBarLayout>
 
     <android.support.design.widget.FloatingActionButton
@@ -43,7 +46,7 @@
         android:layout_gravity="bottom|right"
         android:layout_margin="16dp"
         android:src="@android:drawable/ic_input_add"
-        app:backgroundTint="@color/colorAccent"
+        app:backgroundTint="@color/themeAccent"
         app:layout_anchorGravity="bottom|right|end" />
 
 </android.support.design.widget.CoordinatorLayout>

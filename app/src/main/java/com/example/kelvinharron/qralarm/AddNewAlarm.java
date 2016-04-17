@@ -18,9 +18,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
-import com.example.kelvinharron.qralarm.QRReader;
 import com.google.zxing.integration.android.IntentResult;
-import com.google.zxing.qrcode.encoder.QRCode;
 
 import java.util.Calendar;
 

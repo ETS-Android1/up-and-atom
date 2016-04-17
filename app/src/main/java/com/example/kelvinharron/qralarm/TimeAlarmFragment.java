@@ -15,17 +15,17 @@ import java.util.List;
  * Class is used to inflate the alarm fragment view on our interface.
  * Created by kelvinharron on 04/04/2016.
  */
-public class AlarmsFragment extends Fragment {
+public class TimeAlarmFragment extends Fragment {
 
 
     private RecyclerView recyclerView;
-    private AlarmAdapter adapter;
+    private TimeAlarmAdapter adapter;
     private View layout;
 
     /**
      * Default class constructor, empty as standard
      */
-    public AlarmsFragment() {
+    public TimeAlarmFragment() {
     }
 
     @Override
@@ -43,7 +43,7 @@ public class AlarmsFragment extends Fragment {
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        layout = inflater.inflate(R.layout.alarm_fragment, container, false);
+        layout = inflater.inflate(R.layout.time_alarm_fragment, container, false);
         createRecyclerView();
         return layout;
     }
@@ -55,7 +55,7 @@ public class AlarmsFragment extends Fragment {
      */
     private void createRecyclerView() {
         recyclerView = (RecyclerView) layout.findViewById(R.id.alarmListRecyclerView);
-        adapter = new AlarmAdapter(getActivity(), getData());
+        adapter = new TimeAlarmAdapter(getActivity(), getData());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
@@ -85,7 +85,6 @@ public class AlarmsFragment extends Fragment {
             current.setMin(alarmTimeMin[loop]);
             //current.setDays(alarmDays[loop]);
             current.setOn(alarmIsOn[loop]);
-
             alarmData.add(current);
         }
         return alarmData;

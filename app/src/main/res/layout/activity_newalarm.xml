@@ -34,7 +34,7 @@ TODO: implement if alarm repeats, then show days of the week as view objects-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark">
+        android:background="@color/themeBlueDarker">
 
         <EditText
             android:layout_width="wrap_content"
@@ -43,8 +43,8 @@ TODO: implement if alarm repeats, then show days of the week as view objects-->
             android:layout_marginTop="30dp"
             android:hint="My QR Alarm"
             android:singleLine="true"
-            android:textColor="@color/textColorPrimary"
-            android:textColorHint="@color/textColorPrimary"
+            android:textColor="@color/textBlack"
+            android:textColorHint="@color/textBlack"
             android:textSize="36dp" />
     </LinearLayout>
 

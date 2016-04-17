@@ -14,10 +14,10 @@ import java.util.List;
 /**
  * This class acts as an adapter between alarm objects data and card view objects.
  * When alarm objects are created we can add them to the alarm view as card layouts through this process.
+ * TODO: add database wrapper so we can update database with card information
  * Created by kelvinharron on 10/04/2016.
  */
-public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHolder> {
-
+public class TimeAlarmAdapter extends RecyclerView.Adapter<TimeAlarmAdapter.AlarmViewHolder>{
 
     private LayoutInflater inflater;
     private List<Alarm> alarmData = Collections.emptyList();
@@ -28,7 +28,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
      * @param context
      * @param alarmData
      */
-    public AlarmAdapter(Context context, List<Alarm> alarmData) {
+    public TimeAlarmAdapter(Context context, List<Alarm> alarmData) {
         inflater = LayoutInflater.from(context);
         this.alarmData = alarmData;
     }
@@ -42,7 +42,7 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
      */
     @Override
     public AlarmViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View alarmView = inflater.inflate(R.layout.alarm_card, parent, false);
+        View alarmView = inflater.inflate(R.layout.time_alarm_card, parent, false);
         AlarmViewHolder holder = new AlarmViewHolder(alarmView);
         return holder;
     }
@@ -55,14 +55,16 @@ public class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.AlarmViewHol
      * @param position
      */
     @Override
-    public void onBindViewHolder(AlarmViewHolder holder, int position) {
+    public void onBindViewHolder(AlarmViewHolder holder, final int position) {
         Alarm alarm = alarmData.get(position);
+
         holder.alarmName.setText(alarm.getName());
         holder.alarmMemo.setText(alarm.getMemo());
         holder.alarmTimeHour.setText(String.valueOf(alarm.getHour()));
         holder.alarmTimeMin.setText(String.valueOf(alarm.getMin()));
         holder.alarmDays.setText(String.valueOf(alarm.getDays()));
         holder.alarmIsOn.setChecked(alarm.isOn());
+
     }
 
     /**

@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 
 import java.util.ArrayList;
@@ -113,8 +114,8 @@ public class MainActivity extends AppCompatActivity {
      */
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new com.example.kelvinharron.qralarm.AlarmsFragment(), "Alarm");
-        adapter.addFragment(new com.example.kelvinharron.qralarm.LeaderboardFragment(), "Leaderboard");
+        adapter.addFragment(new TimeAlarmFragment(), "Time");
+        adapter.addFragment(new LocationAlarmFragment(), "Location");
         viewPager.setAdapter(adapter);
     }
 

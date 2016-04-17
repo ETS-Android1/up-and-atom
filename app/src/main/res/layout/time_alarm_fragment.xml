@@ -9,7 +9,7 @@ TODO: Establish connection to a dataset to enable empty state that shows text an
     android:id="@+id/coordinatorLayoutFile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.kelvinharron.qralarm.AlarmsFragment">
+    tools:context=".TimeAlarmFragment">
 
 
     <android.support.v7.widget.RecyclerView
@@ -36,7 +36,7 @@ TODO: Establish connection to a dataset to enable empty state that shows text an
                 android:gravity="center_horizontal"
                 android:paddingTop="140dp"
                 android:text="@string/empty_state"
-                android:textColor="@color/textColorEmptyState"
+                android:textColor="@color/themeBlack"
                 android:textSize="25dp"
                 android:textStyle="normal" />
 

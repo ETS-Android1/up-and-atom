@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- This fragment is displayed when the user selects the override option.
+<?xml version="1.0" encoding="utf-8"?><!-- This fragment is displayed when the user selects the override option.
 Looks rough currently and crashes when the user hits submit. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -9,51 +8,43 @@ Looks rough currently and crashes when the user hits submit. -->
 
     <TextView
         android:layout_width="wrap_content"
-        android:textSize="12dp"
-        android:textColor="@color/textColorPrimary"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="16dp"
         android:text="@string/dialog"
-        android:layout_height="wrap_content" />
+        android:textColor="@color/textBlack"
+        android:textSize="12dp" />
 
     <EditText
         android:id="@+id/editTextPasscode"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="16dp"
-        />
+        android:layout_margin="16dp" />
 
     <LinearLayout
-        android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
 
         <Button
-            android:layout_marginLeft="70dp"
-            android:textColor="@color/colorAccent"
             android:id="@+id/cancelButton"
             android:layout_width="100dp"
             android:layout_height="30dp"
-            android:background="#FFFFFF"
+            android:layout_marginLeft="70dp"
+            android:background="@android:color/transparent"
             android:text="No Thanks"
+            android:textColor="@color/themeAccent"
 
             />
 
         <Button
-           android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:textColor="@color/colorAccent"
             android:id="@+id/confirmButton"
             android:layout_width="100dp"
             android:layout_height="30dp"
-            android:background="#FFFFFF"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:background="@android:color/transparent"
             android:text="Confirm"
-
-            />
-
-
+            android:textColor="@color/themeAccent" />
     </LinearLayout>
-
-
-
 </LinearLayout>

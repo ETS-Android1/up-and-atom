@@ -1,4 +1,4 @@
-<!-- Card view is a separate view from any activity as it is INFLATED into view on the alarm_fragment screen.-->
+<!-- Card view is a separate view from any activity as it is INFLATED into view on the time_alarm_fragment screen.-->
 
 <!-- ToDo: finalise contents of alarm card and implement functionality -->
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -20,6 +20,7 @@
 
         <TextView
             android:id="@+id/alarm_name"
+            android:layout_alignParentTop="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
@@ -80,8 +81,9 @@
 
         <Switch
             android:id="@+id/toggleAlarmSwitch"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true" />
 
     </RelativeLayout>
