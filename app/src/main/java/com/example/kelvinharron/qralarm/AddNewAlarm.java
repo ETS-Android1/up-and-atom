@@ -1,13 +1,10 @@
 package com.example.kelvinharron.qralarm;
 
-import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -70,8 +67,9 @@ public class AddNewAlarm extends AppCompatActivity {
         setScanQR();
     }
 
-
-
+    /**
+     *
+     */
     private void setAlarm(){
         final TimePicker timePicker = (TimePicker) findViewById(R.id.theTimepicker);
         timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
@@ -81,31 +79,14 @@ public class AddNewAlarm extends AppCompatActivity {
                 // Set the alarm time here
             }
         });
-
     }
 
     /**
-     * Button for bringing up QR scanner
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param intent
      */
-
-    private void setScanQR() {
-        scanQR = (Button) findViewById(R.id.QRButton);
-
-        scanQR.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                integrator = new IntentIntegrator(AddNewAlarm.this);
-                integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
-                integrator.setPrompt("Scan QR Code");
-                integrator.setCameraId(0);  // Use a specific camera of the device
-                integrator.setBeepEnabled(false);
-                integrator.initiateScan();
-
-
-            }
-        });
-    }
-
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         IntentResult scanResult = integrator.parseActivityResult(requestCode, resultCode,intent);
         if (scanResult !=null){
@@ -113,37 +94,13 @@ public class AddNewAlarm extends AppCompatActivity {
             for (String string:data){
                 QRTest.append(string);
             }
-
-
         }
     }
 
-
     /**
-     * Method used to create an override when creating a new Alarm.
-     * Calls the AlarmOverrideDialogFragment that displays after a button press a dialog box where the user can submit a passcode override.
+     *
+     * @param view
      */
-    private void setOverride() {
-
-        final android.support.v4.app.FragmentManager manager = getSupportFragmentManager(); // fragment manager allows us to instantiate the dialog fragment
-        final AlarmOverrideDialogFragment dialogFragment = new AlarmOverrideDialogFragment(); // create an object of the dialogfragment that will allow us to display it once a button is pressed.
-
-        String passcode; //TODO: implement a way to get the passcode from the fragment and store & display it as a test
-
-        final Switch overrideSwitch = (Switch) findViewById(R.id.overrideSwitch);
-        final EditText passcodeEditText = (EditText) findViewById(R.id.editTextPasscode);
-        overrideSwitch.setChecked(false);
-        overrideSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    Toast.makeText(AddNewAlarm.this, "CHECKED", Toast.LENGTH_SHORT).show();
-                    dialogFragment.show(manager, "fragment");
-                }
-            }
-        });
-    }
-
 
     public void onCheckboxClicked(View view) {
         // Is the view now checked?
@@ -202,7 +159,83 @@ public class AddNewAlarm extends AppCompatActivity {
                 break;
         }
     }
+
+    /**
+     * Button for bringing up QR scanner
+     */
+
+    private void setScanQR() {
+        scanQR = (Button) findViewById(R.id.QRButton);
+
+        scanQR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                integrator = new IntentIntegrator(AddNewAlarm.this);
+                integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
+                integrator.setPrompt("Scan QR Code");
+                integrator.setCameraId(0);  // Use a specific camera of the device
+                integrator.setBeepEnabled(false);
+                integrator.initiateScan();
+
+
+            }
+        });
+    }
+
+    /**
+     * Method used to create an override when creating a new Alarm.
+     * Calls the AlarmOverrideDialogFragment that displays after a button press a
+     * dialog box where the user can submit a passcode override.
+     */
+    private void setOverride() {
+
+        final android.support.v4.app.FragmentManager manager = getSupportFragmentManager(); // fragment manager allows us to instantiate the dialog fragment
+        final AlarmOverrideDialogFragment dialogFragment = new AlarmOverrideDialogFragment(); // create an object of the dialogfragment that will allow us to display it once a button is pressed.
+
+        String passcode; //TODO: implement a way to get the passcode from the fragment and store & display it as a test
+
+        final Switch overrideSwitch = (Switch) findViewById(R.id.overrideSwitch);
+        final EditText passcodeEditText = (EditText) findViewById(R.id.editTextPasscode);
+        overrideSwitch.setChecked(false);
+        overrideSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    Toast.makeText(AddNewAlarm.this, "CHECKED", Toast.LENGTH_SHORT).show();
+                    dialogFragment.show(manager, "fragment");
+                }
+            }
+        });
+    }
+
+    /**
+     * Method for setting the alarm ringtone
+     */
+
+    private void setRingtone(){
+
+        Spinner spinner = (Spinner)findViewById(R.id.ringtoneSpinner);
+
+    }
+
+    /**
+     * Confirm the alarm settings & push to DB
+     */
+
+    private void confirmAlarm(){
+
+        Button button = (Button) findViewById(R.id.confirmButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Alarm alarm = new Alarm();
+
+            }
+        });
+    }
 }
+
+// Create Alarm object, push to db and schedule an alarm
 
 //Todo: implement alarm setter intent as below
 /***
@@ -254,60 +287,3 @@ private void setAlarmDialog() {
         }
     };
  */
-
-/*
-         /**
-     * Method for Choosing the type of alarm between time based or location.
-     * Depending on user choice, carries out required behavior through method/intent call.
-
-    private void setAlarmType() {
-
-        String[] alarmTypes = {"Time", "Location"};
-        final Spinner alarmTypeSpinner = (Spinner) findViewById(R.id.chooseTimeSpinner);
-
-        // Create array adapter
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_dropdown_item, alarmTypes);
-        // Specify the layout to use
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        alarmTypeSpinner.setAdapter(adapter);
-        alarmTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            /**
-             * Depending on what option the user chooses, launches necessary behavior.
-             * @param parent
-             * @param view
-             * @param position
-             * @param id
-
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                if (alarmTypeSpinner.getSelectedItem().equals("Time")) {
-                    setAlarmDialog();
-                }
-                if (alarmTypeSpinner.getSelectedItem().equals("Location")) {
-                    launchMapIntent(view);
-                }
-            }
-
-            /**
-             * Launches the map activity allowing a user to set their location for the alarm.
-             * @param view
-
-            private void launchMapIntent(View view) {
-                Intent mapIntent = new Intent(view.getContext(), MapsActivity.class);
-                startActivity(mapIntent);
-            }
-
-            /**
-             * Method handles if spinner is blank. Currently spinner defaults to time.
-             * @param parent
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-    }
-*/
