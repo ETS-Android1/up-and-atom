@@ -40,6 +40,20 @@ public class Alarm {
     public Alarm() {
     }
 
+    public Alarm(int id, String name, String memo, boolean recurring, String sound, float volume, Integer[] days, int hour, int min, String qrResult, boolean on) {
+        this.id = id;
+        this.name = name;
+        this.memo = memo;
+        this.recurring = recurring;
+        setSound(sound);
+        setVolume(volume);
+        this.days = days;
+        this.hour = hour;
+        this.min = min;
+        this.qrResult = qrResult;
+        this.on = on;
+    }
+
     /**
      * DOES NOT HAVE ALL THE ARGUMENTS, ONLY TESTED ENOUGH TO DISPLAY ON CARD VIEW
      * @param name
@@ -56,75 +70,6 @@ public class Alarm {
         this.hour = hour;
         this.min = min;
         this.on = on;
-    }
-
-    public void setRingtone(String soundFile) {
-        try {
-            sound = Uri.parse(soundFile);
-            // setting an exception in case parsing fails or soundFile not set
-        } catch (NullPointerException | UnsupportedOperationException exception) {
-            sound = defaultSound();
-        }
-    }
-
-    private Uri defaultSound() {
-        // using system default alarm
-        Uri defaultUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-        // if that is null, use the default notification sound
-        if (defaultUri == null) {
-            defaultUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-
-            // In case notification is null also using ringtone as second backup
-            if (defaultUri == null) {
-                defaultUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
-            }
-        }
-        return defaultUri;
-    }
-
-    public Uri getRingtone() {
-        return sound;
-    }
-
-    public String storeSound() {
-        if (sound != null) {
-            return sound.toString();
-        } else {
-            return defaultSound().toString();
-        }
-    }
-
-    public void setDays(String daysDB) {
-        String[] days = daysDB.split(strSeparator);
-
-        this.days = new Integer[days.length];
-
-        for (int count = 0; count < days.length; count++) {
-            this.days[count] = new Integer(days[count]);
-        }
-    }
-
-    public Integer[] getDays() {
-        return this.days;
-    }
-
-    public String storeDays() {
-        String str = "";
-        for (int count = 0; count < days.length; count++) {
-            str += days[count];
-            if (count < days.length - 1) {
-                str += strSeparator;
-            }
-        }
-        return str;
-    }
-
-    public void setQrResult(String qrResult) {
-        this.qrResult = qrResult;
-    }
-
-    public String getQrResult() {
-        return this.qrResult;
     }
 
     public int getId() {
@@ -163,14 +108,39 @@ public class Alarm {
         this.recurring = recurring;
     }
 
-    public int storeRecurring() {
-        int isRecurring;
-        if (this.recurring) {
-            isRecurring = 1;
-        } else {
-            isRecurring = 0;
+    public void setSound(String soundFile) {
+        try {
+            sound = Uri.parse(soundFile);
+            // setting an exception in case parsing fails or soundFile not set
+        } catch (NullPointerException | UnsupportedOperationException exception) {
+            sound = defaultSound();
         }
-        return isRecurring;
+    }
+
+    public Uri getSound() {
+        return sound;
+    }
+
+    public void setDays(String daysDB) {
+        String[] days = daysDB.split(strSeparator);
+
+        this.days = new Integer[days.length];
+
+        for (int count = 0; count < days.length; count++) {
+            this.days[count] = new Integer(days[count]);
+        }
+    }
+
+    public Integer[] getDays() {
+        return this.days;
+    }
+
+    public void setQrResult(String qrResult) {
+        this.qrResult = qrResult;
+    }
+
+    public String getQrResult() {
+        return this.qrResult;
     }
 
     public int getHour() {
@@ -187,7 +157,9 @@ public class Alarm {
         }
     }
 
-    public int getMin() {
+    public String getMin() {
+        String stringMin;
+        String minPattern = "[0-5][0-9]";
         return min;
     }
 
@@ -224,6 +196,51 @@ public class Alarm {
 
     public void setOn(int on) {
         this.recurring = (on == 1);
+    }
+
+    public int storeRecurring() {
+        int isRecurring;
+        if (this.recurring) {
+            isRecurring = 1;
+        } else {
+            isRecurring = 0;
+        }
+        return isRecurring;
+    }
+
+
+    public String storeSound() {
+        if (sound != null) {
+            return sound.toString();
+        } else {
+            return defaultSound().toString();
+        }
+    }
+
+    private Uri defaultSound() {
+        // using system default alarm
+        Uri defaultUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        // if that is null, use the default notification sound
+        if (defaultUri == null) {
+            defaultUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+            // In case notification is null also using ringtone as second backup
+            if (defaultUri == null) {
+                defaultUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
+            }
+        }
+        return defaultUri;
+    }
+
+    public String storeDays() {
+        String str = "";
+        for (int count = 0; count < days.length; count++) {
+            str += days[count];
+            if (count < days.length - 1) {
+                str += strSeparator;
+            }
+        }
+        return str;
     }
 
     @Override
