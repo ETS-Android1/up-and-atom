@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -48,8 +49,6 @@ public class AddNewAlarm extends AppCompatActivity {
 
     private IntentIntegrator integrator;
 
-    public static final int REQUEST_CODE = 0x0000c0de;
-
     /**
      * Start of activity lifecycle. Sets the view of the AddNewAlarm activity and calls the methods enabling behavior.
      *
@@ -58,7 +57,7 @@ public class AddNewAlarm extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_newalarm);
+        setContentView(R.layout.activity_new_time_alarm);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -66,35 +65,28 @@ public class AddNewAlarm extends AppCompatActivity {
 
         QRTest = (TextView) findViewById(R.id.QRTest);
 
-        setAlarmType();
+        setAlarm();
         setOverride();
         setScanQR();
     }
 
-    /**
-     * Method for setting the time value of a time based alarm. Launched if spinner selection is set to time based alarm.
-     */
-    private void setAlarmDialog() {
 
-        displaySelectedTimeTextView = (TextView) findViewById(R.id.displayTimeText);
-        Button button = (Button) findViewById(R.id.timeButton);
-        button.setOnClickListener(new View.OnClickListener() {
 
+    private void setAlarm(){
+        final TimePicker timePicker = (TimePicker) findViewById(R.id.theTimepicker);
+        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
-            public void onClick(View v) {
+            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
 
-                new TimePickerDialog(AddNewAlarm.this, onTimeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show();
+                // Set the alarm time here
             }
         });
+
     }
 
-    TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
-
-        @Override
-        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            displaySelectedTimeTextView.setText("Chosen time is :" + hourOfDay + ":" + minute);
-        }
-    };
+    /**
+     * Button for bringing up QR scanner
+     */
 
     private void setScanQR() {
         scanQR = (Button) findViewById(R.id.QRButton);
@@ -124,18 +116,6 @@ public class AddNewAlarm extends AppCompatActivity {
 
 
         }
-
-       // if (requestCode == 0) {
-         //   if (resultCode == RESULT_OK) {
-           //     String contents = intent.getStringExtra("SCAN_RESULT");
-             //   String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
-               // QRTest.setText("woeks");
-           // } else if (resultCode == RESULT_CANCELED) {
-                //handle cancel
-         //   }
-       // }
-
-
     }
 
 
@@ -164,59 +144,63 @@ public class AddNewAlarm extends AppCompatActivity {
         });
     }
 
-    /**
-     * Method for Choosing the type of alarm between time based or location.
-     * Depending on user choice, carries out required behavior through method/intent call.
-     */
-    private void setAlarmType() {
 
-        String[] alarmTypes = {"Time", "Location"};
-        final Spinner alarmTypeSpinner = (Spinner) findViewById(R.id.chooseTimeSpinner);
+    public void onCheckboxClicked(View view) {
+        // Is the view now checked?
+        boolean checked = ((CheckBox) view).isChecked();
 
-        // Create array adapter
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_dropdown_item, alarmTypes);
-        // Specify the layout to use
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        alarmTypeSpinner.setAdapter(adapter);
-        alarmTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-            /**
-             * Depending on what option the user chooses, launches necessary behavior.
-             * @param parent
-             * @param view
-             * @param position
-             * @param id
-             */
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                if (alarmTypeSpinner.getSelectedItem().equals("Time")) {
-                    setAlarmDialog();
+        // Check which checkbox was clicked
+        switch(view.getId()) {
+            case R.id.Monday:
+                if (checked) {
+                    // Set alarm to repeat
+                }else {
+                    // Do not set repeat
                 }
-                if (alarmTypeSpinner.getSelectedItem().equals("Location")) {
-                    launchMapIntent(view);
+                break;
+            case R.id.Tuesday:
+                if (checked) {
+                    // Set alarm to repeat
+                }else {
+                    // Do not set repeat
                 }
-            }
-
-            /**
-             * Launches the map activity allowing a user to set their location for the alarm.
-             * @param view
-             */
-            private void launchMapIntent(View view) {
-                Intent mapIntent = new Intent(view.getContext(), MapsActivity.class);
-                startActivity(mapIntent);
-            }
-
-            /**
-             * Method handles if spinner is blank. Currently spinner defaults to time.
-             * @param parent
-             */
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
+                break;
+            case R.id.Wednesday:
+                if (checked) {
+                    // Set alarm to repeat
+                }else {
+                    // Do not set repeat
+                }
+                break;
+            case R.id.Thursday:
+                if (checked) {
+                    // Set alarm to repeat
+                }else {
+                    // Do not set repeat
+                }
+                break;
+            case R.id.Friday:
+                if (checked) {
+                    // Set alarm to repeat
+                }else {
+                    // Do not set repeat
+                }
+                break;
+            case R.id.Saturday:
+                if (checked) {
+                    // Set alarm to repeat
+                }else {
+                    // Do not set repeat
+                }
+                break;
+            case R.id.Sunday:
+                if (checked) {
+                    // Set alarm to repeat
+                }else {
+                    // Do not set repeat
+                }
+                break;
+        }
     }
 }
 
@@ -242,3 +226,88 @@ public class AddNewAlarm extends AppCompatActivity {
  * return new TimePickerDialog(getActivity(), this, hour_local, minute_local,
  * DateFormat.is24HourFormat(getActivity()));}
  */
+
+
+/*
+
+     Method for setting the time value of a time based alarm. Launched if spinner selection is set to time based alarm.
+
+private void setAlarmDialog() {
+
+    displaySelectedTimeTextView = (TextView) findViewById(R.id.displayTimeText);
+    Button button = (Button) findViewById(R.id.timeButton);
+    button.setOnClickListener(new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+
+            new TimePickerDialog(AddNewAlarm.this, onTimeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show();
+        }
+    });
+}
+
+    TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+
+        @Override
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            displaySelectedTimeTextView.setText("Chosen time is :" + hourOfDay + ":" + minute);
+        }
+    };
+ */
+
+/*
+         /**
+     * Method for Choosing the type of alarm between time based or location.
+     * Depending on user choice, carries out required behavior through method/intent call.
+
+    private void setAlarmType() {
+
+        String[] alarmTypes = {"Time", "Location"};
+        final Spinner alarmTypeSpinner = (Spinner) findViewById(R.id.chooseTimeSpinner);
+
+        // Create array adapter
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_dropdown_item, alarmTypes);
+        // Specify the layout to use
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        alarmTypeSpinner.setAdapter(adapter);
+        alarmTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            /**
+             * Depending on what option the user chooses, launches necessary behavior.
+             * @param parent
+             * @param view
+             * @param position
+             * @param id
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                if (alarmTypeSpinner.getSelectedItem().equals("Time")) {
+                    setAlarmDialog();
+                }
+                if (alarmTypeSpinner.getSelectedItem().equals("Location")) {
+                    launchMapIntent(view);
+                }
+            }
+
+            /**
+             * Launches the map activity allowing a user to set their location for the alarm.
+             * @param view
+
+            private void launchMapIntent(View view) {
+                Intent mapIntent = new Intent(view.getContext(), MapsActivity.class);
+                startActivity(mapIntent);
+            }
+
+            /**
+             * Method handles if spinner is blank. Currently spinner defaults to time.
+             * @param parent
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+    }
+*/

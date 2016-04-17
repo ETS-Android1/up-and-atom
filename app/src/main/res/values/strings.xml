@@ -10,5 +10,6 @@
     <string name="dialog_override">Enter a passcode to override the alarm\nif the code cannot be found.</string>
     <string name="dialog_new_alarm">What type of Alarm would you like to create?</string>
     <string name="action_about">About</string>
+    <string name="add_new_alarm">Add new alarm</string>
 
 </resources>

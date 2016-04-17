@@ -44,7 +44,13 @@
 
         <activity
             android:name=".AddNewAlarm"
-            android:label="addalarm" />
+            android:label="@string/add_new_alarm"
+            android:parentActivityName=".MainActivity"/>
+
+        <activity
+            android:name=".AddNewLocationAlarm"
+            android:label="Add new location alarm"
+            android:parentActivityName=".MainActivity"/>
 
         <meta-data
             android:name="com.google.android.gms.version"

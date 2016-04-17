@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
     }
 
-    /**
+    /**,
      * Inner class method that handles the setup of the view pager adapter which allows us to link the fragments to the adapter for the tabbed/viewpager view.
      */
     class ViewPagerAdapter extends FragmentPagerAdapter {

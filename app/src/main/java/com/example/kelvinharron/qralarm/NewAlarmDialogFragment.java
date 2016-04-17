@@ -59,6 +59,8 @@ public class NewAlarmDialogFragment extends DialogFragment implements View.OnCli
         }
 
         if (viewFragment.getId() == R.id.newLocationAlarm) {
+            Intent openActivity = new Intent(getContext(), AddNewLocationAlarm.class);
+            startActivity(openActivity);
             dismiss(); // Dismisses dialog from view, returning focus to activity
         }
     }
