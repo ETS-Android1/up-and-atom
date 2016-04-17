@@ -24,6 +24,8 @@ import java.util.List;
  */
 public class MainActivity extends AppCompatActivity {
 
+
+    private FragmentManager fragmentManager;
     /**
      * Global variable that allows us to implement a tab based browsing experience with the tabbed layout.
      */
@@ -91,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Method for the famous floating action button. Once clicked.
-     * Once clicked, it will open the AddNewAlarm Activity and allow a user to create a new alarm.
+     * Once clicked, it will open the NewAlarmDialogFragment allowing a user to choose the type of alarm to create.
      * TODO: explore use of startActivityForResult function instead of standard startActivity. Might be a better choice when creating a new object?
      */
     private void setupFAB() {
@@ -100,10 +102,19 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AddNewAlarm.class);
-                startActivity(intent);
+              showNewAlarmDialog();
             }
         });
+    }
+
+    /**
+     * Allows us to establish a link to the NewAlarmDialogFragment.
+     * This displays a prompt to the user when the FAB is clicked allowing them to choose the type of alarm they want to create.
+     */
+    private void showNewAlarmDialog() {
+        fragmentManager = getSupportFragmentManager();
+        NewAlarmDialogFragment newAlarmDialogFragment = new NewAlarmDialogFragment();
+        newAlarmDialogFragment.show(fragmentManager, "Add New Alarm");
     }
 
     /**
