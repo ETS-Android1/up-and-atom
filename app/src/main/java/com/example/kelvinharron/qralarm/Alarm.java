@@ -40,6 +40,9 @@ public class Alarm {
 
     public static String strSeparator = ",";
 
+    /**
+     * Default Constructor
+     */
     public Alarm() {
     }
 
@@ -59,6 +62,7 @@ public class Alarm {
 
     /**
      * DOES NOT HAVE ALL THE ARGUMENTS, ONLY TESTED ENOUGH TO DISPLAY ON CARD VIEW
+     *
      * @param name
      * @param memo
      * @param days
@@ -160,13 +164,15 @@ public class Alarm {
         }
     }
 
-    //TODO change regex for 01, 02, etc
-    public int getMin() {
-        //String stringMin;
-        //String minPattern = "[0-5][0-9]";
-        //Pattern pattern = new Pattern.compile(minPattern);
-        //Matcher matcher = pattern.matcher()
-        return min;
+    public String getMin() {
+        int digits = 2;
+        String result = "";
+        if (this.min <= 9) {
+            result = String.format("%0" + digits + "d", this.min);
+        } else {
+            result = new Integer(this.min).toString();
+        }
+        return result;
     }
 
     public void setMin(int min) throws IllegalArgumentException {
@@ -261,6 +267,6 @@ public class Alarm {
                 "Volume : " + "\n" + +this.volume + "\n" +
                 "Sound URI : " + "\n" + this.sound + "\n" +
                 "Alarm On  : " + "\n" + this.on + "\n" +
-                "Bitmap Saved : " + "\n" + this.qrResult;
+                "QR String  : " + "\n" + this.qrResult;
     }
 }

@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +55,7 @@ public class TimeAlarmFragment extends Fragment {
      * LinearLayoutManager is set by default to display data vertically, but can also show grids or staggered views of data.
      */
     private void createRecyclerView() {
-        recyclerView = (RecyclerView) layout.findViewById(R.id.alarmListRecyclerView);
+        recyclerView = (RecyclerView) layout.findViewById(R.id.time_alarm_recycler_view);
         adapter = new TimeAlarmAdapter(getActivity(), getData());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -88,5 +89,14 @@ public class TimeAlarmFragment extends Fragment {
             alarmData.add(current);
         }
         return alarmData;
+    }
+
+    private void checkAdapterIsEmpty (View v) {
+        TextView emptyView = (TextView) v.findViewById(R.id.empty_view);
+        if (getData().size() == 0) {
+            emptyView.setVisibility(View.VISIBLE);
+        } else {
+            emptyView.setVisibility(View.GONE);
+        }
     }
 }
