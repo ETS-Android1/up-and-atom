@@ -1,9 +1,16 @@
+// TODO: Ringtone Spinner
+// TODO: Create Alarm
+// TODO: Confirm Alarm
+// TODO: Checkboxes
+// TODO: Tidy stuff up & Comment
+
 package com.example.kelvinharron.qralarm;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -18,6 +25,8 @@ import android.widget.Toast;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
@@ -27,10 +36,43 @@ import java.util.Calendar;
 public class AddNewAlarm extends AppCompatActivity {
 
     /**
-     * Blank text view that once a user selects a time from the TimePicker dialog, it appears in the add new alarm activity.
+     * Name of the alarm
      */
-    private TextView displaySelectedTimeTextView;
+    private EditText time_name;
+
+    /**
+     * Alarm memo - time alarm only
+     */
+    private EditText time_memo;
+
+    /**
+     * The hour value taken from the timepicker
+     */
+    private int tpHour;
+
+    /**
+     * The minute value taken from the timepicker
+     */
+    private int tpMinute;
+
+    /**
+     *
+     */
     private TextView QRTest;
+
+    /**
+     * Sets whether the alarm repeats or not
+     */
+    private boolean recurringTimeAlarm;
+
+    /**
+     * ArrayList for checkbox repetitions
+     */
+    ArrayList<Integer> dayArray = new ArrayList<>();
+
+    // TEST - REMOVE
+    private TextView tester;
+
 
     /**
      * Creates a reference to the calendar allowing us to get the hour and minute as integers.
@@ -42,8 +84,14 @@ public class AddNewAlarm extends AppCompatActivity {
      */
     private Toolbar toolbar;
 
+    /**
+     * Button to show the QR Scanner
+     */
     private Button scanQR;
 
+    /**
+     *
+     */
     private IntentIntegrator integrator;
 
     /**
@@ -59,26 +107,127 @@ public class AddNewAlarm extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        tester = (TextView)findViewById(R.id.tester2);
         QRTest = (TextView) findViewById(R.id.QRTest);
 
         setAlarm();
         setOverride();
         setScanQR();
+
     }
 
     /**
-     *
+     * Set the alarm name
+     */
+    private void setTimeAlarmName(){
+        time_name = (EditText) findViewById(R.id.time_alarm_name);
+        time_name.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                time_name.setText(v.getText().toString());
+                return false;
+            }
+        });
+    }
+
+    /**
+     * Set the alarm memo
+     */
+    private void setTimeAlarmMemo(){
+        time_memo = (EditText) findViewById(R.id.time_alarm_memo);
+        time_memo.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                time_memo.setText(v.getText().toString());
+                return false;
+            }
+        });
+    }
+
+    /**
+     * Sets the time of the alarm using a timepicker
      */
     private void setAlarm(){
-        final TimePicker timePicker = (TimePicker) findViewById(R.id.theTimepicker);
+        final TimePicker timePicker = (TimePicker) findViewById(R.id.timeAlarmTimepicker);
         timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-
-                // Set the alarm time here
+                tpHour = hourOfDay;
+                tpMinute = minute;
             }
         });
+    }
+
+    /**
+     * Method for setting repetition of the alarm - how to get data from it?
+     * @param view
+     */
+    public ArrayList onCheckboxClicked(View view) {
+        // Is the view now checked?
+        boolean checked = ((CheckBox) view).isChecked();
+
+        // Check which checkbox was clicked
+        switch(view.getId()) {
+            case R.id.timeMonday:
+                if (checked) {
+                    // necessary?
+                    recurringTimeAlarm=true;
+                    dayArray.add(2);
+                }else {
+                    // Do not set repeat
+                }
+                break;
+            case R.id.timeTuesday:
+                if (checked) {
+                    recurringTimeAlarm=true;
+                    dayArray.add(3);
+                }else {
+                    // Do not set repeat
+                }
+                break;
+            case R.id.timeWednesday:
+                if (checked) {
+                    recurringTimeAlarm=true;
+                    dayArray.add(4);
+                }else {
+                    // Do not set repeat
+                }
+                break;
+            case R.id.timeThursday:
+                if (checked) {
+                    recurringTimeAlarm=true;
+                    dayArray.add(5);
+                }else {
+                    // Do not set repeat
+                }
+                break;
+            case R.id.timeFriday:
+                if (checked) {
+                    recurringTimeAlarm=true;
+                    dayArray.add(6);
+                }else {
+                    // Do not set repeat
+                }
+                break;
+            case R.id.timeSaturday:
+                if (checked) {
+                    recurringTimeAlarm=true;
+                    dayArray.add(7);
+                }else {
+                    // Do not set repeat
+                }
+                break;
+            case R.id.timeSunday:
+                if (checked) {
+                    recurringTimeAlarm=true;
+                    dayArray.add(1);
+                }else {
+                    // Do not set repeat
+                }
+                break;
+            default:recurringTimeAlarm = false;
+        }
+        return dayArray;
     }
 
     /**
@@ -98,69 +247,6 @@ public class AddNewAlarm extends AppCompatActivity {
     }
 
     /**
-     *
-     * @param view
-     */
-
-    public void onCheckboxClicked(View view) {
-        // Is the view now checked?
-        boolean checked = ((CheckBox) view).isChecked();
-
-        // Check which checkbox was clicked
-        switch(view.getId()) {
-            case R.id.Monday:
-                if (checked) {
-                    // Set alarm to repeat
-                }else {
-                    // Do not set repeat
-                }
-                break;
-            case R.id.Tuesday:
-                if (checked) {
-                    // Set alarm to repeat
-                }else {
-                    // Do not set repeat
-                }
-                break;
-            case R.id.Wednesday:
-                if (checked) {
-                    // Set alarm to repeat
-                }else {
-                    // Do not set repeat
-                }
-                break;
-            case R.id.Thursday:
-                if (checked) {
-                    // Set alarm to repeat
-                }else {
-                    // Do not set repeat
-                }
-                break;
-            case R.id.Friday:
-                if (checked) {
-                    // Set alarm to repeat
-                }else {
-                    // Do not set repeat
-                }
-                break;
-            case R.id.Saturday:
-                if (checked) {
-                    // Set alarm to repeat
-                }else {
-                    // Do not set repeat
-                }
-                break;
-            case R.id.Sunday:
-                if (checked) {
-                    // Set alarm to repeat
-                }else {
-                    // Do not set repeat
-                }
-                break;
-        }
-    }
-
-    /**
      * Button for bringing up QR scanner
      */
 
@@ -176,8 +262,6 @@ public class AddNewAlarm extends AppCompatActivity {
                 integrator.setCameraId(0);  // Use a specific camera of the device
                 integrator.setBeepEnabled(false);
                 integrator.initiateScan();
-
-
             }
         });
     }
@@ -215,7 +299,28 @@ public class AddNewAlarm extends AppCompatActivity {
     private void setRingtone(){
 
         Spinner spinner = (Spinner)findViewById(R.id.ringtoneSpinner);
+        // Insert Hannah's ringtone thing here
+    }
 
+
+
+    private Alarm createAlarm(int id) {
+
+        Alarm thisAlarm = new Alarm();
+
+        thisAlarm.setId(id);
+        thisAlarm.setName(time_name.getText().toString());
+        this.memo = time_memo;
+        this.recurring = recurringTimeAlarm;
+        setSound(sound);
+        setVolume(volume);
+        this.days = dayArray.toString();
+        this.hour = tpHour;
+        this.min = tpMinute;
+        this.qrResult = qrResult;
+        this.on = on;
+
+        return thisAlarm;
     }
 
     /**
@@ -228,11 +333,11 @@ public class AddNewAlarm extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Alarm alarm = new Alarm();
 
             }
         });
     }
+
 }
 
 // Create Alarm object, push to db and schedule an alarm
@@ -258,32 +363,4 @@ public class AddNewAlarm extends AppCompatActivity {
  * // Create a new instance of TimePickerDialog and return it
  * return new TimePickerDialog(getActivity(), this, hour_local, minute_local,
  * DateFormat.is24HourFormat(getActivity()));}
- */
-
-
-/*
-
-     Method for setting the time value of a time based alarm. Launched if spinner selection is set to time based alarm.
-
-private void setAlarmDialog() {
-
-    displaySelectedTimeTextView = (TextView) findViewById(R.id.displayTimeText);
-    Button button = (Button) findViewById(R.id.timeButton);
-    button.setOnClickListener(new View.OnClickListener() {
-
-        @Override
-        public void onClick(View v) {
-
-            new TimePickerDialog(AddNewAlarm.this, onTimeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show();
-        }
-    });
-}
-
-    TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
-
-        @Override
-        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            displaySelectedTimeTextView.setText("Chosen time is :" + hourOfDay + ":" + minute);
-        }
-    };
  */

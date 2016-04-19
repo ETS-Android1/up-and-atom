@@ -37,7 +37,7 @@ public class AddNewLocationAlarm extends AppCompatActivity implements OnMapReady
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Links the map fragment to the XML
-        MapFragment mp = (MapFragment) getFragmentManager().findFragmentById(R.id.nlamap);
+        MapFragment mp = (MapFragment) getFragmentManager().findFragmentById(R.id.location_map);
         mp.getMapAsync(this);
     }
 
@@ -67,7 +67,7 @@ public class AddNewLocationAlarm extends AppCompatActivity implements OnMapReady
 
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 3));
         map.animateCamera(CameraUpdateFactory.zoomIn());
-        map.animateCamera(CameraUpdateFactory.zoomTo(18),5000,null);
+        map.animateCamera(CameraUpdateFactory.zoomTo(18),2000,null);
         map.addMarker(new MarkerOptions()
                 .title("Sydney")
                 .snippet("The most populous city in Australia.")
