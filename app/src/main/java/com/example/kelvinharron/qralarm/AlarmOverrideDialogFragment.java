@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 /**
  * This class is a fragment that when called, will allow the display of a custom dialog that is used in the AddNewAlarm class.
@@ -32,6 +33,9 @@ public class AlarmOverrideDialogFragment extends DialogFragment implements View.
      */
     private Button confirmButton;
 
+    private String overridePassword;
+
+
     /**
      * Attaches the fragment to the activity
      *
@@ -40,7 +44,6 @@ public class AlarmOverrideDialogFragment extends DialogFragment implements View.
     @Override
     public void onAttach(Activity addNewAlarmActivity) {
         super.onAttach(addNewAlarmActivity);
-
     }
 
     /**
@@ -70,9 +73,15 @@ public class AlarmOverrideDialogFragment extends DialogFragment implements View.
      */
     public void onClick(View viewFragment) {
 
+
+        TextView tv = (TextView)viewFragment.findViewById(R.id.tester2);
+
         if (viewFragment.getId() == R.id.confirmButton) {
             //ToDO: fix app crash when confirm button is clicked + get the passcode toString and send back to Activity/database
-            passcodeEditText.getText().toString(); // SOURCE OF ISSUE
+            passcodeEditText = (EditText)viewFragment.findViewById(R.id.editTextPasscode);
+            overridePassword = passcodeEditText.getText().toString();
+            tv.setText(overridePassword);
+                    // SOURCE OF ISSUE
             dismiss(); // Dismisses dialog from view, returning focus to activity
         }
 

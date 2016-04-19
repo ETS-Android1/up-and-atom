@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-->XML Layout for the 'Add new location alarm'<-->
+<!-->XML Layout for the 'Add new (location) alarm'<-->
 
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -20,7 +20,7 @@
 
         <!-->Layout containing widgets for the alarm title & memo<-->
         <RelativeLayout
-            android:id="@+id/timealarmlayout1"
+            android:id="@+id/locationAlarmlayout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
@@ -36,50 +36,50 @@
                     android:id="@+id/alarm_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:hint="My QR Alarm"
+                    android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
+                    android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
+                    android:hint="@string/alarm_name_hint"
                     android:singleLine="true"
                     />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
-                android:id="@+id/timealarmlayout2"
+                android:id="@+id/location_alarm_layout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/til1"
                 android:background="@color/white">
 
                 <android.support.design.widget.TextInputEditText
-                    android:id="@+id/alarm_memo"
+                    android:id="@+id/location_alarm_memo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:hint="Alarm memo"
+                    android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
+                    android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
+                    android:hint="@string/alarm_memo_hint"
                     android:singleLine="true"/>
 
                 <!-->Map Fragment<-->
                 <fragment
-                    android:id="@+id/nlamap"
+                    android:id="@+id/location_map"
                     android:name="com.google.android.gms.maps.MapFragment"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
+                    android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
                     ></fragment>
 
                 <!-->Layout containing day of the week checkboxes<-->
                 <LinearLayout
-                    android:id="@+id/timealarmlayout4"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="10dp"
+                    android:id="@+id/location_alarm_layout_4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_gravity="center"
                     android:layout_below="@+id/line3"
+                    android:layout_marginTop="@dimen/add_new_alarm_standard_padding"
+                    android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
+                    android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
                     android:paddingLeft="20dp"
                     android:background="?attr/colorPrimary"
                     >
@@ -125,50 +125,50 @@
 
                 <!-->QR Scanner button<-->
                 <RelativeLayout
-                    android:id="@+id/timealarmlayout5"
-                    android:layout_marginTop="10dp"
+                    android:id="@+id/location_alarm_layout_5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/add_new_alarm_standard_padding"
                     >
 
                     <Button
                         android:id="@+id/QRButton"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:text="Scan QR Code"
+                        android:text="@string/qr_button_text"
                         android:textAllCaps="true"
                         android:clickable="true"
                         android:background="?attr/colorPrimary"
                         android:textColor="@color/white"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
+                        android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
                         style="?android:attr/borderlessButtonStyle"
                         />
                 </RelativeLayout>
 
                 <!-->Override Switch<-->
                 <LinearLayout
-                    android:id="@+id/timealarmlayout7"
+                    android:id="@+id/location_alarm_layout_7"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:textColor="@color/white"
 
                     android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="@dimen/add_new_alarm_standard_padding"
+                    android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
+                    android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
                     android:background="?attr/colorPrimary"
                     android:weightSum="1">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Alarm Override"
+                        android:text="@string/alarm_override_textview"
                         android:paddingTop="12dp"
                         android:textColor="@color/white"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
                         android:textSize="16sp"/>
 
                     <Switch
@@ -184,10 +184,10 @@
 
                 <!-->Ringtone Spinner<-->
                 <RelativeLayout
-                    android:id="@+id/timealarmlayout8"
-                    android:layout_marginTop="10dp"
+                    android:id="@+id/location_alarm_layout_8"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/add_new_alarm_standard_padding">
 
                     <Spinner
                         android:id="@+id/ringtoneSpinner"
@@ -197,8 +197,8 @@
                         android:spinnerMode="dropdown"
                         android:textColor="@color/white"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
+                        android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
                         style="?android:attr/selectableItemBackgroundBorderless"
                         >
                     </Spinner>
@@ -206,18 +206,19 @@
                     <!-->Confirmation Button - Change to FAB or at least more material look?<-->
                     <Button
                         android:id="@+id/confirmButton"
+                        android:layout_below="@+id/ringtoneSpinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/ringtoneSpinner"
-                        android:text="Confirm"
+                        android:text="@string/confirm_button"
                         android:textAllCaps="true"
                         android:clickable="true"
                         android:background="?attr/colorPrimary"
                         android:textColor="@color/white"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="@dimen/add_new_alarm_standard_padding"
+                        android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
+                        android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
+                        android:layout_marginBottom="@dimen/add_new_alarm_standard_padding"
                         style="?android:attr/borderlessButtonStyle"
                         />
 
