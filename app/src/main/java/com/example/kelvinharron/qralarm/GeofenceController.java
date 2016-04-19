@@ -52,7 +52,7 @@ public class GeofenceController {
         gson = new Gson();
         geoAlarms = new ArrayList<>();
         geoAlarmsToRemove = new ArrayList<>();
-        preferences = this.context.getSharedPreferences(Constants.SharefPrefs.Geofences, Context.MODE_PRIVATE);
+        preferences = this.context.getSharedPreferences("SHARED_PREFS_GEOFENCES", Context.MODE_PRIVATE);
 
     }
 
