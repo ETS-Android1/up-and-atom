@@ -162,7 +162,7 @@ public class AddNewAlarm extends AppCompatActivity {
      * Method for setting repetition of the alarm - how to get data from it?
      * @param view
      */
-    public ArrayList onCheckboxClicked(View view) {
+    public void onCheckboxClicked(View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
 
@@ -227,7 +227,6 @@ public class AddNewAlarm extends AppCompatActivity {
                 break;
             default:recurringTimeAlarm = false;
         }
-        return dayArray;
     }
 
     /**
@@ -328,7 +327,6 @@ public class AddNewAlarm extends AppCompatActivity {
      */
 
     private void confirmAlarm(){
-
         Button button = (Button) findViewById(R.id.confirmButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -337,7 +335,6 @@ public class AddNewAlarm extends AppCompatActivity {
             }
         });
     }
-
 }
 
 // Create Alarm object, push to db and schedule an alarm
