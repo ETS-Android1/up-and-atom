@@ -1,10 +1,13 @@
 package com.example.kelvinharron.qralarm;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.Geofence;
+import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /*TODO <application
@@ -23,16 +26,17 @@ public class GeofenceController {
 
     private Context context;
     private GoogleApiClient googleApiClient;
-
-    private List<Geofence> geofences;
-
-    public List<Geofence> getGeofences() {
+    private Gson gson;
+    private SharedPreferences preferences;
+    private List<GeoAlarm> geoAlarm;
+    public List<GeoAlarm> getGeofences() {
         return geofences;
     }
 
-    private List<Geofence> geofencesToRemove;
+    private List<GeoAlarm> geofencesToRemove;
 
     private Geofence geofencetoAdd;
+    private GeoAlarm geoAlarmToAdd;
 
     private static GeofenceController INSTANCE;
 
@@ -41,6 +45,13 @@ public class GeofenceController {
             INSTANCE = new GeofenceController();
         }
         return INSTANCE;
+    }
+
+    public void init(Context context){
+        this.context = context.getApplicationContext();
+        gson = new Gson();
+        geoAlarm = new ArrayList<>();
+
     }
 
 
