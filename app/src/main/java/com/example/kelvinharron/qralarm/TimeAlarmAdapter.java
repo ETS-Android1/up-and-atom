@@ -17,20 +17,25 @@ import java.util.List;
  * TODO: add database wrapper so we can update database with card information
  * Created by kelvinharron on 10/04/2016.
  */
-public class TimeAlarmAdapter extends RecyclerView.Adapter<TimeAlarmAdapter.AlarmViewHolder>{
+public class TimeAlarmAdapter extends RecyclerView.Adapter<TimeAlarmAdapter.AlarmViewHolder> {
 
     private LayoutInflater inflater;
-    private List<Alarm> alarmData = Collections.emptyList();
+    private List<Alarm> timeAlarmData = Collections.emptyList();
 
     /**
      * Constructor with arguments
      *
      * @param context
-     * @param alarmData
+     * @param timeAlarmData
      */
-    public TimeAlarmAdapter(Context context, List<Alarm> alarmData) {
+    public TimeAlarmAdapter(Context context, List<Alarm> timeAlarmData) {
         inflater = LayoutInflater.from(context);
-        this.alarmData = alarmData;
+        this.timeAlarmData = timeAlarmData;
+    }
+
+    public void deleteAlarm(int position) {
+        timeAlarmData.remove(position);
+        notifyItemRemoved(position);
     }
 
     /**
@@ -56,7 +61,7 @@ public class TimeAlarmAdapter extends RecyclerView.Adapter<TimeAlarmAdapter.Alar
      */
     @Override
     public void onBindViewHolder(AlarmViewHolder holder, final int position) {
-        Alarm alarm = alarmData.get(position);
+        Alarm alarm = timeAlarmData.get(position);
 
         holder.alarmName.setText(alarm.getName());
         holder.alarmMemo.setText(alarm.getMemo());
@@ -74,14 +79,17 @@ public class TimeAlarmAdapter extends RecyclerView.Adapter<TimeAlarmAdapter.Alar
      */
     @Override
     public int getItemCount() {
-        return alarmData.size();
+
+        return timeAlarmData.size();
     }
+
+
 
 
     /**
      * Inner class that links the view objects from the card layout object and object properties together.
      */
-    public static class AlarmViewHolder extends RecyclerView.ViewHolder {
+    class AlarmViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
 
         protected TextView alarmName;
         protected TextView alarmMemo;
@@ -92,12 +100,19 @@ public class TimeAlarmAdapter extends RecyclerView.Adapter<TimeAlarmAdapter.Alar
 
         public AlarmViewHolder(View itemView) {
             super(itemView);
+            itemView.setOnLongClickListener(this);
             alarmName = (TextView) itemView.findViewById(R.id.alarm_name);
             alarmMemo = (TextView) itemView.findViewById(R.id.alarm_memo);
             alarmTimeHour = (TextView) itemView.findViewById(R.id.alarm_time_hour);
             alarmTimeMin = (TextView) itemView.findViewById(R.id.alarm_time_min);
             alarmDays = (TextView) itemView.findViewById(R.id.alarm_days);
             alarmIsOn = (Switch) itemView.findViewById(R.id.toggleAlarmSwitch);
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            deleteAlarm(getLayoutPosition());
+            return false;
         }
     }
 }

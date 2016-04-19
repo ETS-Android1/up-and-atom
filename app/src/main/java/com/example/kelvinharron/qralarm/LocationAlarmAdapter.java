@@ -57,7 +57,6 @@ public class LocationAlarmAdapter extends RecyclerView.Adapter<LocationAlarmAdap
     @Override
     public void onBindViewHolder(AlarmViewHolder holder, final int position) {
         Alarm alarm = alarmData.get(position);
-
         holder.alarmName.setText(alarm.getName());
         holder.alarmMemo.setText(alarm.getMemo());
         holder.alarmTimeHour.setText(String.valueOf(alarm.getHour()));
@@ -81,7 +80,7 @@ public class LocationAlarmAdapter extends RecyclerView.Adapter<LocationAlarmAdap
     /**
      * Inner class that links the view objects from the card layout object and object properties together.
      */
-    public static class AlarmViewHolder extends RecyclerView.ViewHolder {
+    static class AlarmViewHolder extends RecyclerView.ViewHolder {
 
         protected TextView alarmName;
         protected TextView alarmMemo;

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<!-->XML Layout for the 'Add new location alarm'<-->
+
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -16,7 +18,7 @@
         android:background="@color/white"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <!-->Layout containing the alarm title & memo<-->
+        <!-->Layout containing widgets for the alarm title & memo<-->
         <RelativeLayout
             android:id="@+id/timealarmlayout1"
             android:layout_width="match_parent"
@@ -57,6 +59,7 @@
                     android:hint="Alarm memo"
                     android:singleLine="true"/>
 
+                <!-->Map Fragment<-->
                 <fragment
                     android:id="@+id/nlamap"
                     android:name="com.google.android.gms.maps.MapFragment"
@@ -66,6 +69,7 @@
                     android:layout_marginLeft="10dp"
                     ></fragment>
 
+                <!-->Layout containing day of the week checkboxes<-->
                 <LinearLayout
                     android:id="@+id/timealarmlayout4"
                     android:layout_marginTop="10dp"
@@ -119,6 +123,7 @@
                         android:text="S"/>
                 </LinearLayout>
 
+                <!-->QR Scanner button<-->
                 <RelativeLayout
                     android:id="@+id/timealarmlayout5"
                     android:layout_marginTop="10dp"
@@ -142,6 +147,7 @@
                         />
                 </RelativeLayout>
 
+                <!-->Override Switch<-->
                 <LinearLayout
                     android:id="@+id/timealarmlayout7"
                     android:orientation="horizontal"
@@ -176,6 +182,7 @@
                         android:background="?attr/colorPrimary" />
                 </LinearLayout>
 
+                <!-->Ringtone Spinner<-->
                 <RelativeLayout
                     android:id="@+id/timealarmlayout8"
                     android:layout_marginTop="10dp"
@@ -196,6 +203,7 @@
                         >
                     </Spinner>
 
+                    <!-->Confirmation Button - Change to FAB or at least more material look?<-->
                     <Button
                         android:id="@+id/confirmButton"
                         android:layout_width="match_parent"
