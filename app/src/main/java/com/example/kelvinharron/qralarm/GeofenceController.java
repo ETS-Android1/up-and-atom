@@ -30,7 +30,7 @@ public class GeofenceController {
     private SharedPreferences preferences;
     private List<GeoAlarm> geoAlarms;
     public List<GeoAlarm> getGeoAlarms() {
-        return geofences;
+        return geoAlarms;
     }
 
     private List<GeoAlarm> geoAlarmsToRemove;
