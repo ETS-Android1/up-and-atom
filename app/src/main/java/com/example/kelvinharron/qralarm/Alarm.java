@@ -138,6 +138,8 @@ public class Alarm {
         }
     }
 
+    public void setDays(Integer[] days) { this.days = days; }
+
     public Integer[] getDays() {
         return this.days;
     }
