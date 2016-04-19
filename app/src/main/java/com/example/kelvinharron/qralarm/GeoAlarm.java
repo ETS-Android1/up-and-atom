@@ -3,6 +3,8 @@ package com.example.kelvinharron.qralarm;
 import android.media.RingtoneManager;
 import android.net.Uri;
 
+import com.google.android.gms.location.Geofence;
+
 import java.util.Arrays;
 
 import java.util.HashMap;
@@ -21,7 +23,7 @@ public class GeoAlarm {
     private HashMap<String, ScanItem> itemList;
     private double latitude;
     private double longtitude;
-    private double radius;
+    private float radius;
     private boolean on;
 
     public static String strSeparator = ",";
@@ -38,7 +40,7 @@ public class GeoAlarm {
 
     public GeoAlarm(int id, String name, boolean recurring, Integer[] days, Uri sound,
                     float volume, HashMap<String, ScanItem> itemList, double latitude,
-                    double longtitude, double radius, boolean on) {
+                    double longtitude, float radius, boolean on) {
         initialise();
         this.id = id;
         this.name = name;
@@ -139,11 +141,11 @@ public class GeoAlarm {
         this.longtitude = longtitude;
     }
 
-    public double getRadius() {
+    public float getRadius() {
         return radius;
     }
 
-    public void setRadius(double radius) {
+    public void setRadius(float radius) {
         this.radius = radius;
     }
 
@@ -197,7 +199,7 @@ public class GeoAlarm {
 
 
     public void addItem(String item, String code) throws IllegalArgumentException {
-        if (!itemList.containsKey(item)){
+        if (!itemList.containsKey(item)) {
             ScanItem scanItem = new ScanItem(code, true);
             itemList.put(item, scanItem);
         } else {
@@ -211,6 +213,15 @@ public class GeoAlarm {
         } else {
             throw new IllegalArgumentException("Item doesn't exist.");
         }
+    }
+
+    public Geofence generateGeofence() {
+        return new Geofence.Builder()
+                .setRequestId(new Integer(id).toString())
+                .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_EXIT)
+                .setCircularRegion(latitude, longtitude, radius)
+                .setExpirationDuration(Geofence.NEVER_EXPIRE)
+                .build();
     }
 
     @Override
