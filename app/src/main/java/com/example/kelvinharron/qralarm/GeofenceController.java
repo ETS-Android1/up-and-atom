@@ -28,12 +28,12 @@ public class GeofenceController {
     private GoogleApiClient googleApiClient;
     private Gson gson;
     private SharedPreferences preferences;
-    private List<GeoAlarm> geoAlarm;
-    public List<GeoAlarm> getGeofences() {
+    private List<GeoAlarm> geoAlarms;
+    public List<GeoAlarm> getGeoAlarms() {
         return geofences;
     }
 
-    private List<GeoAlarm> geofencesToRemove;
+    private List<GeoAlarm> geoAlarmsToRemove;
 
     private Geofence geofencetoAdd;
     private GeoAlarm geoAlarmToAdd;
@@ -50,7 +50,9 @@ public class GeofenceController {
     public void init(Context context){
         this.context = context.getApplicationContext();
         gson = new Gson();
-        geoAlarm = new ArrayList<>();
+        geoAlarms = new ArrayList<>();
+        geoAlarmsToRemove = new ArrayList<>();
+        preferences = this.context.getSharedPreferences(Constants.SharefPrefs.Geofences, Context.MODE_PRIVATE);
 
     }
 
