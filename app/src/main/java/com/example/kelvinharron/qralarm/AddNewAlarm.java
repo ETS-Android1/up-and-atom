@@ -6,7 +6,12 @@
 
 package com.example.kelvinharron.qralarm;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -16,6 +21,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -36,6 +42,15 @@ import java.util.Calendar;
 public class AddNewAlarm extends AppCompatActivity {
 
     /**
+     * Alarm id which is passed from the parent activity based on the number of alarms
+     */
+    private int alarmId;
+
+    /**
+     * Alarm object which is created by Activity
+     */
+    private Alarm alarm;
+    /**
      * Name of the alarm
      */
     private EditText time_name;
@@ -54,11 +69,6 @@ public class AddNewAlarm extends AppCompatActivity {
      * The minute value taken from the timepicker
      */
     private int tpMinute;
-
-    /**
-     *
-     */
-    private TextView QRTest;
 
     /**
      * Sets whether the alarm repeats or not
@@ -89,11 +99,26 @@ public class AddNewAlarm extends AppCompatActivity {
      */
     private Button scanQR;
 
+
+    /**
+     * Button to set Alarm Sound
+     */
+    private TextView alarmSound;
+
+    private String qrResult;
+
     /**
      *
      */
     private IntentIntegrator integrator;
 
+    private Uri chosenRingtone;
+
+    private SeekBar volumeControl;
+    private float volume;
+
+    AlarmSQLiteHelper db;
+    public static final float VOLUME_MODIFIER = 10;
     /**
      * Start of activity lifecycle. Sets the view of the AddNewAlarm activity and calls the methods enabling behavior.
      *
@@ -104,22 +129,34 @@ public class AddNewAlarm extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_time_alarm);
 
+        //Bundle extras = getIntent().getExtras();
+        //alarmId = extras.getInt("alarmID");
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        tester = (TextView)findViewById(R.id.tester2);
-        QRTest = (TextView) findViewById(R.id.QRTest);
+        tester = (TextView) findViewById(R.id.tester2);
 
+
+        db = new AlarmSQLiteHelper(this);
+        db.onUpgrade(db.getWritableDatabase(), 0, 1);
+
+        setTimeAlarmName();
+        setTimeAlarmMemo();
         setAlarm();
         setOverride();
         setScanQR();
+        setRingtone();
+        setSeekbar();
+        confirmAlarm();
 
     }
+
 
     /**
      * Set the alarm name
      */
-    private void setTimeAlarmName(){
+    private void setTimeAlarmName() {
         time_name = (EditText) findViewById(R.id.time_alarm_name);
         time_name.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -133,7 +170,7 @@ public class AddNewAlarm extends AppCompatActivity {
     /**
      * Set the alarm memo
      */
-    private void setTimeAlarmMemo(){
+    private void setTimeAlarmMemo() {
         time_memo = (EditText) findViewById(R.id.time_alarm_memo);
         time_memo.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -147,7 +184,7 @@ public class AddNewAlarm extends AppCompatActivity {
     /**
      * Sets the time of the alarm using a timepicker
      */
-    private void setAlarm(){
+    private void setAlarm() {
         final TimePicker timePicker = (TimePicker) findViewById(R.id.timeAlarmTimepicker);
         timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
@@ -160,90 +197,108 @@ public class AddNewAlarm extends AppCompatActivity {
 
     /**
      * Method for setting repetition of the alarm - how to get data from it?
+     *
      * @param view
      */
-    public void onCheckboxClicked(View view) {
+    public ArrayList onCheckboxClicked(View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
 
         // Check which checkbox was clicked
-        switch(view.getId()) {
+        switch (view.getId()) {
             case R.id.timeMonday:
                 if (checked) {
                     // necessary?
-                    recurringTimeAlarm=true;
+                    recurringTimeAlarm = true;
                     dayArray.add(2);
-                }else {
+                } else {
                     // Do not set repeat
                 }
                 break;
             case R.id.timeTuesday:
                 if (checked) {
-                    recurringTimeAlarm=true;
+                    recurringTimeAlarm = true;
                     dayArray.add(3);
-                }else {
+                } else {
                     // Do not set repeat
                 }
                 break;
             case R.id.timeWednesday:
                 if (checked) {
-                    recurringTimeAlarm=true;
+                    recurringTimeAlarm = true;
                     dayArray.add(4);
-                }else {
+                } else {
                     // Do not set repeat
                 }
                 break;
             case R.id.timeThursday:
                 if (checked) {
-                    recurringTimeAlarm=true;
+                    recurringTimeAlarm = true;
                     dayArray.add(5);
-                }else {
+                } else {
                     // Do not set repeat
                 }
                 break;
             case R.id.timeFriday:
                 if (checked) {
-                    recurringTimeAlarm=true;
+                    recurringTimeAlarm = true;
                     dayArray.add(6);
-                }else {
+                } else {
                     // Do not set repeat
                 }
                 break;
             case R.id.timeSaturday:
                 if (checked) {
-                    recurringTimeAlarm=true;
+                    recurringTimeAlarm = true;
                     dayArray.add(7);
-                }else {
+                } else {
                     // Do not set repeat
                 }
                 break;
             case R.id.timeSunday:
                 if (checked) {
-                    recurringTimeAlarm=true;
+                    recurringTimeAlarm = true;
                     dayArray.add(1);
-                }else {
+                } else {
                     // Do not set repeat
                 }
                 break;
-            default:recurringTimeAlarm = false;
+            default:
+                recurringTimeAlarm = false;
+                dayArray.add(0);
         }
+        return dayArray;
     }
 
     /**
-     *
      * @param requestCode
      * @param resultCode
      * @param intent
      */
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        IntentResult scanResult = integrator.parseActivityResult(requestCode, resultCode,intent);
-        if (scanResult !=null){
-            String data[] = scanResult.getContents().split("\n");
-            for (String string:data){
-                QRTest.append(string);
+        IntentResult scanResult = integrator.parseActivityResult(requestCode, resultCode, intent);
+        if (requestCode == IntentIntegrator.REQUEST_CODE) {
+            if (scanResult != null) {
+                String data[] = scanResult.getContents().split("\n");
+                StringBuilder stringBuilder = new StringBuilder();
+                for (String string : data) {
+                    stringBuilder.append(string);
+                }
+                qrResult = stringBuilder.toString();
             }
+        } else if (resultCode == Activity.RESULT_OK && requestCode == 5) {
+            Uri uri = intent.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
+            if (uri != null) {
+                this.chosenRingtone = uri;
+            } else {
+                this.chosenRingtone = null;
+            }
+            Ringtone ringtone = RingtoneManager.getRingtone(this, uri);
+            alarmSound.setText(ringtone.getTitle(getApplicationContext()));
         }
+
     }
+
 
     /**
      * Button for bringing up QR scanner
@@ -295,68 +350,112 @@ public class AddNewAlarm extends AppCompatActivity {
      * Method for setting the alarm ringtone
      */
 
-    private void setRingtone(){
+    private void setRingtone() {
+        alarmSound = (TextView) findViewById(R.id.get_ringtone);
+        chosenRingtone = RingtoneManager.getActualDefaultRingtoneUri(getApplicationContext(), RingtoneManager.TYPE_ALARM);
+        Ringtone ringtone = RingtoneManager.getRingtone(this, chosenRingtone);
+        alarmSound.setText(ringtone.getTitle(getApplicationContext()));
 
-        Spinner spinner = (Spinner)findViewById(R.id.ringtoneSpinner);
-        // Insert Hannah's ringtone thing here
+        alarmSound.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {        // Insert Hannah's ringtone thing here
+                Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
+                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_NOTIFICATION);
+                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, "Select Tone");
+                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, (Uri) null);
+                startActivityForResult(intent, 5);
+            }
+        });
+        //Spinner spinner = (Spinner) findViewById(R.id.ringtoneSpinner);
     }
 
+    private void setSeekbar() {
 
+        volumeControl = (SeekBar) findViewById(R.id.volume_bar);
+        volume = volumeControl.getProgress();
+        volumeControl.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                volume = progress;
+            }
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+            public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
+    }
 
-    private Alarm createAlarm(int id) {
+    private void createAlarm() {
 
-        Alarm thisAlarm = new Alarm();
+        alarm = new Alarm();
+        //TODO tie up with Kelvin to set the alarm id in the bundle that is extracted in the onCreate
+        alarmId = 1;
+        alarm.setId(alarmId);
+        alarm.setName(time_name.getText().toString());
+        alarm.setMemo(time_memo.getText().toString());
+        alarm.setRecurring(recurringTimeAlarm);
+        // setting the days on which the alarm occurs
+        Integer[] days = new Integer[dayArray.size()];
+        dayArray.toArray(days);
+        alarm.setDays(days);
+        alarm.setHour(tpHour);
+        alarm.setMin(tpMinute);
+        alarm.setSound(chosenRingtone.toString());
+        alarm.setVolume(volume/VOLUME_MODIFIER);
 
-        thisAlarm.setId(id);
-        thisAlarm.setName(time_name.getText().toString());
-        this.memo = time_memo;
-        this.recurring = recurringTimeAlarm;
-        setSound(sound);
-        setVolume(volume);
-        this.days = dayArray.toString();
-        this.hour = tpHour;
-        this.min = tpMinute;
-        this.qrResult = qrResult;
-        this.on = on;
+        alarm.setQrResult(qrResult);
+        alarm.setOn(true);
 
-        return thisAlarm;
+        //return alarm;
+    }
+
+    public void scheduleAlarm(){
+        AlarmScheduler alarmScheduler = new AlarmScheduler();
+        alarmScheduler.setAlarm(getApplicationContext(),this.alarm);
+    }
+
+    public void storeAlarm(){
+       db.createAlarm(this.alarm);
     }
 
     /**
      * Confirm the alarm settings & push to DB
      */
 
-    private void confirmAlarm(){
+    private void confirmAlarm() {
+
         Button button = (Button) findViewById(R.id.confirmButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                createAlarm();
+                scheduleAlarm();
+                storeAlarm();
+                Toast.makeText(getApplicationContext(),"Alarm created",Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
     }
+
 }
 
 // Create Alarm object, push to db and schedule an alarm
 
 //Todo: implement alarm setter intent as below
 /***
- * <p>
- * <p>
+ * <p/>
+ * <p/>
  * private void alarmTimeIntent(){
  * Intent alarmIntent = new Intent(AlarmClock.ACTION_SET_ALARM);
  * alarmIntent.putExtra(AlarmClock.EXTRA_HOUR,true);
  * alarmIntent.putExtra(AlarmClock.EXTRA_MINUTES,true);
  * startActivity(alarmIntent);}
- * <p>
+ * <p/>
  * public Dialog onCreateDialog(Bundle savedInstanceState) {
  * // Use the current time as the default values for the picker
- * <p>
- * <p>
+ * <p/>
+ * <p/>
  * final Calendar c = Calendar.getInstance();
  * hour_local = c.get(Calendar.HOUR_OF_DAY);
  * minute_local = c.get(Calendar.MINUTE);
- * <p>
+ * <p/>
  * // Create a new instance of TimePickerDialog and return it
  * return new TimePickerDialog(getActivity(), this, hour_local, minute_local,
  * DateFormat.is24HourFormat(getActivity()));}

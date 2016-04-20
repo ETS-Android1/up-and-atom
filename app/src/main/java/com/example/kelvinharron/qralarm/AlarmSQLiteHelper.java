@@ -12,42 +12,42 @@ import java.util.List;
 /**
  * Created by Conor on 08-Apr-16.
  */
-public class AlarmSQLiteHelper extends SQLiteOpenHelper{
+public class AlarmSQLiteHelper extends SQLiteOpenHelper {
 
-    private static final String ALARMS = "Alarms";
-    private static final String ALARM_ID = "_id";
-    private static final String ALARM_NAME = "_name";
-    private static final String ALARM_MEMO = "_memo";
-    private static final String ALARM_SOUND = "_sound";
-    private static final String ALARM_VOLUME = "_volume";
-    private static final String ALARM_RECURRING = "_recurring";
-    private static final String ALARM_DAYS = "_days";
-    private static final String ALARM_HOUR = "_hour";
-    private static final String ALARM_MIN = "_min";
-    private static final String ALARM_QR_CODE = "_qr_code";
-    private static final String ALARM_ON = "_on";
+    private static final String ALARMS = "alarm";
+    private static final String ALARM_ID = "id";
+    private static final String ALARM_NAME = "name";
+    private static final String ALARM_MEMO = "memo";
+    private static final String ALARM_SOUND = "sound";
+    private static final String ALARM_VOLUME = "volume";
+    private static final String ALARM_RECURRING = "recurring";
+    private static final String ALARM_DAYS = "days";
+    private static final String ALARM_HOUR = "hour";
+    private static final String ALARM_MIN = "min";
+    private static final String ALARM_QR_CODE = "qr_code";
+    private static final String ALARM_ON = "alarm_on";
     private static final String[] COLUMNS = {ALARM_ID, ALARM_NAME, ALARM_MEMO, ALARM_SOUND, ALARM_VOLUME,
             ALARM_RECURRING, ALARM_DAYS, ALARM_HOUR, ALARM_MIN, ALARM_QR_CODE, ALARM_ON};
 
     private static final String DATABASE_NAME = "Alarms.db";
     private static final int DATABASE_VERSION = 1;
 
-    private static final String DATABASE_CREATE = "create table " + ALARMS
-            + "(" + ALARM_ID + " integer primary key autoincrement, "
+    private static final String DATABASE_CREATE = "CREATE TABLE " + ALARMS
+            + " ( " + ALARM_ID + " integer primary key, "
             + ALARM_NAME + " text not null, "
             + ALARM_MEMO + " text not null, "
             + ALARM_SOUND + " text, "
-            + ALARM_VOLUME + " int not null, "
+            + ALARM_VOLUME + " integer not null, "
             + ALARM_RECURRING + " numeric, "
-            + ALARM_DAYS + " text, "
-            + ALARM_HOUR + " int, "
-            + ALARM_MIN + " int, "
+            + ALARM_DAYS + " integer, "
+            + ALARM_HOUR + " integer, "
+            + ALARM_MIN + " integer, "
             + ALARM_QR_CODE + " text, "
-            + ALARM_ON + " numeric, "
+            + ALARM_ON + " numeric"
             + ");";
 
-    public AlarmSQLiteHelper(Context context){
-        super(context,DATABASE_NAME,null,DATABASE_VERSION);
+    public AlarmSQLiteHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
@@ -65,6 +65,7 @@ public class AlarmSQLiteHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
+        values.put(ALARM_DAYS, alarm.getId());
         values.put(ALARM_NAME, alarm.getName());
         values.put(ALARM_MEMO, alarm.getMemo());
         values.put(ALARM_SOUND, alarm.storeSound());

@@ -36,7 +36,7 @@ public class AlarmScheduler {
                     calendar.setTimeInMillis(System.currentTimeMillis());
                     calendar.set(Calendar.DAY_OF_WEEK, day);
                     calendar.set(Calendar.HOUR_OF_DAY, alarm.getHour());
-                    calendar.set(Calendar.MINUTE, alarm.getMin());
+                    calendar.set(Calendar.MINUTE, new Integer(alarm.getMin()));
                     calendar.set(Calendar.SECOND, 0);
 
                     alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
@@ -52,7 +52,7 @@ public class AlarmScheduler {
                 Calendar calSet = (Calendar) calNow.clone();
 
                 calSet.set(Calendar.HOUR_OF_DAY, alarm.getHour());
-                calSet.set(Calendar.MINUTE, alarm.getMin());
+                calSet.set(Calendar.MINUTE, new Integer(alarm.getMin()));
                 calSet.set(Calendar.SECOND, 0);
 
                 if (calSet.compareTo(calNow) <= 0) {
@@ -90,7 +90,7 @@ public class AlarmScheduler {
 
         alarmMgr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                 SystemClock.elapsedRealtime() +
-                        minutes * 1000, alarmIntent);
+                        minutes * 60 * 1000, alarmIntent);
 
     }
 }
