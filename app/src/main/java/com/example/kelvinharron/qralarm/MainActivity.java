@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
             alarmSQLiteHelper.onUpgrade(alarmSQLiteHelper.getWritableDatabase(),0,1);
         }
 
+        //alarmSQLiteHelper.onUpgrade(alarmSQLiteHelper.getWritableDatabase(),0,1);
         // Update the shared preferences with the current version code
         prefs.edit().putInt(PREF_VERSION_CODE_KEY, currentVersionCode).commit();
 

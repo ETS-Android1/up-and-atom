@@ -61,6 +61,11 @@ public class DismissAlarmActivity extends AppCompatActivity {
         alertDialogBuilder.setTitle("Reminder");
         ring.play();
 
+        if(!alarm.isRecurring()){
+            alarm.setOn(false);
+            alarmSQLiteHelper.update(alarm);
+        }
+
         // set dialog message
         alertDialogBuilder.setMessage("Scan QR Code To Stop Alarm").setCancelable(false).setPositiveButton("Scan", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {

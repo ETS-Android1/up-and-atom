@@ -161,6 +161,22 @@ public class AlarmSQLiteHelper extends SQLiteOpenHelper {
         return i;
     }
 
+    public int getNewId(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        int maxID = 0;
+        String query = "SELECT MAX(id) FROM " + ALARMS;
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                maxID = cursor.getInt(0);
+
+            } while (cursor.moveToNext());
+        }
+        return maxID + 1;
+    }
+
     public void deleteAlarm(Alarm alarm) {
         SQLiteDatabase db = this.getWritableDatabase();
 

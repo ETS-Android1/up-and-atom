@@ -34,8 +34,13 @@ public class TimeAlarmAdapter extends RecyclerView.Adapter<TimeAlarmAdapter.Alar
     }
 
     public void deleteAlarm(int position) {
+        Alarm alarm = timeAlarmData.get(position);
+        new AlarmScheduler().cancelAlarm(inflater.getContext(), alarm);
+        AlarmSQLiteHelper db = new AlarmSQLiteHelper(inflater.getContext());
+        db.deleteAlarm(alarm);
         timeAlarmData.remove(position);
         notifyItemRemoved(position);
+
     }
 
     /**
