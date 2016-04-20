@@ -22,7 +22,7 @@ public class GeoAlarm {
     private float volume;
     private HashMap<String, ScanItem> itemList;
     private double latitude;
-    private double longtitude;
+    private double longitude;
     private float radius;
     private boolean on;
 
@@ -40,7 +40,7 @@ public class GeoAlarm {
 
     public GeoAlarm(int id, String name, boolean recurring, Integer[] days, Uri sound,
                     float volume, HashMap<String, ScanItem> itemList, double latitude,
-                    double longtitude, float radius, boolean on) {
+                    double longitude, float radius, boolean on) {
         initialise();
         this.id = id;
         this.name = name;
@@ -50,7 +50,7 @@ public class GeoAlarm {
         this.volume = volume;
         this.itemList = itemList;
         this.latitude = latitude;
-        this.longtitude = longtitude;
+        this.longitude = longitude;
         this.radius = radius;
         this.on = on;
     }
@@ -133,12 +133,12 @@ public class GeoAlarm {
         this.latitude = latitude;
     }
 
-    public double getLongtitude() {
-        return longtitude;
+    public double getLongitude() {
+        return longitude;
     }
 
-    public void setLongtitude(double longtitude) {
-        this.longtitude = longtitude;
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     public float getRadius() {
@@ -219,7 +219,7 @@ public class GeoAlarm {
         return new Geofence.Builder()
                 .setRequestId(new Integer(id).toString())
                 .setTransitionTypes(Geofence.GEOFENCE_TRANSITION_EXIT)
-                .setCircularRegion(latitude, longtitude, radius)
+                .setCircularRegion(latitude, longitude, radius)
                 .setExpirationDuration(Geofence.NEVER_EXPIRE)
                 .build();
     }

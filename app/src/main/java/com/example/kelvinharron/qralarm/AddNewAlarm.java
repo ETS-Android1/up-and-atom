@@ -139,7 +139,6 @@ public class AddNewAlarm extends AppCompatActivity {
 
 
         db = new AlarmSQLiteHelper(this);
-        db.onUpgrade(db.getWritableDatabase(), 0, 1);
 
         setTimeAlarmName();
         setTimeAlarmMemo();
@@ -200,6 +199,7 @@ public class AddNewAlarm extends AppCompatActivity {
      *
      * @param view
      */
+    //TODO confirm this is working as expected
     public ArrayList onCheckboxClicked(View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
@@ -399,7 +399,6 @@ public class AddNewAlarm extends AppCompatActivity {
         alarm.setMin(tpMinute);
         alarm.setSound(chosenRingtone.toString());
         alarm.setVolume(volume/VOLUME_MODIFIER);
-
         alarm.setQrResult(qrResult);
         alarm.setOn(true);
 

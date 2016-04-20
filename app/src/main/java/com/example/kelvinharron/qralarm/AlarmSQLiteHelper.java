@@ -94,7 +94,7 @@ public class AlarmSQLiteHelper extends SQLiteOpenHelper {
         }
         Alarm alarm = new Alarm();
 
-        alarm.setId(Integer.parseInt(cursor.getString(0)));
+        alarm.setId(id);
         alarm.setName(cursor.getString(1));
         alarm.setMemo(cursor.getString(2));
         alarm.setSound(cursor.getString(3));
@@ -121,7 +121,7 @@ public class AlarmSQLiteHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 alarm = new Alarm();
-                alarm.setId(Integer.parseInt(cursor.getString(0)));
+                alarm.setId(cursor.getInt(0));
                 alarm.setName(cursor.getString(1));
                 alarm.setMemo(cursor.getString(2));
                 alarm.setSound(cursor.getString(3));

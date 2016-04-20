@@ -38,6 +38,9 @@
 
          <uses-feature android:name="android.hardware.camera" />
  -->
+        <activity android:name=".SettingsActivity"
+            android:label="Settings" />
+
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />

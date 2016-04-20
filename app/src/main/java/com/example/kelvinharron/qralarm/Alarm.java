@@ -129,13 +129,18 @@ public class Alarm {
     }
 
     public void setDays(String daysDB) {
+
+        System.out.print("printing stored days " + daysDB);
+
         if (daysDB != null && daysDB.length() > 0) {
             String[] days = daysDB.split(strSeparator);
 
             this.days = new Integer[days.length];
 
             for (int count = 0; count < days.length; count++) {
-                this.days[count] = new Integer(days[count]);
+                if (!days[count].equals("") || days[count].equals(null)) {
+                    this.days[count] = new Integer(days[count]);
+                }
             }
         } else {
             this.days = new Integer[1];
@@ -216,7 +221,7 @@ public class Alarm {
     }
 
     public void setOn(int on) {
-        this.recurring = (on == 1);
+        this.on = (on == 1);
     }
 
     public int storeRecurring() {
@@ -253,6 +258,7 @@ public class Alarm {
         return defaultUri;
     }
 
+    //TODO turn into string builder
     public String storeDays() {
         String str = "";
         for (int count = 0; count < days.length; count++) {

@@ -1,6 +1,7 @@
 package com.example.kelvinharron.qralarm;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
      */
     private ViewPager viewPager;
 
+
+    private AlarmSQLiteHelper alarmSQLiteHelper;
     /**
      * This is the start of the application lifecycle. Sets the main content layout while calling/initilisng methods to setup UI elements.
      *
@@ -43,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
         setupToolBar(); // setup the toolbar
         setupFAB(); // setup floating action button
 
+        // setting up database
+        checkFirstRun();
+
         // runtime error if viewpager is segregated into its own method and called in main
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
@@ -51,6 +57,38 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout;
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        setupViewPager(viewPager);
+    }
+
+    private void checkFirstRun() {
+
+        final String PREFS_NAME = "MyPrefsFile";
+        final String PREF_VERSION_CODE_KEY = "version_code";
+        final int DOESNT_EXIST = -1;
+
+        // setting up database
+        alarmSQLiteHelper = new AlarmSQLiteHelper(this);
+
+        // Get current version code
+        int currentVersionCode = BuildConfig.VERSION_CODE;
+
+        // Get saved version code
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        int savedVersionCode = prefs.getInt(PREF_VERSION_CODE_KEY, DOESNT_EXIST);
+
+        // Check for first run - want db to be persistent even on activity upgrade as re-adding alarms on each update would be irritating to user
+       if (savedVersionCode == DOESNT_EXIST) {
+            alarmSQLiteHelper.onUpgrade(alarmSQLiteHelper.getWritableDatabase(),0,1);
+        }
+
+        // Update the shared preferences with the current version code
+        prefs.edit().putInt(PREF_VERSION_CODE_KEY, currentVersionCode).commit();
+
     }
 
     @Override
@@ -74,9 +112,12 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+             Intent launchNewIntent = new Intent(MainActivity.this,SettingsActivity.class);
+            startActivityForResult(launchNewIntent, 0);
             return true;
         }
         if (id == R.id.action_about) {
+            showAboutDialog();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -102,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-              showNewAlarmDialog();
+                showNewAlarmDialog();
             }
         });
     }
@@ -117,6 +158,13 @@ public class MainActivity extends AppCompatActivity {
         newAlarmDialogFragment.show(fragmentManager, "Add New Alarm");
     }
 
+    private void showAboutDialog(){
+        fragmentManager = getSupportFragmentManager();
+        DialogAbout dialogAbout = new DialogAbout();
+        dialogAbout.show(fragmentManager, "About");
+    }
+
+
     /**
      * Method responsible for creating our tabbed fragments and allowing us to display them.
      * Fragments are given a string at the end allowing us to reference them later if need be.
@@ -130,7 +178,8 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
     }
 
-    /**,
+    /**
+     * ,
      * Inner class method that handles the setup of the view pager adapter which allows us to link the fragments to the adapter for the tabbed/viewpager view.
      */
     class ViewPagerAdapter extends FragmentPagerAdapter {

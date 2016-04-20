@@ -1,5 +1,6 @@
 package com.example.kelvinharron.qralarm;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,6 +23,7 @@ public class TimeAlarmFragment extends Fragment {
     private RecyclerView recyclerView;
     private TimeAlarmAdapter adapter;
     private View layout;
+    private Context context;
 
     /**
      * Default class constructor, empty as standard
@@ -32,6 +34,7 @@ public class TimeAlarmFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = getActivity();
     }
 
     /**
@@ -68,35 +71,7 @@ public class TimeAlarmFragment extends Fragment {
      *
      * @return
      */
-    public static List<Alarm> getData() {
-        List<Alarm> alarmData = new ArrayList<>();
-
-        String[] alarmNames = {"WAKE UP DAMNIT", "Good Morning", "Big day", "alarm"};
-        String[] alarmMemos = {"Scan the coffee", "Scan the milk", "Eggs code", "memo"};
-        int[] alarmTimeHour = {06, 07, 03, 05};
-        int[] alarmTimeMin = {30, 00, 00, 30};
-        Integer[] alarmDays = {4, 3, 7, 4};
-        boolean[] alarmIsOn = {true, false, true, false};
-
-        for (int loop = 0; loop < alarmNames.length; loop++) {
-            Alarm current = new Alarm();
-            current.setName(alarmNames[loop]);
-            current.setMemo(alarmMemos[loop]);
-            current.setHour(alarmTimeHour[loop]);
-            current.setMin(alarmTimeMin[loop]);
-            //current.setDays(alarmDays[loop]);
-            current.setOn(alarmIsOn[loop]);
-            alarmData.add(current);
-        }
-        return alarmData;
-    }
-
-    private void checkAdapterIsEmpty (View v) {
-        TextView emptyView = (TextView) v.findViewById(R.id.empty_view);
-        if (getData().size() == 0) {
-            emptyView.setVisibility(View.VISIBLE);
-        } else {
-            emptyView.setVisibility(View.GONE);
-        }
+    public List<Alarm> getData() {
+        return new AlarmSQLiteHelper(context).getAllAlarms();
     }
 }
