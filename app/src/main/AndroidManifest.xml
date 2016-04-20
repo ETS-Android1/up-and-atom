@@ -45,7 +45,12 @@
         <activity
             android:name=".AddNewAlarm"
             android:label="@string/add_new_alarm"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".AddNewLocationAlarm"
@@ -57,7 +62,7 @@
             android:value="@integer/google_play_services_version" />
 
         <activity android:name=".DismissAlarmActivity"
-            android:theme="@android:style/Theme.Dialog">
+            android:theme="@style/Theme.AppCompat.Dialog">
 
 
             <intent-filter>

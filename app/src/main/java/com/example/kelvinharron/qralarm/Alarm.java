@@ -129,16 +129,23 @@ public class Alarm {
     }
 
     public void setDays(String daysDB) {
-        String[] days = daysDB.split(strSeparator);
+        if (daysDB != null && daysDB.length() > 0) {
+            String[] days = daysDB.split(strSeparator);
 
-        this.days = new Integer[days.length];
+            this.days = new Integer[days.length];
 
-        for (int count = 0; count < days.length; count++) {
-            this.days[count] = new Integer(days[count]);
+            for (int count = 0; count < days.length; count++) {
+                this.days[count] = new Integer(days[count]);
+            }
+        } else {
+            this.days = new Integer[1];
+            this.days[0] = new Integer(0);
         }
     }
 
-    public void setDays(Integer[] days) { this.days = days; }
+    public void setDays(Integer[] days) {
+        this.days = days;
+    }
 
     public Integer[] getDays() {
         return this.days;

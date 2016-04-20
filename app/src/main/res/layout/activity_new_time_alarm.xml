@@ -2,15 +2,14 @@
 
 <!-->XML Layout for the 'Add new (time) alarm screen'<-->
 
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".AddNewAlarm"
-    android:theme="@android:style/Theme.Material.Light">
+    android:theme="@android:style/Theme.Material.Light"
+    tools:context=".AddNewAlarm">
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -40,15 +39,14 @@
                     android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
                     android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
                     android:hint="@string/alarm_name_hint"
-                    android:singleLine="true"
-                    />
+                    android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/timeTIL2"
-                android:layout_below="@+id/timeTIL1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/timeTIL1"
                 android:background="@color/white">
 
                 <android.support.design.widget.TextInputEditText
@@ -58,95 +56,100 @@
                     android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
                     android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
                     android:hint="@string/alarm_memo_hint"
-                    android:singleLine="true"/>
+                    android:singleLine="true" />
 
 
-             <RelativeLayout
-                 android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
-                 android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
+                    android:layout_marginRight="@dimen/add_new_alarm_standard_padding">
 
-                 <TextView
-                     android:id="@+id/tester"
-                     android:text="TEST"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tester"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TEST" />
 
-                 <TextView
-                     android:id="@+id/tester2"
-                     android:layout_toRightOf="@+id/tester"
-                     android:text="TEST2"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tester2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/tester"
+                        android:text="TEST2" />
 
-                 <TimePicker
-                     android:layout_below="@id/tester"
-                     android:id="@+id/timeAlarmTimepicker"
-                     android:background="?attr/colorPrimary"
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content">
+                    <TimePicker
+                        android:id="@+id/timeAlarmTimepicker"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tester"
+                        android:background="?attr/colorPrimary">
 
-                 </TimePicker>
-             </RelativeLayout>
+                    </TimePicker>
+                </RelativeLayout>
 
                 <!-->Layout containing day of the week checkboxes<-->
                 <LinearLayout
                     android:id="@+id/line4"
-                    android:layout_below="@+id/line3"
-                    android:layout_marginTop="@dimen/add_new_alarm_standard_padding"
-                    android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
-                    android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:layout_below="@+id/line3"
                     android:layout_gravity="center"
-                    android:paddingLeft="20dp"
+                    android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
+                    android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
+                    android:layout_marginTop="@dimen/add_new_alarm_standard_padding"
                     android:background="?attr/colorPrimary"
-                    >
+                    android:orientation="horizontal"
+                    android:paddingLeft="20dp">
 
                     <CheckBox
                         android:id="@+id/timeMonday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:text="M"/>
+                        android:text="M"
+                        android:textColor="@color/white" />
+
                     <CheckBox
                         android:id="@+id/timeTuesday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:text="T"/>
+                        android:text="T"
+                        android:textColor="@color/white" />
+
                     <CheckBox
                         android:id="@+id/timeWednesday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:text="W"/>
+                        android:text="W"
+                        android:textColor="@color/white" />
+
                     <CheckBox
                         android:id="@+id/timeThursday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:text="Th"/>
+                        android:text="Th"
+                        android:textColor="@color/white" />
+
                     <CheckBox
                         android:id="@+id/timeFriday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:text="F"/>
+                        android:text="F"
+                        android:textColor="@color/white" />
+
                     <CheckBox
                         android:id="@+id/timeSaturday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:text="S"/>
+                        android:text="S"
+                        android:textColor="@color/white" />
+
                     <CheckBox
                         android:id="@+id/timeSunday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:text="S"/>
+                        android:text="S"
+                        android:textColor="@color/white" />
                 </LinearLayout>
 
                 <!-->QR Scanner button<-->
@@ -154,95 +157,150 @@
                     android:id="@+id/line6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/add_new_alarm_standard_padding"
-                    >
+                    android:layout_marginTop="@dimen/add_new_alarm_standard_padding">
 
                     <Button
                         android:id="@+id/QRButton"
+                        style="?android:attr/borderlessButtonStyle"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:text="@string/qr_button_text"
-                        android:textAllCaps="true"
-                        android:clickable="true"
-                        android:background="?attr/colorPrimary"
-                        android:textColor="@color/white"
                         android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
                         android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
-                        style="?android:attr/borderlessButtonStyle"
-                        />
+                        android:background="?attr/colorPrimary"
+                        android:clickable="true"
+                        android:text="@string/qr_button_text"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white" />
 
                 </RelativeLayout>
 
                 <!-->Override Switch<-->
                 <LinearLayout
                     android:id="@+id/line7"
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:textColor="@color/white"
                     android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/add_new_alarm_standard_padding"
                     android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
                     android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
+                    android:layout_marginTop="@dimen/add_new_alarm_standard_padding"
                     android:background="?attr/colorPrimary"
+                    android:orientation="horizontal"
+                    android:textColor="@color/white"
                     android:weightSum="1">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/alarm_override_textview"
-                        android:paddingTop="12dp"
-                        android:textColor="@color/white"
                         android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
-                        android:textSize="16sp"/>
+                        android:paddingTop="12dp"
+                        android:text="@string/alarm_override_textview"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
 
                     <Switch
                         android:id="@+id/overrideSwitch"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="180dp"
-                        android:paddingTop="15dp"
+                        android:background="?attr/colorPrimary"
                         android:paddingBottom="5dp"
-                        android:textAllCaps="true"
-                        android:background="?attr/colorPrimary" />
+                        android:paddingTop="15dp"
+                        android:textAllCaps="true" />
                 </LinearLayout>
 
                 <!-->Ringtone Spinner<-->
                 <RelativeLayout
                     android:id="@+id/line8"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    android:layout_marginTop="@dimen/add_new_alarm_standard_padding"
-
-                    <Spinner
-                        android:id="@+id/ringtoneSpinner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:background="?attr/colorPrimary"
-                        android:spinnerMode="dropdown"
-                        android:textColor="@color/white"
-                        android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/add_new_alarm_standard_padding">
+                    <!--
+                                        <Spinner
+                                            android:id="@+id/ringtoneSpinner"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="50dp"
+                                            android:background="?attr/colorPrimary"
+                                            android:spinnerMode="dropdown"
+                                            android:textColor="@color/white"
+                                            android:layout_gravity="center"
+                                            android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
+                                            android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
+                                            style="?android:attr/selectableItemBackgroundBorderless"
+                                            >
+                                        </Spinner>
+                    -->
+                    <TextView
+                        android:id="@+id/alarm_sound"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
                         android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
-                        style="?android:attr/selectableItemBackgroundBorderless"
-                        >
-                    </Spinner>
+                        android:paddingTop="12dp"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:background="?attr/colorPrimary"
+                        android:gravity="left"
+                        android:text="Alarm Sound"
+                        android:textStyle="normal"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"/>
 
+                    <TextView
+                        android:id="@+id/get_ringtone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/add_new_alarm_standard_padding"
+                        android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
+                        android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
+                        android:layout_below="@+id/alarm_sound"
+                        android:paddingBottom="12dp"
+                        android:paddingLeft="10dp"
+                        android:background="?attr/colorPrimary"
+                        android:gravity="left"
+                        android:text="Alarm Sound"
+                        android:textStyle="normal"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"/>
+
+
+                    <TextView
+                        android:id="@+id/volume_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/get_ringtone"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="20dp"
+                        android:text="Seekbar"
+                        android:textColor="#000000"
+                        android:textSize="20sp" />
+
+                    <SeekBar
+                        android:id="@+id/volume_bar"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/add_new_alarm_standard_padding"
+                        android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
+                        android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="20dp"
+                        android:layout_below="@+id/volume_label"
+                        android:max="10"
+                        android:progress="5"></SeekBar>
                     <!-->Confirmation Button - Change to FAB or at least more material look?<-->
                     <Button
                         android:id="@+id/confirmButton"
-                        android:layout_below="@+id/ringtoneSpinner"
-                        android:gravity="center"
+                        style="?android:attr/selectableItemBackgroundBorderless"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/confirm_button"
-                        android:textColor="@color/white"
+                        android:layout_below="@+id/volume_bar"
+                        android:layout_marginBottom="@dimen/add_new_alarm_standard_padding"
                         android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
                         android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
-                        android:layout_marginBottom="@dimen/add_new_alarm_standard_padding"
-                        style="?android:attr/selectableItemBackgroundBorderless"
-                        android:background="?attr/colorPrimary"/>
+                        android:background="?attr/colorPrimary"
+                        android:gravity="center"
+                        android:text="@string/confirm_button"
+                        android:textColor="@color/white" />
                 </RelativeLayout>
 
             </android.support.design.widget.TextInputLayout>
