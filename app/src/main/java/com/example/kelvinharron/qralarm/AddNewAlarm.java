@@ -1,6 +1,4 @@
-// TODO: Ringtone Spinner
-// TODO: Create Alarm
-// TODO: Confirm Alarm
+
 // TODO: Checkboxes
 // TODO: Tidy stuff up & Comment
 
@@ -22,8 +20,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.SeekBar;
-import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -33,7 +29,10 @@ import com.google.zxing.integration.android.IntentResult;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * This Activity handles the behavior for adding a new alarm. Appears once the floating action button is pressed.
@@ -44,7 +43,7 @@ public class AddNewAlarm extends AppCompatActivity {
     /**
      * Alarm id which is passed from the parent activity based on the number of alarms
      */
-    private int alarmId;
+    private long alarmId;
 
     /**
      * Alarm object which is created by Activity
@@ -75,6 +74,13 @@ public class AddNewAlarm extends AppCompatActivity {
      */
     private boolean recurringTimeAlarm;
 
+    private CheckBox sunCB;
+    private CheckBox monCB;
+    private CheckBox tueCB;
+    private CheckBox thuCB;
+    private CheckBox friCB;
+    private CheckBox satCB;
+    private CheckBox wedCB;
     /**
      * ArrayList for checkbox repetitions
      */
@@ -104,7 +110,7 @@ public class AddNewAlarm extends AppCompatActivity {
      * Button to set Alarm Sound
      */
     private TextView alarmSound;
-
+    private TextView alarmTitle;
     private String qrResult;
 
     /**
@@ -119,6 +125,7 @@ public class AddNewAlarm extends AppCompatActivity {
 
     AlarmSQLiteHelper db;
     public static final float VOLUME_MODIFIER = 10;
+
     /**
      * Start of activity lifecycle. Sets the view of the AddNewAlarm activity and calls the methods enabling behavior.
      *
@@ -134,24 +141,119 @@ public class AddNewAlarm extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        tester = (TextView) findViewById(R.id.tester2);
 
 
         db = new AlarmSQLiteHelper(this);
-        db.onUpgrade(db.getWritableDatabase(), 0, 1);
 
         setTimeAlarmName();
         setTimeAlarmMemo();
         setAlarm();
-        setOverride();
         setScanQR();
         setRingtone();
         setSeekbar();
         confirmAlarm();
 
-    }
+        dayArray = new ArrayList<>();
+        sunCB = (CheckBox) findViewById(R.id.timeSunday);
+        sunCB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (sunCB.isChecked()) {
+                    dayArray.add(Integer.valueOf(1));
+                } else {
+                    dayArray.remove(Integer.valueOf(1));
+                }
+                tester.setText(dayArray.toString());
+                //System.out.print();
+            }
+        });
+        monCB = (CheckBox) findViewById(R.id.timeMonday);
+        monCB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (monCB.isChecked()) {
+                    dayArray.add(Integer.valueOf(2));
+                } else {
+                    dayArray.remove(Integer.valueOf(2));
+                }
+                tester.setText(dayArray.toString());
 
+//                System.out.print(Arrays.toString(dayArray.toArray()));
+            }
+        });
+
+        tueCB = (CheckBox) findViewById(R.id.timeTuesday);
+        tueCB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (tueCB.isChecked()) {
+                    dayArray.add(Integer.valueOf(3));
+                } else {
+                    dayArray.remove(Integer.valueOf(3));
+                }
+                tester.setText(dayArray.toString());
+
+//                System.out.print(Arrays.toString(dayArray.toArray()));
+            }
+        });
+        wedCB = (CheckBox) findViewById(R.id.timeWednesday);
+        wedCB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (wedCB.isChecked()) {
+                    dayArray.add(Integer.valueOf(4));
+                } else {
+                    dayArray.remove(Integer.valueOf(4));
+                }
+                tester.setText(dayArray.toString());
+
+//                System.out.print(Arrays.toString(dayArray.toArray()));
+            }
+        });
+        thuCB = (CheckBox) findViewById(R.id.timeThursday);
+        thuCB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (thuCB.isChecked()) {
+                    dayArray.add(Integer.valueOf(5));
+                } else {
+                    dayArray.remove(Integer.valueOf(5));
+                }
+                tester.setText(dayArray.toString());
+
+//                System.out.print(Arrays.toString(dayArray.toArray()));
+            }
+        });
+        friCB = (CheckBox) findViewById(R.id.timeFriday);
+        friCB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (friCB.isChecked()) {
+                    dayArray.add(Integer.valueOf(6));
+                } else {
+                    dayArray.remove(Integer.valueOf(6));
+                }
+                tester.setText(dayArray.toString());
+
+//                System.out.print(Arrays.toString(dayArray.toArray()));
+            }
+        });
+        satCB = (CheckBox) findViewById(R.id.timeSaturday);
+        satCB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (satCB.isChecked()) {
+                    dayArray.add(Integer.valueOf(7));
+                } else {
+                    dayArray.remove(Integer.valueOf(7));
+                }
+                tester.setText(dayArray.toString());
+
+//                System.out.print(Arrays.toString(dayArray.toArray()));
+            }
+        });
+
+    }
 
     /**
      * Set the alarm name
@@ -193,81 +295,6 @@ public class AddNewAlarm extends AppCompatActivity {
                 tpMinute = minute;
             }
         });
-    }
-
-    /**
-     * Method for setting repetition of the alarm - how to get data from it?
-     *
-     * @param view
-     */
-    public ArrayList onCheckboxClicked(View view) {
-        // Is the view now checked?
-        boolean checked = ((CheckBox) view).isChecked();
-
-        // Check which checkbox was clicked
-        switch (view.getId()) {
-            case R.id.timeMonday:
-                if (checked) {
-                    // necessary?
-                    recurringTimeAlarm = true;
-                    dayArray.add(2);
-                } else {
-                    // Do not set repeat
-                }
-                break;
-            case R.id.timeTuesday:
-                if (checked) {
-                    recurringTimeAlarm = true;
-                    dayArray.add(3);
-                } else {
-                    // Do not set repeat
-                }
-                break;
-            case R.id.timeWednesday:
-                if (checked) {
-                    recurringTimeAlarm = true;
-                    dayArray.add(4);
-                } else {
-                    // Do not set repeat
-                }
-                break;
-            case R.id.timeThursday:
-                if (checked) {
-                    recurringTimeAlarm = true;
-                    dayArray.add(5);
-                } else {
-                    // Do not set repeat
-                }
-                break;
-            case R.id.timeFriday:
-                if (checked) {
-                    recurringTimeAlarm = true;
-                    dayArray.add(6);
-                } else {
-                    // Do not set repeat
-                }
-                break;
-            case R.id.timeSaturday:
-                if (checked) {
-                    recurringTimeAlarm = true;
-                    dayArray.add(7);
-                } else {
-                    // Do not set repeat
-                }
-                break;
-            case R.id.timeSunday:
-                if (checked) {
-                    recurringTimeAlarm = true;
-                    dayArray.add(1);
-                } else {
-                    // Do not set repeat
-                }
-                break;
-            default:
-                recurringTimeAlarm = false;
-                dayArray.add(0);
-        }
-        return dayArray;
     }
 
     /**
@@ -321,36 +348,16 @@ public class AddNewAlarm extends AppCompatActivity {
     }
 
     /**
-     * Method used to create an override when creating a new Alarm.
-     * Calls the AlarmOverrideDialogFragment that displays after a button press a
-     * dialog box where the user can submit a passcode override.
-     */
-    private void setOverride() {
-
-        final android.support.v4.app.FragmentManager manager = getSupportFragmentManager(); // fragment manager allows us to instantiate the dialog fragment
-        final AlarmOverrideDialogFragment dialogFragment = new AlarmOverrideDialogFragment(); // create an object of the dialogfragment that will allow us to display it once a button is pressed.
-
-        String passcode; //TODO: implement a way to get the passcode from the fragment and store & display it as a test
-
-        final Switch overrideSwitch = (Switch) findViewById(R.id.overrideSwitch);
-        final EditText passcodeEditText = (EditText) findViewById(R.id.editTextPasscode);
-        overrideSwitch.setChecked(false);
-        overrideSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    Toast.makeText(AddNewAlarm.this, "CHECKED", Toast.LENGTH_SHORT).show();
-                    dialogFragment.show(manager, "fragment");
-                }
-            }
-        });
-    }
-
-    /**
      * Method for setting the alarm ringtone
      */
-
     private void setRingtone() {
+        alarmTitle = (TextView) findViewById(R.id.alarm_sound);
+        alarmTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getAvailableRingtones();
+            }
+        });
         alarmSound = (TextView) findViewById(R.id.get_ringtone);
         chosenRingtone = RingtoneManager.getActualDefaultRingtoneUri(getApplicationContext(), RingtoneManager.TYPE_ALARM);
         Ringtone ringtone = RingtoneManager.getRingtone(this, chosenRingtone);
@@ -358,15 +365,18 @@ public class AddNewAlarm extends AppCompatActivity {
 
         alarmSound.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {        // Insert Hannah's ringtone thing here
-                Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
-                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_NOTIFICATION);
-                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, "Select Tone");
-                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, (Uri) null);
-                startActivityForResult(intent, 5);
+            public void onClick(View v) {
+                getAvailableRingtones();
             }
         });
-        //Spinner spinner = (Spinner) findViewById(R.id.ringtoneSpinner);
+    }
+
+    private void getAvailableRingtones(){
+        Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
+        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_NOTIFICATION);
+        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, "Select Tone");
+        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, (Uri) null);
+        startActivityForResult(intent, 5);
     }
 
     private void setSeekbar() {
@@ -377,42 +387,53 @@ public class AddNewAlarm extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 volume = progress;
             }
-            public void onStartTrackingTouch(SeekBar seekBar) {}
-            public void onStopTrackingTouch(SeekBar seekBar) {}
+
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
         });
     }
 
     private void createAlarm() {
 
         alarm = new Alarm();
-        //TODO tie up with Kelvin to set the alarm id in the bundle that is extracted in the onCreate
-        alarmId = 1;
-        alarm.setId(alarmId);
+        //alarmId = 1;
+        //alarmId = db.getNewId();
         alarm.setName(time_name.getText().toString());
         alarm.setMemo(time_memo.getText().toString());
-        alarm.setRecurring(recurringTimeAlarm);
+
         // setting the days on which the alarm occurs
         Integer[] days = new Integer[dayArray.size()];
+        Collections.sort(dayArray);
         dayArray.toArray(days);
         alarm.setDays(days);
+
+        if (dayArray.isEmpty() || dayArray.contains(Integer.valueOf(0))) {
+            alarm.setRecurring(false);
+        } else {
+            alarm.setRecurring(true);
+        }
+
         alarm.setHour(tpHour);
         alarm.setMin(tpMinute);
         alarm.setSound(chosenRingtone.toString());
-        alarm.setVolume(volume/VOLUME_MODIFIER);
-
+        alarm.setVolume(volume / VOLUME_MODIFIER);
         alarm.setQrResult(qrResult);
         alarm.setOn(true);
 
         //return alarm;
     }
 
-    public void scheduleAlarm(){
+    public void scheduleAlarm() {
         AlarmScheduler alarmScheduler = new AlarmScheduler();
-        alarmScheduler.setAlarm(getApplicationContext(),this.alarm);
+        alarm.setId(alarmId);
+        alarmScheduler.setAlarm(getApplicationContext(), this.alarm);
     }
 
-    public void storeAlarm(){
-       db.createAlarm(this.alarm);
+    public void storeAlarm() {
+        alarmId = db.createAlarm(this.alarm);
     }
 
     /**
@@ -426,37 +447,11 @@ public class AddNewAlarm extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 createAlarm();
-                scheduleAlarm();
                 storeAlarm();
-                Toast.makeText(getApplicationContext(),"Alarm created",Toast.LENGTH_SHORT).show();
+                scheduleAlarm();
+                Toast.makeText(getApplicationContext(), "Alarm created", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
     }
-
 }
-
-// Create Alarm object, push to db and schedule an alarm
-
-//Todo: implement alarm setter intent as below
-/***
- * <p/>
- * <p/>
- * private void alarmTimeIntent(){
- * Intent alarmIntent = new Intent(AlarmClock.ACTION_SET_ALARM);
- * alarmIntent.putExtra(AlarmClock.EXTRA_HOUR,true);
- * alarmIntent.putExtra(AlarmClock.EXTRA_MINUTES,true);
- * startActivity(alarmIntent);}
- * <p/>
- * public Dialog onCreateDialog(Bundle savedInstanceState) {
- * // Use the current time as the default values for the picker
- * <p/>
- * <p/>
- * final Calendar c = Calendar.getInstance();
- * hour_local = c.get(Calendar.HOUR_OF_DAY);
- * minute_local = c.get(Calendar.MINUTE);
- * <p/>
- * // Create a new instance of TimePickerDialog and return it
- * return new TimePickerDialog(getActivity(), this, hour_local, minute_local,
- * DateFormat.is24HourFormat(getActivity()));}
- */

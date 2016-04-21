@@ -44,7 +44,7 @@ public class NewAlarmDialogFragment extends DialogFragment implements View.OnCli
         timeAlarmButton.setOnClickListener(this);
         locationAlarmButton = (Button) viewFragment.findViewById(R.id.newLocationAlarm);
         locationAlarmButton.setOnClickListener(this);
-        setCancelable(false); // prevents a tap outside of screen or back button from cancelling the dialog
+        setCancelable(true); // prevents a tap outside of screen or back button from cancelling the dialog
         return viewFragment;
     }
 

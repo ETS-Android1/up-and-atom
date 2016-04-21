@@ -18,6 +18,9 @@ import android.widget.TextView;
  */
 public class AlarmOverrideDialogFragment extends DialogFragment implements View.OnClickListener {
 
+
+    private OnCompleteListener listener;
+
     /**
      * EditText inside dialog where user enters a passcode that will be used to override the QR alarm in exceptional circumstance.
      */
@@ -36,17 +39,7 @@ public class AlarmOverrideDialogFragment extends DialogFragment implements View.
     private String overridePassword;
 
 
-    /**
-     * Attaches the fragment to the activity
-     *
-     * @param addNewAlarmActivity - in this instance the AddNewAlarm activity
-     */
-    @Override
-    public void onAttach(Activity addNewAlarmActivity) {
-        super.onAttach(addNewAlarmActivity);
-    }
-
-    /**
+     /**
      * Creates the dialog view and instantiates the button views.
      *
      * @param inflater           - instantiates the xml file into the view objects
@@ -62,6 +55,7 @@ public class AlarmOverrideDialogFragment extends DialogFragment implements View.
         confirmButton = (Button) viewFragment.findViewById(R.id.confirmButton);
         confirmButton.setOnClickListener(this);
         setCancelable(false); // prevents a tap outside of screen or back button from cancelling the dialog
+        passcodeEditText = (EditText)viewFragment.findViewById(R.id.editTextPasscode);
         return viewFragment;
     }
 
@@ -73,20 +67,30 @@ public class AlarmOverrideDialogFragment extends DialogFragment implements View.
      */
     public void onClick(View viewFragment) {
 
-
-        TextView tv = (TextView)viewFragment.findViewById(R.id.tester2);
-
         if (viewFragment.getId() == R.id.confirmButton) {
             //ToDO: fix app crash when confirm button is clicked + get the passcode toString and send back to Activity/database
-            passcodeEditText = (EditText)viewFragment.findViewById(R.id.editTextPasscode);
-            overridePassword = passcodeEditText.getText().toString();
-            tv.setText(overridePassword);
-                    // SOURCE OF ISSUE
+            this.listener.onComplete(passcodeEditText.getText().toString());
+            // SOURCE OF ISSUE
             dismiss(); // Dismisses dialog from view, returning focus to activity
         }
 
         if (viewFragment.getId() == R.id.cancelButton) {
             dismiss(); // Dismisses dialog from view, returning focus to activity
+        }
+    }
+    /**
+     * Attaches the fragment to the activity
+     *
+     * @param dismissAlarmActvity - in this instance the AddNewAlarm activity
+     */
+    @Override
+    public void onAttach(Activity dismissAlarmActvity ) {
+        super.onAttach(dismissAlarmActvity );
+        try {
+            this.listener = (OnCompleteListener)dismissAlarmActvity ;
+        }
+        catch (final ClassCastException e) {
+            throw new ClassCastException(dismissAlarmActvity .toString() + " must implement OnCompleteListener");
         }
     }
 }

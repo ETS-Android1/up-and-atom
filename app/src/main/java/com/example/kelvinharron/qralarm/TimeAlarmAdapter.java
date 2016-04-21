@@ -34,8 +34,13 @@ public class TimeAlarmAdapter extends RecyclerView.Adapter<TimeAlarmAdapter.Alar
     }
 
     public void deleteAlarm(int position) {
+        Alarm alarm = timeAlarmData.get(position);
+        new AlarmScheduler().cancelAlarm(inflater.getContext(), alarm);
+        AlarmSQLiteHelper db = new AlarmSQLiteHelper(inflater.getContext());
+        db.deleteAlarm(alarm);
         timeAlarmData.remove(position);
         notifyItemRemoved(position);
+
     }
 
     /**
@@ -63,11 +68,49 @@ public class TimeAlarmAdapter extends RecyclerView.Adapter<TimeAlarmAdapter.Alar
     public void onBindViewHolder(AlarmViewHolder holder, final int position) {
         Alarm alarm = timeAlarmData.get(position);
 
+        // TOOD: looking at the create alarm void method instead???
         holder.alarmName.setText(alarm.getName());
         holder.alarmMemo.setText(alarm.getMemo());
         holder.alarmTimeHour.setText(String.valueOf(alarm.getHour()));
         holder.alarmTimeMin.setText(String.valueOf(alarm.getMin()));
-        holder.alarmDays.setText(String.valueOf(alarm.getDays()));
+
+        String dayText = "";
+        StringBuilder strBuilder = new StringBuilder();
+        if (alarm.getDays() != null) {
+            for (Integer day : alarm.getDays()) {
+                switch (day) {
+                    //case 0:
+                     //   dayText = "Not Recurring ";
+                      //  break;
+                    case 1:
+                        dayText = "Sun ";
+                        break;
+                    case 2:
+                        dayText = "Mon ";
+                        break;
+                    case 3:
+                        dayText = "Tue ";
+                        break;
+                    case 4:
+                        dayText = "Wed ";
+                        break;
+                    case 5:
+                        dayText = "Thu ";
+                        break;
+                    case 6:
+                        dayText = "Fri ";
+                        break;
+                    case 7:
+                        dayText = "Sat ";
+                        break;
+                    default: dayText = "Not Recurring ";
+                        break;
+                }
+                strBuilder.append(dayText);
+            }
+        }
+
+        holder.alarmDays.setText(strBuilder.toString());
         holder.alarmIsOn.setChecked(alarm.isOn());
 
     }
@@ -79,11 +122,8 @@ public class TimeAlarmAdapter extends RecyclerView.Adapter<TimeAlarmAdapter.Alar
      */
     @Override
     public int getItemCount() {
-
         return timeAlarmData.size();
     }
-
-
 
 
     /**

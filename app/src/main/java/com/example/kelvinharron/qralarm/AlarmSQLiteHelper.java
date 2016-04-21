@@ -33,7 +33,7 @@ public class AlarmSQLiteHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     private static final String DATABASE_CREATE = "CREATE TABLE " + ALARMS
-            + " ( " + ALARM_ID + " integer primary key, "
+            + " ( " + ALARM_ID + " integer primary key autoincrement, "
             + ALARM_NAME + " text not null, "
             + ALARM_MEMO + " text not null, "
             + ALARM_SOUND + " text, "
@@ -61,11 +61,11 @@ public class AlarmSQLiteHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void createAlarm(Alarm alarm) {
+    public long createAlarm(Alarm alarm) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(ALARM_DAYS, alarm.getId());
+        //values.put(ALARM_ID, null);
         values.put(ALARM_NAME, alarm.getName());
         values.put(ALARM_MEMO, alarm.getMemo());
         values.put(ALARM_SOUND, alarm.storeSound());
@@ -76,25 +76,26 @@ public class AlarmSQLiteHelper extends SQLiteOpenHelper {
         values.put(ALARM_MIN, alarm.getMin());
         values.put(ALARM_QR_CODE, alarm.getQrResult());
         values.put(ALARM_ON, alarm.isOn());
-        db.insert(ALARMS, null, values);
+        long id = db.insert(ALARMS, null, values);
         db.close();
 
         System.out.print("Alarm Created");
+        return id;
     }
 
-    public Alarm readAlarm(int id) {
+    public Alarm readAlarm(long id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(ALARMS, COLUMNS, " id = ?", new String[]{
                 String.valueOf(id)
         }, null, null, null, null);
 
-        if (cursor != null) {
+        if (cursor != null && cursor.moveToNext()) {
             cursor.moveToFirst();
         }
         Alarm alarm = new Alarm();
 
-        alarm.setId(Integer.parseInt(cursor.getString(0)));
+        alarm.setId(id);
         alarm.setName(cursor.getString(1));
         alarm.setMemo(cursor.getString(2));
         alarm.setSound(cursor.getString(3));
@@ -121,7 +122,7 @@ public class AlarmSQLiteHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 alarm = new Alarm();
-                alarm.setId(Integer.parseInt(cursor.getString(0)));
+                alarm.setId(cursor.getInt(0));
                 alarm.setName(cursor.getString(1));
                 alarm.setMemo(cursor.getString(2));
                 alarm.setSound(cursor.getString(3));
@@ -159,6 +160,22 @@ public class AlarmSQLiteHelper extends SQLiteOpenHelper {
 
         db.close();
         return i;
+    }
+
+    public int getNewId(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        int maxID = 0;
+        String query = "SELECT MAX(id) FROM " + ALARMS;
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                maxID = cursor.getInt(0);
+
+            } while (cursor.moveToNext());
+        }
+        return maxID + 1;
     }
 
     public void deleteAlarm(Alarm alarm) {

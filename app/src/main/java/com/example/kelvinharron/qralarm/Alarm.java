@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
  */
 public class Alarm {
 
-    private int id;
+    private long id;
     private String name;
     private String memo;
     private boolean recurring;
@@ -46,7 +46,7 @@ public class Alarm {
     public Alarm() {
     }
 
-    public Alarm(int id, String name, String memo, boolean recurring, String sound, float volume, Integer[] days, int hour, int min, String qrResult, boolean on) {
+    public Alarm(long id, String name, String memo, boolean recurring, String sound, float volume, Integer[] days, int hour, int min, String qrResult, boolean on) {
         this.id = id;
         this.name = name;
         this.memo = memo;
@@ -79,11 +79,11 @@ public class Alarm {
         this.on = on;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -129,13 +129,18 @@ public class Alarm {
     }
 
     public void setDays(String daysDB) {
+
+        System.out.print("printing stored days " + daysDB);
+
         if (daysDB != null && daysDB.length() > 0) {
             String[] days = daysDB.split(strSeparator);
 
             this.days = new Integer[days.length];
 
             for (int count = 0; count < days.length; count++) {
-                this.days[count] = new Integer(days[count]);
+                if (!days[count].equals("") || days[count].equals(null)) {
+                    this.days[count] = new Integer(days[count]);
+                }
             }
         } else {
             this.days = new Integer[1];
@@ -216,7 +221,7 @@ public class Alarm {
     }
 
     public void setOn(int on) {
-        this.recurring = (on == 1);
+        this.on = (on == 1);
     }
 
     public int storeRecurring() {
@@ -253,6 +258,7 @@ public class Alarm {
         return defaultUri;
     }
 
+    //TODO turn into string builder
     public String storeDays() {
         String str = "";
         for (int count = 0; count < days.length; count++) {
