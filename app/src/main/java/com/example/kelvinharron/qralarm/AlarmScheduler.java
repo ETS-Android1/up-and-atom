@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.os.Parcelable;
 import android.os.SystemClock;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 
 /**
@@ -30,7 +31,7 @@ public class AlarmScheduler {
             if (alarm.isRecurring()) {
                 for (Integer day : alarm.getDays()) {
                     //multiply by 10 to uniquely identify the intent for each day or ends with 0 if not recurring
-                    alarmIntent = PendingIntent.getBroadcast(context, alarm.getId() * 10 + day, intent, 0);
+                    alarmIntent = PendingIntent.getBroadcast(context, new BigDecimal(alarm.getId()).intValueExact()  * 10 + day, intent, 0);
 
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTimeInMillis(System.currentTimeMillis());
@@ -45,7 +46,7 @@ public class AlarmScheduler {
             } else {
 
                 //uniquely identify the intent for each day and ends with 0 if not recurring
-                alarmIntent = PendingIntent.getBroadcast(context, alarm.getId() * 10, intent, 0);
+                alarmIntent = PendingIntent.getBroadcast(context, new BigDecimal(alarm.getId()).intValueExact() * 10, intent, 0);
 
                 Calendar calNow = Calendar.getInstance();
                 calNow.setTimeInMillis(System.currentTimeMillis());
@@ -68,17 +69,17 @@ public class AlarmScheduler {
     public void cancelAlarm(Context context, Alarm alarm) {
         alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, AlarmReceiver.class);
-        intent.putExtra("alarm", (Parcelable) alarm);
+        intent.putExtra("alarmId", alarm.getId());
 
         if (alarm.isRecurring()) {
             for (Integer day : alarm.getDays()) {
                 //multiply by 10 to uniquely identify the intent for each day or ends with 0 if not recurring
-                alarmIntent = PendingIntent.getBroadcast(context, alarm.getId() * 10 + day, intent, 0);
+                alarmIntent = PendingIntent.getBroadcast(context, new BigDecimal(alarm.getId()).intValueExact() * 10 + day, intent, 0);
                 alarmMgr.cancel(alarmIntent);
             }
         } else {
             //multiply by 10 to uniquely identify the intent for each day or ends with 0 if not recurring
-            alarmIntent = PendingIntent.getBroadcast(context, alarm.getId() * 10, intent, 0);
+            alarmIntent = PendingIntent.getBroadcast(context, new BigDecimal(alarm.getId()).intValueExact() * 10, intent, 0);
             alarmMgr.cancel(alarmIntent);
         }
     }

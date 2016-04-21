@@ -11,8 +11,8 @@
     <string name="dialog_new_alarm">What type of Alarm would you like to create?</string>
     <string name="action_about">About</string>
     <string name="add_new_alarm">Add new alarm</string>
-    <string name="alarm_name_hint">My QR Alarm</string>
-    <string name="alarm_memo_hint">Alarm Memo</string>
+    <string name="alarm_name_hint">Alarm Title</string>
+    <string name="alarm_memo_hint">Scan Item</string>
     <string name="qr_button_text">Scan QR Code</string>
     <string name="alarm_override_textview">Alarm Override</string>
     <string name="confirm_button">Confirm</string>

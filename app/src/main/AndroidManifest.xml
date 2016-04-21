@@ -19,69 +19,43 @@
         android:theme="@style/MyMaterialTheme">
 
         <activity android:name=".MainActivity">
-
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-
             </intent-filter>
         </activity>
-
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyAlvVjKwz8pFrX9LqtPOmdeNvFcoFLB0wE" />
 
-        <!-- <uses-feature
-             android:glEsVersion="0x00020000"
-             android:required="true" />
-
-         <uses-feature android:name="android.hardware.camera" />
- -->
-        <activity android:name=".SettingsActivity"
+        <activity
+            android:name=".SettingsActivity"
             android:label="Settings" />
-
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
-
         <activity
             android:name=".AddNewAlarm"
             android:label="@string/add_new_alarm"
-            android:parentActivityName=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
+            android:parentActivityName=".MainActivity"></activity>
         <activity
             android:name=".AddNewLocationAlarm"
             android:label="Add new location alarm"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity" />
 
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".DismissAlarmActivity"
-            android:theme="@style/Theme.AppCompat.Dialog">
-
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity
+            android:name=".DismissAlarmActivity"
+            android:theme="@style/DismissTheme">
         </activity>
 
         <receiver android:name=".AlarmReceiver" />
         <receiver
             android:name=".BootReceiver"
-            android:enabled="false">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"></action>
-            </intent-filter>
-        </receiver>
+            android:enabled="false"></receiver>
 
     </application>
 

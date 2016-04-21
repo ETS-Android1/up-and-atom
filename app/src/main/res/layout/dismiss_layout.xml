@@ -1,15 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:id="@+id/dismiss_layout">
 
-    <Button
-        android:id="@+id/buttonSetAlarm"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dismiss_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
+    android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
+    android:layout_marginTop="@dimen/add_new_alarm_standard_padding"
+    android:layout_gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/alarm_title"
+        style="@style/Base.TextAppearance.AppCompat.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Blop" />
+        android:layout_gravity="center"
+        android:text="Alarm"
+        android:textSize="40sp" />
+
+    <TextView
+        android:id="@+id/dismiss_title"
+        style="@style/Base.TextAppearance.AppCompat.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Alarm"
+        android:textSize="32sp" />
+<!--
+    <TextClock
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Time"
+        android:textSize="40sp" /> -->
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
+    android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
+    android:layout_marginTop="@dimen/add_new_alarm_standard_padding"
+    android:layout_gravity="center">
+    <TextView
+        android:id="@+id/scan_title"
+        style="@style/Base.TextAppearance.AppCompat.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
+        android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
+        android:layout_gravity="center"
+        android:text="Scan : "
+        android:textSize="16sp" />
+    <TextView
+        android:id="@+id/scan_item"
+        style="@style/Base.TextAppearance.AppCompat.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
+        android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
+        android:layout_gravity="center"
+        android:layout_toRightOf="@+id/scan_title"
+        android:text="Alarm"
+        android:textSize="16sp" />
+</RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/button_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/snooze_button"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Snooze"
+            android:textColor="@color/themeAccent" />
 
 
+        <Button
+            android:id="@+id/override_button"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/snooze_button"
+            android:text="Override"
+            android:textColor="@color/themeAccent" />
+
+        <Button
+            android:id="@+id/scan_button"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/override_button"
+            android:text="Scan"
+            android:textColor="@color/themeAccent" />
+    </RelativeLayout>
 </LinearLayout>

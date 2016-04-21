@@ -20,8 +20,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.SeekBar;
-import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -45,7 +43,7 @@ public class AddNewAlarm extends AppCompatActivity {
     /**
      * Alarm id which is passed from the parent activity based on the number of alarms
      */
-    private int alarmId;
+    private long alarmId;
 
     /**
      * Alarm object which is created by Activity
@@ -112,7 +110,7 @@ public class AddNewAlarm extends AppCompatActivity {
      * Button to set Alarm Sound
      */
     private TextView alarmSound;
-
+    private TextView alarmTitle;
     private String qrResult;
 
     /**
@@ -143,8 +141,6 @@ public class AddNewAlarm extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        tester = (TextView) findViewById(R.id.tester2);
 
 
         db = new AlarmSQLiteHelper(this);
@@ -152,7 +148,6 @@ public class AddNewAlarm extends AppCompatActivity {
         setTimeAlarmName();
         setTimeAlarmMemo();
         setAlarm();
-        setOverride();
         setScanQR();
         setRingtone();
         setSeekbar();
@@ -353,36 +348,16 @@ public class AddNewAlarm extends AppCompatActivity {
     }
 
     /**
-     * Method used to create an override when creating a new Alarm.
-     * Calls the AlarmOverrideDialogFragment that displays after a button press a
-     * dialog box where the user can submit a passcode override.
-     */
-    private void setOverride() {
-
-        final android.support.v4.app.FragmentManager manager = getSupportFragmentManager(); // fragment manager allows us to instantiate the dialog fragment
-        final AlarmOverrideDialogFragment dialogFragment = new AlarmOverrideDialogFragment(); // create an object of the dialogfragment that will allow us to display it once a button is pressed.
-
-        String passcode; //TODO: implement a way to get the passcode from the fragment and store & display it as a test
-
-        final Switch overrideSwitch = (Switch) findViewById(R.id.overrideSwitch);
-        final EditText passcodeEditText = (EditText) findViewById(R.id.editTextPasscode);
-        overrideSwitch.setChecked(false);
-        overrideSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    Toast.makeText(AddNewAlarm.this, "CHECKED", Toast.LENGTH_SHORT).show();
-                    dialogFragment.show(manager, "fragment");
-                }
-            }
-        });
-    }
-
-    /**
      * Method for setting the alarm ringtone
      */
-
     private void setRingtone() {
+        alarmTitle = (TextView) findViewById(R.id.alarm_sound);
+        alarmTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getAvailableRingtones();
+            }
+        });
         alarmSound = (TextView) findViewById(R.id.get_ringtone);
         chosenRingtone = RingtoneManager.getActualDefaultRingtoneUri(getApplicationContext(), RingtoneManager.TYPE_ALARM);
         Ringtone ringtone = RingtoneManager.getRingtone(this, chosenRingtone);
@@ -390,15 +365,18 @@ public class AddNewAlarm extends AppCompatActivity {
 
         alarmSound.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {        // Insert Hannah's ringtone thing here
-                Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
-                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_NOTIFICATION);
-                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, "Select Tone");
-                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, (Uri) null);
-                startActivityForResult(intent, 5);
+            public void onClick(View v) {
+                getAvailableRingtones();
             }
         });
-        //Spinner spinner = (Spinner) findViewById(R.id.ringtoneSpinner);
+    }
+
+    private void getAvailableRingtones(){
+        Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
+        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_NOTIFICATION);
+        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, "Select Tone");
+        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, (Uri) null);
+        startActivityForResult(intent, 5);
     }
 
     private void setSeekbar() {
@@ -421,10 +399,8 @@ public class AddNewAlarm extends AppCompatActivity {
     private void createAlarm() {
 
         alarm = new Alarm();
-        //TODO tie up with Kelvin to set the alarm id in the bundle that is extracted in the onCreate
         //alarmId = 1;
-        alarmId = db.getNewId();
-        alarm.setId(alarmId);
+        //alarmId = db.getNewId();
         alarm.setName(time_name.getText().toString());
         alarm.setMemo(time_memo.getText().toString());
 
@@ -452,11 +428,12 @@ public class AddNewAlarm extends AppCompatActivity {
 
     public void scheduleAlarm() {
         AlarmScheduler alarmScheduler = new AlarmScheduler();
+        alarm.setId(alarmId);
         alarmScheduler.setAlarm(getApplicationContext(), this.alarm);
     }
 
     public void storeAlarm() {
-        db.createAlarm(this.alarm);
+        alarmId = db.createAlarm(this.alarm);
     }
 
     /**
@@ -470,8 +447,8 @@ public class AddNewAlarm extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 createAlarm();
-                scheduleAlarm();
                 storeAlarm();
+                scheduleAlarm();
                 Toast.makeText(getApplicationContext(), "Alarm created", Toast.LENGTH_SHORT).show();
                 finish();
             }

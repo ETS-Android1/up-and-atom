@@ -1,29 +1,30 @@
 package com.example.kelvinharron.qralarm;
 
-import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-
-import com.example.kelvinharron.qralarm.AlarmSQLiteHelper;
-
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+
+import java.io.IOException;
 
 
 /**
  * Created by Hannah on 12/04/2016.
  */
-public class DismissAlarmActivity extends AppCompatActivity {
+public class DismissAlarmActivity extends AppCompatActivity implements OnCompleteListener {
 
 
     //set integers required for alarm activity
@@ -36,43 +37,78 @@ public class DismissAlarmActivity extends AppCompatActivity {
     String qrResult;
     AlarmSQLiteHelper alarmSQLiteHelper;
     Alarm alarm;
+    MediaPlayer mediaPlayer;
+
+    //TODO sort out actual setting preferences to set overrideCode
+    String prefOverrideCode = "1";
+
+    Button snooze;
+    Button scan;
+    Button override;
+
+    TextView title;
+    TextView scanItem;
 
 
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
-
+        setContentView(R.layout.dismiss_layout);
         alarmSQLiteHelper = new AlarmSQLiteHelper(getApplicationContext());
-
         Bundle extras = getIntent().getExtras();
-        //if (extras != null) {
-        int alarmId = extras.getInt("alarmID");
-        System.out.print("Outputting ID: "+alarmId+"\n");
+        long alarmId = extras.getLong("alarmID");
+        System.out.print("Outputting ID: " + alarmId + "\n");
         alarm = alarmSQLiteHelper.readAlarm(alarmId);
-        //uriAlarm = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-        //ring = RingtoneManager.getRingtone(getApplicationContext(), uriAlarm);//alarm.getSound());
-        ring = RingtoneManager.getRingtone(getApplicationContext(), alarm.getSound());
-        //audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-        //prevVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
-        //audioManager.setStreamVolume(AudioManager.STREAM_ALARM, Math.round(alarm.getVolume() * audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM)), AudioManager.FLAG_ALLOW_RINGER_MODES);
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-        // set title
-        alertDialogBuilder.setTitle("Reminder");
-        ring.play();
 
-        if(!alarm.isRecurring()){
+        title = (TextView) findViewById(R.id.dismiss_title);
+        title.setText(alarm.getName());
+
+        scanItem = (TextView) findViewById(R.id.scan_item);
+        scanItem.setText(alarm.getMemo());
+
+        if (!alarm.isRecurring()) {
             alarm.setOn(false);
             alarmSQLiteHelper.update(alarm);
         }
+        mediaPlayer = new MediaPlayer();
+        try {
+            mediaPlayer.setDataSource(this, alarm.getSound());
+            final AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+            if (audioManager.getStreamVolume(AudioManager.STREAM_RING) != 0) {
+                mediaPlayer.setAudioStreamType(AudioManager.STREAM_RING);
+                mediaPlayer.setLooping(true);
+                mediaPlayer.prepare();
+                mediaPlayer.start();
+            }
+        } catch (IOException iOException) {
+            ring = RingtoneManager.getRingtone(getApplicationContext(), alarm.getSound());
+            ring.play();
+        }
 
-        // set dialog message
-        alertDialogBuilder.setMessage("Scan QR Code To Stop Alarm").setCancelable(false).setPositiveButton("Scan", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
+        setupSnooze();
+        setupScan();
+        setupOverride();
+
+    }
+
+    public void setupSnooze() {
+        snooze = (Button) findViewById(R.id.snooze_button);
+        snooze.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlarmScheduler().ignoreAlarm(getApplicationContext(), 5);
+                stop();
+            }
+        });
+    }
+
+    public void setupScan() {
+        scan = (Button) findViewById(R.id.scan_button);
+        scan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 String prompt = "Scan QR Code";
                 startScanning(prompt);
             }
-
 
             public void onActivityResult(int requestCode, int resultCode, Intent intent, DialogInterface dialog) {
                 IntentResult scanResult = integrator.parseActivityResult(requestCode, resultCode, intent);
@@ -93,23 +129,27 @@ public class DismissAlarmActivity extends AppCompatActivity {
                     }
                 }
             }
-        }).setNegativeButton("Snooze", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // if this button is clicked, just close
-                // the dialog box and do nothing
-                dialog.dismiss();
-                new AlarmScheduler().ignoreAlarm(getApplicationContext(), 5);
-                stop();
+        });
+    }
+
+    public void setupOverride() {
+        override = (Button) findViewById(R.id.override_button);
+        override.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final android.support.v4.app.FragmentManager manager = getSupportFragmentManager(); // fragment manager allows us to instantiate the dialog fragment
+                final AlarmOverrideDialogFragment dialogFragment = new AlarmOverrideDialogFragment(); // create an object of the dialogfragment that will allow us to display it once a button is pressed.
+                dialogFragment.show(manager, "fragment");
             }
         });
-        // create alert dialog
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        // show it
-        alertDialog.show();
     }
 
     public void stop() {
-        ring.stop();
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+        } else if (ring != null) {
+            ring.stop();
+        }
         //audioManager.setStreamVolume(AudioManager.STREAM_ALARM, prevVolume, AudioManager.FLAG_ALLOW_RINGER_MODES);
         finish();
     }
@@ -121,6 +161,15 @@ public class DismissAlarmActivity extends AppCompatActivity {
         integrator.setCameraId(0);  // Use a specific camera of the device
         integrator.setBeepEnabled(false);
         integrator.initiateScan();
+    }
+
+    @Override
+    public void onComplete(String overrideCode) {
+        if (prefOverrideCode.equals(overrideCode)) {
+            stop();
+        } else {
+            Toast.makeText(getApplicationContext(), "Wrong override code, please try again.", Toast.LENGTH_SHORT).show();
+        }
     }
 }
 

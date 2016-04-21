@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
  */
 public class Alarm {
 
-    private int id;
+    private long id;
     private String name;
     private String memo;
     private boolean recurring;
@@ -46,7 +46,7 @@ public class Alarm {
     public Alarm() {
     }
 
-    public Alarm(int id, String name, String memo, boolean recurring, String sound, float volume, Integer[] days, int hour, int min, String qrResult, boolean on) {
+    public Alarm(long id, String name, String memo, boolean recurring, String sound, float volume, Integer[] days, int hour, int min, String qrResult, boolean on) {
         this.id = id;
         this.name = name;
         this.memo = memo;
@@ -79,11 +79,11 @@ public class Alarm {
         this.on = on;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
