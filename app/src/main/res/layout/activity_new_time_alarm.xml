@@ -63,7 +63,9 @@
                     android:id="@+id/timeAlarmTimepicker"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="?attr/colorPrimary">
+                    android:paddingLeft="@dimen/add_new_alarm_standard_padding"
+                    android:paddingRight="@dimen/add_new_alarm_standard_padding"
+                    >
 
                 </TimePicker>
 
@@ -79,13 +81,14 @@
                     android:layout_marginTop="@dimen/add_new_alarm_standard_padding"
                     android:background="?attr/colorPrimary"
                     android:orientation="horizontal"
-                    android:paddingLeft="20dp">
+                    android:paddingLeft="30dp">
 
                     <CheckBox
                         android:id="@+id/timeMonday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="M"
+                        android:buttonTint="@color/white"
                         android:textColor="@color/white" />
 
                     <CheckBox
@@ -93,6 +96,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="T"
+                        android:buttonTint="@color/white"
                         android:textColor="@color/white" />
 
                     <CheckBox
@@ -100,6 +104,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="W"
+                        android:buttonTint="@color/white"
                         android:textColor="@color/white" />
 
                     <CheckBox
@@ -107,6 +112,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Th"
+                        android:buttonTint="@color/white"
                         android:textColor="@color/white" />
 
                     <CheckBox
@@ -114,6 +120,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="F"
+                        android:buttonTint="@color/white"
                         android:textColor="@color/white" />
 
                     <CheckBox
@@ -121,6 +128,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="S"
+                        android:buttonTint="@color/white"
                         android:textColor="@color/white" />
 
                     <CheckBox
@@ -128,6 +136,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="S"
+                        android:buttonTint="@color/white"
                         android:textColor="@color/white" />
                 </LinearLayout>
 
@@ -194,17 +203,17 @@
                         android:textSize="20sp"
                         android:textStyle="normal" />
 
-
-                    <TextView
-                        android:id="@+id/volume_label"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/get_ringtone"
-                        android:paddingBottom="5dp"
-                        android:paddingLeft="20dp"
-                        android:text="Volume"
-                        android:textColor="#000000"
-                        android:textSize="20sp" />
+                    <!-->
+                                        <TextView
+                                            android:id="@+id/volume_label"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_below="@+id/get_ringtone"
+                                            android:paddingBottom="5dp"
+                                            android:paddingLeft="20dp"
+                                            android:text="Volume"
+                                            android:textColor="#000000"
+                                            android:textSize="20sp" />
 
                     <SeekBar
                         android:id="@+id/volume_bar"
@@ -218,13 +227,15 @@
                         android:paddingBottom="5dp"
                         android:paddingLeft="20dp"
                         android:progress="5"></SeekBar>
+                    <-->
+
                     <!-->Confirmation Button - Change to FAB or at least more material look?<-->
                     <Button
                         android:id="@+id/confirmButton"
                         style="?android:attr/selectableItemBackgroundBorderless"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/volume_bar"
+                        android:layout_below="@+id/get_ringtone"
                         android:layout_marginBottom="@dimen/add_new_alarm_standard_padding"
                         android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
                         android:layout_marginRight="@dimen/add_new_alarm_standard_padding"

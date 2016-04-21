@@ -91,7 +91,7 @@ public class LocationAlarmAdapter extends RecyclerView.Adapter<LocationAlarmAdap
 
         public AlarmViewHolder(View itemView) {
             super(itemView);
-            alarmName = (TextView) itemView.findViewById(R.id.alarm_name);
+            alarmName = (TextView) itemView.findViewById(R.id.location_alarm_name);
             alarmMemo = (TextView) itemView.findViewById(R.id.alarm_memo);
             alarmTimeHour = (TextView) itemView.findViewById(R.id.alarm_time_hour);
             alarmTimeMin = (TextView) itemView.findViewById(R.id.alarm_time_min);

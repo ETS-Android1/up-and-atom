@@ -141,7 +141,7 @@ public class TimeAlarmAdapter extends RecyclerView.Adapter<TimeAlarmAdapter.Alar
         public AlarmViewHolder(View itemView) {
             super(itemView);
             itemView.setOnLongClickListener(this);
-            alarmName = (TextView) itemView.findViewById(R.id.alarm_name);
+            alarmName = (TextView) itemView.findViewById(R.id.location_alarm_name);
             alarmMemo = (TextView) itemView.findViewById(R.id.alarm_memo);
             alarmTimeHour = (TextView) itemView.findViewById(R.id.alarm_time_hour);
             alarmTimeMin = (TextView) itemView.findViewById(R.id.alarm_time_min);

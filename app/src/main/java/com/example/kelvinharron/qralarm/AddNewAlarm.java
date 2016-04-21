@@ -7,6 +7,8 @@ package com.example.kelvinharron.qralarm;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -89,7 +91,6 @@ public class AddNewAlarm extends AppCompatActivity {
     // TEST - REMOVE
     private TextView tester;
 
-
     /**
      * Creates a reference to the calendar allowing us to get the hour and minute as integers.
      */
@@ -120,7 +121,7 @@ public class AddNewAlarm extends AppCompatActivity {
 
     private Uri chosenRingtone;
 
-    private SeekBar volumeControl;
+    // private SeekBar volumeControl;
     private float volume;
 
     AlarmSQLiteHelper db;
@@ -150,7 +151,7 @@ public class AddNewAlarm extends AppCompatActivity {
         setAlarm();
         setScanQR();
         setRingtone();
-        setSeekbar();
+        //setSeekbar();
         confirmAlarm();
 
         dayArray = new ArrayList<>();
@@ -163,7 +164,7 @@ public class AddNewAlarm extends AppCompatActivity {
                 } else {
                     dayArray.remove(Integer.valueOf(1));
                 }
-                tester.setText(dayArray.toString());
+              //  tester.setText(dayArray.toString());
                 //System.out.print();
             }
         });
@@ -176,7 +177,7 @@ public class AddNewAlarm extends AppCompatActivity {
                 } else {
                     dayArray.remove(Integer.valueOf(2));
                 }
-                tester.setText(dayArray.toString());
+              //  tester.setText(dayArray.toString());
 
 //                System.out.print(Arrays.toString(dayArray.toArray()));
             }
@@ -191,7 +192,7 @@ public class AddNewAlarm extends AppCompatActivity {
                 } else {
                     dayArray.remove(Integer.valueOf(3));
                 }
-                tester.setText(dayArray.toString());
+              //  tester.setText(dayArray.toString());
 
 //                System.out.print(Arrays.toString(dayArray.toArray()));
             }
@@ -205,7 +206,7 @@ public class AddNewAlarm extends AppCompatActivity {
                 } else {
                     dayArray.remove(Integer.valueOf(4));
                 }
-                tester.setText(dayArray.toString());
+             //  tester.setText(dayArray.toString());
 
 //                System.out.print(Arrays.toString(dayArray.toArray()));
             }
@@ -219,7 +220,7 @@ public class AddNewAlarm extends AppCompatActivity {
                 } else {
                     dayArray.remove(Integer.valueOf(5));
                 }
-                tester.setText(dayArray.toString());
+              //  tester.setText(dayArray.toString());
 
 //                System.out.print(Arrays.toString(dayArray.toArray()));
             }
@@ -233,7 +234,7 @@ public class AddNewAlarm extends AppCompatActivity {
                 } else {
                     dayArray.remove(Integer.valueOf(6));
                 }
-                tester.setText(dayArray.toString());
+              //  tester.setText(dayArray.toString());
 
 //                System.out.print(Arrays.toString(dayArray.toArray()));
             }
@@ -247,7 +248,7 @@ public class AddNewAlarm extends AppCompatActivity {
                 } else {
                     dayArray.remove(Integer.valueOf(7));
                 }
-                tester.setText(dayArray.toString());
+             //   tester.setText(dayArray.toString());
 
 //                System.out.print(Arrays.toString(dayArray.toArray()));
             }
@@ -379,6 +380,7 @@ public class AddNewAlarm extends AppCompatActivity {
         startActivityForResult(intent, 5);
     }
 
+    /*
     private void setSeekbar() {
 
         volumeControl = (SeekBar) findViewById(R.id.volume_bar);
@@ -395,6 +397,7 @@ public class AddNewAlarm extends AppCompatActivity {
             }
         });
     }
+*/
 
     private void createAlarm() {
 
@@ -443,6 +446,7 @@ public class AddNewAlarm extends AppCompatActivity {
     private void confirmAlarm() {
 
         Button button = (Button) findViewById(R.id.confirmButton);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
