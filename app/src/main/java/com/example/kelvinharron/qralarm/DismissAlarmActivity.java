@@ -109,27 +109,27 @@ public class DismissAlarmActivity extends AppCompatActivity implements OnComplet
                 String prompt = "Scan QR Code";
                 startScanning(prompt);
             }
-
-            public void onActivityResult(int requestCode, int resultCode, Intent intent, DialogInterface dialog) {
-                IntentResult scanResult = integrator.parseActivityResult(requestCode, resultCode, intent);
-                if (scanResult != null) {
-                    String data[] = scanResult.getContents().split("\n");
-                    StringBuilder stringBuilder = new StringBuilder();
-                    for (String string : data) {
-                        stringBuilder.append(string);
-                    }
-                    qrResult = stringBuilder.toString();
-
-                    if (qrResult == alarm.getQrResult()) {
-                        dialog.dismiss();
-                        stop();
-                    } else {
-                        String prompt = "Wrong QR Code - Please Try Again";
-                        startScanning(prompt);
-                    }
-                }
-            }
         });
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        IntentResult scanResult = integrator.parseActivityResult(requestCode, resultCode, intent);
+        if (scanResult != null) {
+            String data[] = scanResult.getContents().split("\n");
+            StringBuilder stringBuilder = new StringBuilder();
+            for (String string : data) {
+                stringBuilder.append(string);
+            }
+            qrResult = stringBuilder.toString();
+
+            if (qrResult.equals(alarm.getQrResult())) {
+                Toast.makeText(this, "Dismissing Alarm", Toast.LENGTH_SHORT).show();
+                stop();
+            } else {
+                String prompt = "Wrong QR Code - Please Try Again";
+                startScanning(prompt);
+            }
+        }
     }
 
     public void setupOverride() {
@@ -156,7 +156,7 @@ public class DismissAlarmActivity extends AppCompatActivity implements OnComplet
 
     public void startScanning(String prompt) {
         integrator = new IntentIntegrator(DismissAlarmActivity.this);
-        integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
+        integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
         integrator.setPrompt(prompt);
         integrator.setCameraId(0);  // Use a specific camera of the device
         integrator.setBeepEnabled(false);

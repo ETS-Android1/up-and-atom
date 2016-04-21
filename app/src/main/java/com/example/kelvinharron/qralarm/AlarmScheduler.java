@@ -27,11 +27,10 @@ public class AlarmScheduler {
         intent.putExtra("alarmID", alarm.getId());
 
         if (alarm.isOn()) {
-
             if (alarm.isRecurring()) {
                 for (Integer day : alarm.getDays()) {
                     //multiply by 10 to uniquely identify the intent for each day or ends with 0 if not recurring
-                    alarmIntent = PendingIntent.getBroadcast(context, new BigDecimal(alarm.getId()).intValueExact()  * 10 + day, intent, 0);
+                    alarmIntent = PendingIntent.getBroadcast(context, new BigDecimal(alarm.getId() * 10).intValueExact() + day, intent, 0);
 
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTimeInMillis(System.currentTimeMillis());
@@ -46,7 +45,7 @@ public class AlarmScheduler {
             } else {
 
                 //uniquely identify the intent for each day and ends with 0 if not recurring
-                alarmIntent = PendingIntent.getBroadcast(context, new BigDecimal(alarm.getId()).intValueExact() * 10, intent, 0);
+                alarmIntent = PendingIntent.getBroadcast(context, new BigDecimal(alarm.getId() * 10).intValueExact(), intent, 0);
 
                 Calendar calNow = Calendar.getInstance();
                 calNow.setTimeInMillis(System.currentTimeMillis());

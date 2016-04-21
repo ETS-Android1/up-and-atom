@@ -339,7 +339,7 @@ public class AddNewAlarm extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 integrator = new IntentIntegrator(AddNewAlarm.this);
-                integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
+                integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
                 integrator.setPrompt("Scan QR Code");
                 integrator.setCameraId(0);  // Use a specific camera of the device
                 integrator.setBeepEnabled(false);

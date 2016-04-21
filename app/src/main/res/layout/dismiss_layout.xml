@@ -7,6 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
     android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
+    android:layout_marginBottom="@dimen/add_new_alarm_standard_padding"
     android:layout_marginTop="@dimen/add_new_alarm_standard_padding"
     android:layout_gravity="center"
     android:orientation="vertical">
