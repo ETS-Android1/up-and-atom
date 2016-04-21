@@ -5,6 +5,7 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
@@ -12,7 +13,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +29,8 @@ import java.util.Collections;
 
 /**
  * Created by Peter on 16/04/2016.
- * This screen allows the user to set a new alarm based on location
+ * This class allows the user to set a new alarm based on location. Activated by the user pressing
+ * the floating action button on the main menu
  */
 public class AddNewLocationAlarm extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -48,20 +49,25 @@ public class AddNewLocationAlarm extends AppCompatActivity implements OnMapReady
     private EditText location_name;
 
     /**
-     * Alarm memo - time alarm only
+     * Alarm memo
      */
     private EditText location_memo;
-
-    /**
-     * Sets whether the alarm repeats or not
-     */
 
     /**
      * ArrayList for checkbox repetitions
      */
     ArrayList<Integer> dayArray = new ArrayList<>();
 
+    /**
+     * Sets whether the alarm repeats or not
+     */
+
     private boolean recurringTimeAlarm;
+
+    /**
+     * Checkboxes representing the days of the week
+     * The alarm will repeat on days that are checked
+     */
 
     private CheckBox sunCB;
     private CheckBox monCB;
@@ -71,6 +77,9 @@ public class AddNewLocationAlarm extends AppCompatActivity implements OnMapReady
     private CheckBox satCB;
     private CheckBox wedCB;
 
+    /**
+     * Allows us to set the toolbar
+     */
     private Toolbar toolbar;
 
     /**
@@ -98,14 +107,12 @@ public class AddNewLocationAlarm extends AppCompatActivity implements OnMapReady
     AlarmSQLiteHelper db;
     public static final float VOLUME_MODIFIER = 10;
 
-
     /**
-     * Default Constructor
+     * Start of activity lifecycle. Sets the view of the AddNewLocationAlarm activity
+     * and calls the methods enabling behavior.
+     *
+     * @param savedInstanceState
      */
-
-    public AddNewLocationAlarm() {
-
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -128,7 +135,6 @@ public class AddNewLocationAlarm extends AppCompatActivity implements OnMapReady
         // setAlarm();
         setScanQR();
         setRingtone();
-        //setSeekbar();
         confirmAlarm();
 
         dayArray = new ArrayList<>();
@@ -141,10 +147,9 @@ public class AddNewLocationAlarm extends AppCompatActivity implements OnMapReady
                 } else {
                     dayArray.remove(Integer.valueOf(1));
                 }
-                //tester.setText(dayArray.toString());
-                //System.out.print();
             }
         });
+
         monCB = (CheckBox) findViewById(R.id.locationMonday);
         monCB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,9 +159,6 @@ public class AddNewLocationAlarm extends AppCompatActivity implements OnMapReady
                 } else {
                     dayArray.remove(Integer.valueOf(2));
                 }
-                //tester.setText(dayArray.toString());
-
-//                System.out.print(Arrays.toString(dayArray.toArray()));
             }
         });
 
@@ -169,11 +171,9 @@ public class AddNewLocationAlarm extends AppCompatActivity implements OnMapReady
                 } else {
                     dayArray.remove(Integer.valueOf(3));
                 }
-                //tester.setText(dayArray.toString());
-
-//                System.out.print(Arrays.toString(dayArray.toArray()));
             }
         });
+
         wedCB = (CheckBox) findViewById(R.id.locationWednesday);
         wedCB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -183,11 +183,9 @@ public class AddNewLocationAlarm extends AppCompatActivity implements OnMapReady
                 } else {
                     dayArray.remove(Integer.valueOf(4));
                 }
-                //tester.setText(dayArray.toString());
-
-//                System.out.print(Arrays.toString(dayArray.toArray()));
             }
         });
+
         thuCB = (CheckBox) findViewById(R.id.locationThursday);
         thuCB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -197,11 +195,9 @@ public class AddNewLocationAlarm extends AppCompatActivity implements OnMapReady
                 } else {
                     dayArray.remove(Integer.valueOf(5));
                 }
-               // tester.setText(dayArray.toString());
-
-//                System.out.print(Arrays.toString(dayArray.toArray()));
             }
         });
+
         friCB = (CheckBox) findViewById(R.id.locationFriday);
         friCB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,11 +207,9 @@ public class AddNewLocationAlarm extends AppCompatActivity implements OnMapReady
                 } else {
                     dayArray.remove(Integer.valueOf(6));
                 }
-                //tester.setText(dayArray.toString());
-
-//                System.out.print(Arrays.toString(dayArray.toArray()));
             }
         });
+
         satCB = (CheckBox) findViewById(R.id.locationSaturday);
         satCB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -225,41 +219,18 @@ public class AddNewLocationAlarm extends AppCompatActivity implements OnMapReady
                 } else {
                     dayArray.remove(Integer.valueOf(7));
                 }
-                //tester.setText(dayArray.toString());
-
-//                System.out.print(Arrays.toString(dayArray.toArray()));
             }
         });
-
     }
 
     @Override
     public void onMapReady(GoogleMap map) {
-/*
-        GoogleMap moveMap;
-        moveMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.nlamap)).getMap();
 
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        moveMap.setMyLocationEnabled(true);
-        moveMap.getUiSettings().setZoomControlsEnabled(true);
-        moveMap.getUiSettings().setMyLocationButtonEnabled(true);
-        moveMap.getUiSettings().setZoomGesturesEnabled(true);
-*/
-        // Test Data - Remove
         LatLng sydney = new LatLng(-33.867, 151.206);
 
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 3));
         map.animateCamera(CameraUpdateFactory.zoomIn());
-        map.animateCamera(CameraUpdateFactory.zoomTo(18),2000,null);
+        map.animateCamera(CameraUpdateFactory.zoomTo(18), 2000, null);
         map.addMarker(new MarkerOptions()
                 .title("Sydney")
                 .snippet("The most populous city in Australia.")
@@ -295,13 +266,8 @@ public class AddNewLocationAlarm extends AppCompatActivity implements OnMapReady
     }
 
     /**
-     *
-     */
-
-    /*
     * Button for bringing up QR scanner
     */
-
     private void setScanQR() {
         scanQR = (Button) findViewById(R.id.QRButton);
 
@@ -340,36 +306,15 @@ public class AddNewLocationAlarm extends AppCompatActivity implements OnMapReady
                 getAvailableRingtones();
             }
         });
-
-
     }
 
-    private void getAvailableRingtones(){
+    private void getAvailableRingtones() {
         Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
         intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_NOTIFICATION);
         intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, "Select Tone");
         intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, (Uri) null);
         startActivityForResult(intent, 5);
     }
-
-    /*
-    private void setSeekbar() {
-
-        volumeControl = (SeekBar) findViewById(R.id.volume_bar);
-        volume = volumeControl.getProgress();
-        volumeControl.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                volume = progress;
-            }
-
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-
-            public void onStopTrackingTouch(SeekBar seekBar) {
-            }
-        });
-    }
-*/
 
     private void createAlarm() {
 
@@ -417,7 +362,7 @@ public class AddNewLocationAlarm extends AppCompatActivity implements OnMapReady
 
     private void confirmAlarm() {
 
-        Button button = (Button) findViewById(R.id.confirmButton);
+        FloatingActionButton button = (FloatingActionButton) findViewById(R.id.confirmButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -1,17 +1,11 @@
-
-// TODO: Checkboxes
-// TODO: Tidy stuff up & Comment
-
 package com.example.kelvinharron.qralarm;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -19,9 +13,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -29,11 +21,8 @@ import android.widget.Toast;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Collections;
 
 /**
@@ -57,7 +46,7 @@ public class AddNewAlarm extends AppCompatActivity {
     private EditText time_name;
 
     /**
-     * Alarm memo - time alarm only
+     * Alarm memo
      */
     private EditText time_memo;
 
@@ -76,6 +65,11 @@ public class AddNewAlarm extends AppCompatActivity {
      */
     private boolean recurringTimeAlarm;
 
+    /**
+     * Checkboxes representing the days of the week
+     * The alarm will repeat on days that are checked
+     */
+
     private CheckBox sunCB;
     private CheckBox monCB;
     private CheckBox tueCB;
@@ -83,21 +77,14 @@ public class AddNewAlarm extends AppCompatActivity {
     private CheckBox friCB;
     private CheckBox satCB;
     private CheckBox wedCB;
+
     /**
      * ArrayList for checkbox repetitions
      */
     ArrayList<Integer> dayArray = new ArrayList<>();
 
-    // TEST - REMOVE
-    private TextView tester;
-
     /**
-     * Creates a reference to the calendar allowing us to get the hour and minute as integers.
-     */
-    private Calendar calendar = Calendar.getInstance();
-
-    /**
-     *
+     * Allows us to set the toolbar
      */
     private Toolbar toolbar;
 
@@ -111,7 +98,15 @@ public class AddNewAlarm extends AppCompatActivity {
      * Button to set Alarm Sound
      */
     private TextView alarmSound;
+
+    /**
+     * Name of the ringtone to play when alarm goes off
+     */
     private TextView alarmTitle;
+
+    /**
+     *
+     */
     private String qrResult;
 
     /**
@@ -121,7 +116,6 @@ public class AddNewAlarm extends AppCompatActivity {
 
     private Uri chosenRingtone;
 
-    // private SeekBar volumeControl;
     private float volume;
 
     AlarmSQLiteHelper db;
@@ -164,8 +158,6 @@ public class AddNewAlarm extends AppCompatActivity {
                 } else {
                     dayArray.remove(Integer.valueOf(1));
                 }
-              //  tester.setText(dayArray.toString());
-                //System.out.print();
             }
         });
         monCB = (CheckBox) findViewById(R.id.timeMonday);
@@ -177,9 +169,6 @@ public class AddNewAlarm extends AppCompatActivity {
                 } else {
                     dayArray.remove(Integer.valueOf(2));
                 }
-              //  tester.setText(dayArray.toString());
-
-//                System.out.print(Arrays.toString(dayArray.toArray()));
             }
         });
 
@@ -192,10 +181,7 @@ public class AddNewAlarm extends AppCompatActivity {
                 } else {
                     dayArray.remove(Integer.valueOf(3));
                 }
-              //  tester.setText(dayArray.toString());
-
-//                System.out.print(Arrays.toString(dayArray.toArray()));
-            }
+             }
         });
         wedCB = (CheckBox) findViewById(R.id.timeWednesday);
         wedCB.setOnClickListener(new View.OnClickListener() {
@@ -206,9 +192,6 @@ public class AddNewAlarm extends AppCompatActivity {
                 } else {
                     dayArray.remove(Integer.valueOf(4));
                 }
-             //  tester.setText(dayArray.toString());
-
-//                System.out.print(Arrays.toString(dayArray.toArray()));
             }
         });
         thuCB = (CheckBox) findViewById(R.id.timeThursday);
@@ -220,9 +203,6 @@ public class AddNewAlarm extends AppCompatActivity {
                 } else {
                     dayArray.remove(Integer.valueOf(5));
                 }
-              //  tester.setText(dayArray.toString());
-
-//                System.out.print(Arrays.toString(dayArray.toArray()));
             }
         });
         friCB = (CheckBox) findViewById(R.id.timeFriday);
@@ -234,9 +214,6 @@ public class AddNewAlarm extends AppCompatActivity {
                 } else {
                     dayArray.remove(Integer.valueOf(6));
                 }
-              //  tester.setText(dayArray.toString());
-
-//                System.out.print(Arrays.toString(dayArray.toArray()));
             }
         });
         satCB = (CheckBox) findViewById(R.id.timeSaturday);
@@ -248,9 +225,6 @@ public class AddNewAlarm extends AppCompatActivity {
                 } else {
                     dayArray.remove(Integer.valueOf(7));
                 }
-             //   tester.setText(dayArray.toString());
-
-//                System.out.print(Arrays.toString(dayArray.toArray()));
             }
         });
 
@@ -380,24 +354,9 @@ public class AddNewAlarm extends AppCompatActivity {
         startActivityForResult(intent, 5);
     }
 
-    /*
-    private void setSeekbar() {
-
-        volumeControl = (SeekBar) findViewById(R.id.volume_bar);
-        volume = volumeControl.getProgress();
-        volumeControl.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                volume = progress;
-            }
-
-            public void onStartTrackingTouch(SeekBar seekBar) {
-            }
-
-            public void onStopTrackingTouch(SeekBar seekBar) {
-            }
-        });
-    }
-*/
+    /**
+     *
+     */
 
     private void createAlarm() {
 
@@ -445,7 +404,7 @@ public class AddNewAlarm extends AppCompatActivity {
 
     private void confirmAlarm() {
 
-        Button button = (Button) findViewById(R.id.confirmButton);
+        FloatingActionButton button = (FloatingActionButton) findViewById(R.id.confirmButton);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
