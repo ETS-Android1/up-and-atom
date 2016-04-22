@@ -18,7 +18,7 @@ the card view.
     android:id="@+id/time_alarm_card_view"
     android:layout_width="match_parent"
     android:layout_height="130dp"
-    android:layout_margin="10dp"
+    android:layout_margin="30dp"
     app:cardUseCompatPadding="true"
     card_view:cardCornerRadius="4dp"
     card_view:cardElevation="10dp">
@@ -63,6 +63,7 @@ the card view.
             android:layout_below="@id/time_alarm_memo"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:text="@string/preset_alarm_hours"
+            android:textColor="@color/themeAccent"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -73,6 +74,7 @@ the card view.
             android:layout_below="@id/time_alarm_memo"
             android:layout_toRightOf="@id/time_alarm_hour"
             android:text=":"
+            android:textColor="@color/themeAccent"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -83,6 +85,7 @@ the card view.
             android:layout_below="@id/time_alarm_memo"
             android:layout_toRightOf="@id/time_alarm_colon"
             android:text="@string/preset_alarm_mins"
+            android:textColor="@color/themeAccent"
             android:textSize="24sp"
             android:textStyle="bold" />
 

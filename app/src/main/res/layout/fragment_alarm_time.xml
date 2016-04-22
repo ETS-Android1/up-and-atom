@@ -9,7 +9,7 @@ TODO: Establish connection to a dataset to enable empty state that shows text an
     android:id="@+id/coordinatorLayoutFile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TimeAlarmFragment">
+    tools:context=".FragmentTimeAlarm">
 
 
     <TextView

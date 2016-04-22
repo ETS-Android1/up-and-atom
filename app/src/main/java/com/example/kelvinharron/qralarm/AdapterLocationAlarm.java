@@ -17,7 +17,7 @@ import java.util.List;
  * TODO: add database wrapper so we can update database with card information
  * Created by kelvinharron on 10/04/2016.
  */
-public class LocationAlarmAdapter extends RecyclerView.Adapter<LocationAlarmAdapter.AlarmViewHolder>{
+public class AdapterLocationAlarm extends RecyclerView.Adapter<AdapterLocationAlarm.AlarmViewHolder>{
 
     private LayoutInflater inflater;
     private List<Alarm> alarmData = Collections.emptyList();
@@ -28,7 +28,7 @@ public class LocationAlarmAdapter extends RecyclerView.Adapter<LocationAlarmAdap
      * @param context
      * @param alarmData
      */
-    public LocationAlarmAdapter(Context context, List<Alarm> alarmData) {
+    public AdapterLocationAlarm(Context context, List<Alarm> alarmData) {
         inflater = LayoutInflater.from(context);
         this.alarmData = alarmData;
     }

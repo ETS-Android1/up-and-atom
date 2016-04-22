@@ -15,18 +15,18 @@ import java.util.List;
  * Class is used to inflate the alarm fragment view on our interface.
  * Created by kelvinharron on 04/04/2016.
  */
-public class TimeAlarmFragment extends Fragment {
+public class FragmentTimeAlarm extends Fragment {
 
 
     private RecyclerView recyclerView;
-    private TimeAlarmAdapter adapter;
+    private AdapterTimeAlarm adapter;
     private View layout;
     private Context context;
 
     /**
      * Default class constructor, empty as standard
      */
-    public TimeAlarmFragment() {
+    public FragmentTimeAlarm() {
     }
 
     @Override
@@ -57,7 +57,7 @@ public class TimeAlarmFragment extends Fragment {
      */
     private void createRecyclerView() {
         recyclerView = (RecyclerView) layout.findViewById(R.id.time_alarm_recycler_view);
-        adapter = new TimeAlarmAdapter(getActivity(), getData());
+        adapter = new AdapterTimeAlarm(getActivity(), getData());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }

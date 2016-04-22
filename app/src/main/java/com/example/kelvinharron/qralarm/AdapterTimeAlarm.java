@@ -17,7 +17,7 @@ import java.util.List;
  * TODO: add database wrapper so we can update database with card information
  * Created by kelvinharron on 10/04/2016.
  */
-public class TimeAlarmAdapter extends RecyclerView.Adapter<TimeAlarmAdapter.AlarmViewHolder> {
+public class AdapterTimeAlarm extends RecyclerView.Adapter<AdapterTimeAlarm.AlarmViewHolder> {
 
     private LayoutInflater inflater;
     private List<Alarm> timeAlarmData = Collections.emptyList();
@@ -28,7 +28,7 @@ public class TimeAlarmAdapter extends RecyclerView.Adapter<TimeAlarmAdapter.Alar
      * @param context
      * @param timeAlarmData
      */
-    public TimeAlarmAdapter(Context context, List<Alarm> timeAlarmData) {
+    public AdapterTimeAlarm(Context context, List<Alarm> timeAlarmData) {
         inflater = LayoutInflater.from(context);
         this.timeAlarmData = timeAlarmData;
     }

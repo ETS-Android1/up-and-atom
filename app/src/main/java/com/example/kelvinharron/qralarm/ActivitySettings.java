@@ -32,6 +32,5 @@ public class ActivitySettings extends AppCompatActivity {
         getFragmentManager().beginTransaction().replace(android.R.id.content, new FragmentPreferences()).commit();
     }
 
-
 }
 

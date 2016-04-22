@@ -33,16 +33,6 @@
             android:background="@android:color/transparent"
             android:text="@string/time_alarm"
             android:textColor="@color/themeAccent" />
-
-        <Button
-            android:id="@+id/newLocationAlarm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@android:color/transparent"
-            android:enabled="false"
-            android:text="@string/location_alarm"
-            android:textColor="@color/textEmptyState" />
         <!-- This option is disabled as we are keen to highlight the fact we made some progress on implementing
         a location based alarm that triggered once a user left a certain location without first scanning an object.
         This is disabled and coloured differently so a user cannot add alarms that will not function. -->

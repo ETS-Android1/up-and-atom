@@ -79,7 +79,6 @@
             android:text="Snooze"
             android:textColor="@color/themeAccent" />
 
-
         <Button
             android:id="@+id/override_button"
             style="?android:attr/borderlessButtonStyle"

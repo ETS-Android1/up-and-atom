@@ -42,8 +42,6 @@ public class NewAlarmDialogFragment extends DialogFragment implements View.OnCli
         getDialog().setTitle("Add new Alarm");
         timeAlarmButton = (Button) viewFragment.findViewById(R.id.newTimeAlarm);
         timeAlarmButton.setOnClickListener(this);
-        locationAlarmButton = (Button) viewFragment.findViewById(R.id.newLocationAlarm);
-        locationAlarmButton.setOnClickListener(this);
         setCancelable(true); // prevents a tap outside of screen or back button from cancelling the dialog
         return viewFragment;
     }
@@ -56,12 +54,6 @@ public class NewAlarmDialogFragment extends DialogFragment implements View.OnCli
             Intent openActivity = new Intent(getContext(), AddNewAlarm.class);
             startActivity(openActivity);
             dismiss();
-        }
-
-        if (viewFragment.getId() == R.id.newLocationAlarm) {
-            Intent openActivity = new Intent(getContext(), AddNewLocationAlarm.class);
-            startActivity(openActivity);
-            dismiss(); // Dismisses dialog from view, returning focus to activity
         }
     }
 

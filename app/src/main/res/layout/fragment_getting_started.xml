@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- As we were unable to implement a satisfactory location based alarm, we focused instead on polishing the time based version and left
+ this tab section as a stub. A seperate adapater, card and fragment were all present but the logic behind it would require us to invest
+ much more time to complete.-->
+
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@android:style/Theme.Material.Light"
+    tools:context=".FragmentGettingStarted">
+
+    <!--> Layout allowing the user to scroll <-->
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+
+            xmlns:app="http://schemas.android.com/tools"
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_getting_started_one"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="30dp"
+            app:cardUseCompatPadding="true"
+            card_view:cardCornerRadius="4dp"
+            card_view:cardElevation="10dp">
+
+            <!-- The elevation values allow us to alter the density of the shadow effect while the layout_margin will affect how much distance appears
+             between each unique card.-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:id="@+id/step_one"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:text="Step one"
+                    android:textColor="@color/themeAccent"
+                    android:textSize="16sp"
+                    android:textStyle="italic"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/time_alarm_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:text="Set a name and memo"
+                    android:textColor="@color/themeAccent"
+                    android:textSize="20sp"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:layout_marginTop="60dp"
+                    android:id="@+id/time_alarm_memo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:text="A name and memo will help you quickly choose what to scan "
+                    android:textSize="16sp"
+                    android:textStyle="normal" />
+
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </android.support.v4.widget.NestedScrollView>
+</android.support.design.widget.CoordinatorLayout>

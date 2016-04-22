@@ -321,7 +321,7 @@ public class DismissAlarmActivity extends AppCompatActivity implements OnComplet
         Location prefLocation = new Location(provider);
         prefLocation.setLatitude(HOME_LATITUDE);
         prefLocation.setLongitude(HOME_LONGITUDE);
-        if (localLocation.distanceTo(prefLocation) < LOCATION_MARGIN && this.locationServiceAvailable){
+        if (localLocation.distanceTo(prefLocation) < LOCATION_MARGIN && this.locationServiceAvailable) {
             atPrefLocation = true;
         } else {
             atPrefLocation = false;
@@ -345,4 +345,3 @@ public class DismissAlarmActivity extends AppCompatActivity implements OnComplet
 
     }
 }
-
