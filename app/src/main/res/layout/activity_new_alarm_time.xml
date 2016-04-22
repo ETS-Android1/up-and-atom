@@ -27,7 +27,6 @@
             android:background="@color/white"
             android:orientation="vertical">
 
-
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/timeTIL1"
                 android:layout_width="match_parent"
@@ -89,7 +88,8 @@
                     android:layout_marginTop="@dimen/add_new_alarm_standard_padding"
                     android:background="?attr/colorPrimary"
                     android:orientation="horizontal"
-                    android:paddingLeft="30dp">
+                    android:gravity="center_horizontal"
+                    >
 
                     <!--> checkboxes to allow the user to set the days the alarm
                     should repeat on<-->
