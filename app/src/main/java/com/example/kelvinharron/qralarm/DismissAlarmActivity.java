@@ -48,10 +48,10 @@ public class DismissAlarmActivity extends AppCompatActivity implements OnComplet
     //TODO sort out actual setting preferences to set overrideCode
     String prefOverrideCode = "1";
 
-    public static double HOME_LATITUDE = 1;
-    public static double HOME_LONGITUDE = 1;
+    public static double HOME_LATITUDE = 54.568354;
+    public static double HOME_LONGITUDE = -5.913660;
 
-    public static double LOCATION_MARGIN = 1;
+    public static double LOCATION_MARGIN = 1000;
 
 
     Button snooze;
@@ -317,6 +317,7 @@ public class DismissAlarmActivity extends AppCompatActivity implements OnComplet
     private boolean isPrefLocation() {
         boolean atPrefLocation;
         getMyLocation();
+        // checking if location can be found
         Location localLocation = location;
         Location prefLocation = new Location(provider);
         prefLocation.setLatitude(HOME_LATITUDE);
