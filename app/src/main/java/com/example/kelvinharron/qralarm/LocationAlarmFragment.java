@@ -17,9 +17,6 @@ import java.util.List;
  */
 public class LocationAlarmFragment extends Fragment {
 
-
-    private RecyclerView recyclerView;
-    private TimeAlarmAdapter adapter;
     private View layout;
 
     /**
@@ -43,50 +40,9 @@ public class LocationAlarmFragment extends Fragment {
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        layout = inflater.inflate(R.layout.location_alarm_fragment, container, false);
-        createRecyclerView();
+        layout = inflater.inflate(R.layout.fragment_alarm_location, container, false);
+
         return layout;
     }
 
-    /**
-     * Method instanties our recyclerview view object which is a very efficient means of displaying lists of data.
-     * Instantiates our adapter class which binds data properties to a view object.
-     * LinearLayoutManager is set by default to display data vertically, but can also show grids or staggered views of data.
-     */
-    private void createRecyclerView() {
-        recyclerView = (RecyclerView) layout.findViewById(R.id.location_alarm_recycler_view);
-        adapter = new TimeAlarmAdapter(getActivity(), getData());
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-    }
-
-    /**
-     * Test data class. Local arraylists provide test data
-     * TODO: HOUR AND MIN SHOW ONE DIGIT INSTEAD OF TWO, RELATED TO PHONE TIME SETTINGS?
-     * TOOD: alarmDays SHOWS NULL ON CARD VIEWS
-     *
-     * @return
-     */
-    public static List<Alarm> getData() {
-        List<Alarm> alarmData = new ArrayList<>();
-
-        String[] alarmNames = {"WAKE UP DAMNIT", "Good Morning", "Big day", "alarm"};
-        String[] alarmMemos = {"Scan the coffee", "Scan the milk", "Eggs code", "memo"};
-        int[] alarmTimeHour = {06, 07, 03, 05};
-        int[] alarmTimeMin = {30, 00, 00, 30};
-        Integer[] alarmDays = {4, 3, 7, 4};
-        boolean[] alarmIsOn = {true, false, true, false};
-
-        for (int loop = 0; loop < alarmNames.length; loop++) {
-            Alarm current = new Alarm();
-            current.setName(alarmNames[loop]);
-            current.setMemo(alarmMemos[loop]);
-            current.setHour(alarmTimeHour[loop]);
-            current.setMin(alarmTimeMin[loop]);
-            //current.setDays(alarmDays[loop]);
-            current.setOn(alarmIsOn[loop]);
-            alarmData.add(current);
-        }
-        return alarmData;
-    }
 }

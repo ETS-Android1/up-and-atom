@@ -42,9 +42,9 @@ public class LocationAlarmAdapter extends RecyclerView.Adapter<LocationAlarmAdap
      */
     @Override
     public AlarmViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View alarmView = inflater.inflate(R.layout.location_alarm_card, parent, false);
-        AlarmViewHolder holder = new AlarmViewHolder(alarmView);
-        return holder;
+    //    View alarmView = inflater.inflate(R.layout.card_location_alarm, parent, false);
+     //   AlarmViewHolder holder = new AlarmViewHolder(alarmView);
+      return null;
     }
 
     /**
@@ -57,12 +57,6 @@ public class LocationAlarmAdapter extends RecyclerView.Adapter<LocationAlarmAdap
     @Override
     public void onBindViewHolder(AlarmViewHolder holder, final int position) {
         Alarm alarm = alarmData.get(position);
-        holder.alarmName.setText(alarm.getName());
-        holder.alarmMemo.setText(alarm.getMemo());
-        holder.alarmTimeHour.setText(String.valueOf(alarm.getHour()));
-        holder.alarmTimeMin.setText(String.valueOf(alarm.getMin()));
-        holder.alarmDays.setText(String.valueOf(alarm.getDays()));
-        holder.alarmIsOn.setChecked(alarm.isOn());
 
     }
 
@@ -91,12 +85,7 @@ public class LocationAlarmAdapter extends RecyclerView.Adapter<LocationAlarmAdap
 
         public AlarmViewHolder(View itemView) {
             super(itemView);
-            alarmName = (TextView) itemView.findViewById(R.id.location_alarm_name);
-            alarmMemo = (TextView) itemView.findViewById(R.id.alarm_memo);
-            alarmTimeHour = (TextView) itemView.findViewById(R.id.alarm_time_hour);
-            alarmTimeMin = (TextView) itemView.findViewById(R.id.alarm_time_min);
-            alarmDays = (TextView) itemView.findViewById(R.id.alarm_days);
-            alarmIsOn = (Switch) itemView.findViewById(R.id.toggleAlarmSwitch);
+
         }
     }
 }

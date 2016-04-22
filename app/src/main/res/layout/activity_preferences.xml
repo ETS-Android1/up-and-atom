@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- This layout is required as a container for the preferences.xml file. It acts like a root for the preferences file that has the logic
+ for the layout view and actions.
+
+ Attempted to implement a toolbar with a back button but this conflicted with the preferences view. -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/settings_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.kelvinharron.qralarm.ActivitySettings">
+
+</LinearLayout>
+

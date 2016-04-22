@@ -1,15 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- This file displays a spinner like option on the main activity view, allowing the user quick access to settings and the about page.
+ We can use this on the toolbar to keep the screen simple without appearing too busy and keep it android like. The overflow menu that gives
+ the user options is stock and familiar to users without drawing attention away from the actual activity/fragment views.
+
+ The logic for the buttons is defined in the activity_main java file as a switch statement, launching intents or fragments depending on which
+ option the user chooses.
+ -->
+
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".qralarm">
     <item
         android:id="@+id/action_settings"
-        android:orderInCategory="100"
+        android:orderInCategory="0"
         android:title="@string/action_settings"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_about"
-        android:orderInCategory="100"
+        android:orderInCategory="1"
         android:title="@string/action_about"
         app:showAsAction="never" />
+    <!-- The item is a view object and allows us to easily add options that we can reference in java. -->
 </menu>

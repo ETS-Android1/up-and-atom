@@ -52,7 +52,7 @@ public class TimeAlarmAdapter extends RecyclerView.Adapter<TimeAlarmAdapter.Alar
      */
     @Override
     public AlarmViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View alarmView = inflater.inflate(R.layout.time_alarm_card, parent, false);
+        View alarmView = inflater.inflate(R.layout.card_time_alarm, parent, false);
         AlarmViewHolder holder = new AlarmViewHolder(alarmView);
         return holder;
     }
@@ -80,8 +80,8 @@ public class TimeAlarmAdapter extends RecyclerView.Adapter<TimeAlarmAdapter.Alar
             for (Integer day : alarm.getDays()) {
                 switch (day) {
                     //case 0:
-                     //   dayText = "Not Recurring ";
-                      //  break;
+                    //   dayText = "Not Recurring ";
+                    //  break;
                     case 1:
                         dayText = "Sun ";
                         break;
@@ -103,7 +103,8 @@ public class TimeAlarmAdapter extends RecyclerView.Adapter<TimeAlarmAdapter.Alar
                     case 7:
                         dayText = "Sat ";
                         break;
-                    default: dayText = "Not Recurring ";
+                    default:
+                        dayText = "Not Recurring ";
                         break;
                 }
                 strBuilder.append(dayText);
@@ -141,12 +142,12 @@ public class TimeAlarmAdapter extends RecyclerView.Adapter<TimeAlarmAdapter.Alar
         public AlarmViewHolder(View itemView) {
             super(itemView);
             itemView.setOnLongClickListener(this);
-            alarmName = (TextView) itemView.findViewById(R.id.location_alarm_name);
-            alarmMemo = (TextView) itemView.findViewById(R.id.alarm_memo);
-            alarmTimeHour = (TextView) itemView.findViewById(R.id.alarm_time_hour);
-            alarmTimeMin = (TextView) itemView.findViewById(R.id.alarm_time_min);
-            alarmDays = (TextView) itemView.findViewById(R.id.alarm_days);
-            alarmIsOn = (Switch) itemView.findViewById(R.id.toggleAlarmSwitch);
+            alarmName = (TextView) itemView.findViewById(R.id.time_alarm_name);
+            alarmMemo = (TextView) itemView.findViewById(R.id.time_alarm_memo);
+            alarmTimeHour = (TextView) itemView.findViewById(R.id.time_alarm_hour);
+            alarmTimeMin = (TextView) itemView.findViewById(R.id.time_alarm_min);
+            alarmDays = (TextView) itemView.findViewById(R.id.time_alarm_days);
+            alarmIsOn = (Switch) itemView.findViewById(R.id.time_alarm_switch);
         }
 
         @Override

@@ -35,7 +35,7 @@
                 <!--> Text view widget that shows a floating label instead of a hint
                  Alarm name<-->
                 <android.support.design.widget.TextInputEditText
-                    android:id="@+id/location_alarm_name"
+                    android:id="@+id/time_alarm_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"

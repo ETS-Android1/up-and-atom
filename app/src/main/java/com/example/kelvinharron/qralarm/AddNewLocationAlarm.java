@@ -117,7 +117,7 @@ public class AddNewLocationAlarm extends AppCompatActivity implements OnMapReady
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_location_alarm);
+        setContentView(R.layout.activity_new_alarm_location);
 
         // Displays the toolbar, its title & the back button
         toolbar = (Toolbar) findViewById(R.id.anlToolbar);
@@ -241,7 +241,7 @@ public class AddNewLocationAlarm extends AppCompatActivity implements OnMapReady
      * Set the alarm name
      */
     private void setLocationAlarmName() {
-        location_name = (EditText) findViewById(R.id.location_alarm_name);
+        location_name = (EditText) findViewById(R.id.time_alarm_name);
         location_name.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {

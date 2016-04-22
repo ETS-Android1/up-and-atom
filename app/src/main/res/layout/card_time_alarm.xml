@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Card view is a separate view from any activity as it is INFLATED into view on the time_alarm_fragment screen. We design only one so the
+Recycler View can use it as a template to create many more with different views as we create more objects. This is very efficient.
+
+This card view is a style of view that is very android and material design, we were keen to implement something that could be both
+useful and aesthetically pleasing so using it as a view holder for the alarm information was a pefect opportunity.
+
+It works much like any other layout but uses an android support library cardview as the root layout, giving us control over card_view controls
+meaning we can adjust the look to suit. CardUseCompatPadding allows us to target backwards compatability with older devices when they render
+the card view.
+-->
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/time_alarm_card_view"
+    android:layout_width="match_parent"
+    android:layout_height="130dp"
+    android:layout_margin="10dp"
+    app:cardUseCompatPadding="true"
+    card_view:cardCornerRadius="4dp"
+    card_view:cardElevation="10dp">
+
+    <!-- The elevation values allow us to alter the density of the shadow effect while the layout_margin will affect how much distance appears
+     between each unique card.-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <!-- Using a relative layout allows us greater control over the views inside the card. The text values here are placeholder as the
+         input from the user creating a new alarm will replace the data here. Using stokc margin values as they work well for uur needs here.
+         -->
+
+        <TextView
+            android:id="@+id/time_alarm_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:text="@string/preset_alarm_memo"
+            android:textSize="22sp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/time_alarm_memo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/time_alarm_name"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:text="@string/preset_alarm_memo"
+            android:textSize="16sp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/time_alarm_hour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/time_alarm_memo"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:text="@string/preset_alarm_hours"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/time_alarm_colon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/time_alarm_memo"
+            android:layout_toRightOf="@id/time_alarm_hour"
+            android:text=":"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/time_alarm_min"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/time_alarm_memo"
+            android:layout_toRightOf="@id/time_alarm_colon"
+            android:text="@string/preset_alarm_mins"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/time_alarm_days"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/time_alarm_hour"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:text="@string/preset_days"
+            android:textSize="16sp"
+            android:textStyle="normal" />
+
+        <Switch
+            android:id="@+id/time_alarm_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_marginRight="@dimen/activity_horizontal_margin" />
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

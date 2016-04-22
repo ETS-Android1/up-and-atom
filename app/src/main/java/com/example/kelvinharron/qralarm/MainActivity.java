@@ -2,6 +2,7 @@ package com.example.kelvinharron.qralarm;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private AlarmSQLiteHelper alarmSQLiteHelper;
+
     /**
      * This is the start of the application lifecycle. Sets the main content layout while calling/initilisng methods to setup UI elements.
      *
@@ -57,13 +60,16 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout;
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
+
+
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
         setupViewPager(viewPager);
     }
+
 
     private void checkFirstRun() {
 
@@ -82,12 +88,12 @@ public class MainActivity extends AppCompatActivity {
         int savedVersionCode = prefs.getInt(PREF_VERSION_CODE_KEY, DOESNT_EXIST);
 
         // Check for first run - want db to be persistent even on activity upgrade as re-adding alarms on each update would be irritating to user
-       if (savedVersionCode == DOESNT_EXIST) {
-            alarmSQLiteHelper.onUpgrade(alarmSQLiteHelper.getWritableDatabase(),0,1);
+        if (savedVersionCode == DOESNT_EXIST) {
+            alarmSQLiteHelper.onUpgrade(alarmSQLiteHelper.getWritableDatabase(), 0, 1);
         }
 
         //alarmSQLiteHelper.onUpgrade(alarmSQLiteHelper.getWritableDatabase(),0,1);
-        // Update the shared preferences with the current version code
+        // Update the s+hared preferences with the current version code
         prefs.edit().putInt(PREF_VERSION_CODE_KEY, currentVersionCode).commit();
 
     }
@@ -110,11 +116,12 @@ public class MainActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-             Intent launchNewIntent = new Intent(MainActivity.this,SettingsActivity.class);
-            startActivityForResult(launchNewIntent, 0);
+            Intent launchNewIntent = new Intent(this, ActivitySettings.class);
+            startActivity(launchNewIntent);
             return true;
         }
         if (id == R.id.action_about) {
@@ -144,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                showNewAlarmDialog();
+               showNewAlarmDialog();
             }
         });
     }
@@ -159,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
         newAlarmDialogFragment.show(fragmentManager, "Add New Alarm");
     }
 
-    private void showAboutDialog(){
+    private void showAboutDialog() {
         fragmentManager = getSupportFragmentManager();
         DialogAbout dialogAbout = new DialogAbout();
         dialogAbout.show(fragmentManager, "About");
@@ -211,4 +218,5 @@ public class MainActivity extends AppCompatActivity {
             return mFragmentTitleList.get(position);
         }
     }
+
 }

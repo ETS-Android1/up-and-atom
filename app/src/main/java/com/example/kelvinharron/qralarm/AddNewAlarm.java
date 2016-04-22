@@ -22,7 +22,6 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 
 /**
@@ -129,7 +128,7 @@ public class AddNewAlarm extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_time_alarm);
+        setContentView(R.layout.activity_new_alarm_time);
 
         //Bundle extras = getIntent().getExtras();
         //alarmId = extras.getInt("alarmID");

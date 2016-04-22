@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- This xml file acts as the content and reference view for our preferences/settings view.
+ We wanted to use this setup as it emulates the standard design of android and therefore is an extension of the os.
+ This allows the experience to be more consistent overall and is more efficient than manually creating a list view.
+
+ The preferences act much like a hashmap in java where we have a key and a value. This is ideal for settings such as location and override codes.
+ -->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="Alarm settings" />
+    <!-- The category acts like a group container for the preference objects. This organises content and uses the apps accent colour.  -->
+    <EditTextPreference
+        android:defaultValue="100"
+        android:dialogMessage="Create an override code for your alarm."
+        android:dialogTitle="Alarm Override"
+        android:key="override"
+        android:summary="Set this incase you lose your barcode."
+        android:title="Alarm Override" />
+
+    <!-- This edit text is how we will get and set our override code, in the settings where the user should expect to find
+     such controls traditionally.
+      The fact this is a dialogue box when a user taps it is ideal as it allows us to provide simple instructions on what the setting is for.
+      -->
+    <PreferenceScreen
+        android:defaultValue="54.577477, -5.955125"
+        android:key="location"
+        android:summary="Set this to your home."
+        android:title="Home Location">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.example.kelvinharron.qralarm.MapsActivity"
+            android:targetPackage="com.example.kelvinharron.qralarm" />
+    </PreferenceScreen>
+
+    <!-- This option is used to open a new maps activity so a user can set their home location.
+     This means a user won't have the annoyance of the alarm if we detect them outside this area when the
+     alarm triggers. As we can't easily define this intent in java like in other examples, we instead can define it
+     in the XML. This means targeting the exact location and package for the class file.-->
+
+    <PreferenceCategory android:title="Contact" />
+
+    <PreferenceScreen
+        android:enabled="false"
+        android:key="email"
+        android:summary="Let us know if you find a bug or just love the app."
+        android:title="Email" />
+
+    <!-- Stub option where we can implement an intent to open the users email client, either for feedback or attaching an error log.  -->
+
+</PreferenceScreen>

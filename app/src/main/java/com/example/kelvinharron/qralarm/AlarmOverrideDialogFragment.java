@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 /**
  * This class is a fragment that when called, will allow the display of a custom dialog that is used in the AddNewAlarm class.
@@ -49,7 +48,7 @@ public class AlarmOverrideDialogFragment extends DialogFragment implements View.
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View viewFragment = inflater.inflate(R.layout.override_dialog_fragment, container);
+        View viewFragment = inflater.inflate(R.layout.dialog_override_create, container);
         cancelButton = (Button) viewFragment.findViewById(R.id.cancelButton);
         cancelButton.setOnClickListener(this);
         confirmButton = (Button) viewFragment.findViewById(R.id.confirmButton);

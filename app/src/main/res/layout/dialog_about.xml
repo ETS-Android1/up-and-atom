@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- This acts as a simple little touch of detail that displays a bit of information about the app that a user may expect.
+
+ We could consider adding contact information in here for each of us developers. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <TextView
-        android:layout_margin="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textSize="30dp"
-        android:text="Up and Atom v1.0"
-        android:textAlignment="center" />
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textSize="30dp" />
 
+    <!--TODO: REPLACE THE GOOGLE IMAGE WITH APP LOGO-->
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,11 +26,11 @@
         android:src="@drawable/common_google_signin_btn_icon_light_normal" />
 
     <TextView
-        android:layout_gravity="center"
-        android:layout_margin="@dimen/activity_horizontal_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Created by:\nHannah Butler\nConor Taggart\nKelvin Harron\nPeter McCaughey" />
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:text="@string/about_developers" />
 
     <Button
         android:id="@+id/dismissButton"
@@ -33,8 +38,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:background="@android:color/transparent"
-        android:text="Cool"
+        android:text="@string/cool"
         android:textColor="@color/themeAccent" />
 
+    <!-- By choosing a transparent background for the buttons, we could easily emulate the look and feel of the later versions of android
+     without a great deal of work.-->
 
 </LinearLayout>

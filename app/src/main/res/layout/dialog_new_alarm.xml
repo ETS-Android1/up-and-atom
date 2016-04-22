@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- This dialogue appears over the main view when a user selects the add new alarm Floating Action Button.
+ It displays a dialog box giving a choice of creating either a location or time based alarm.
+
+ -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="16dp"
+        android:text="@string/dialog_new_alarm"
+        android:textColor="@color/textBlack"
+        android:textSize="20dp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical">
+        <!-- A nested linear layout allowed greater control of the child view objects. Making the button backgrounds transpart allowed us
+         to achieve a more natural android look that extended the nature of the os. -->
+        <Button
+            android:id="@+id/newTimeAlarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:text="@string/time_alarm"
+            android:textColor="@color/themeAccent" />
+
+        <Button
+            android:id="@+id/newLocationAlarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:enabled="false"
+            android:text="@string/location_alarm"
+            android:textColor="@color/textEmptyState" />
+        <!-- This option is disabled as we are keen to highlight the fact we made some progress on implementing
+        a location based alarm that triggered once a user left a certain location without first scanning an object.
+        This is disabled and coloured differently so a user cannot add alarms that will not function. -->
+    </LinearLayout>
+</LinearLayout>

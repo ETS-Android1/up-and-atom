@@ -38,7 +38,7 @@ public class NewAlarmDialogFragment extends DialogFragment implements View.OnCli
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View viewFragment = inflater.inflate(R.layout.new_dialog_fragment, container);
+        View viewFragment = inflater.inflate(R.layout.dialog_new_alarm, container);
         getDialog().setTitle("Add new Alarm");
         timeAlarmButton = (Button) viewFragment.findViewById(R.id.newTimeAlarm);
         timeAlarmButton.setOnClickListener(this);
