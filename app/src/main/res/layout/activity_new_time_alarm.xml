@@ -236,7 +236,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom|end"
                         android:layout_below="@id/get_ringtone"
-                        android:src="@drawable/ic_done_white_18dp"
+                        android:src="@drawable/ic_done_white_36dp"
                         app:backgroundTint="@color/confirm_green"
                         app:layout_anchorGravity="end"
                         android:layout_marginLeft="16dp"
