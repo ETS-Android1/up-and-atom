@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * This class is the entry point to the application where we will start our application home screen and associated behavior.
  */
-public class MainActivity extends AppCompatActivity {
+public class ActivityMain extends AppCompatActivity {
 
 
     /**
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Global variable that allows us access to the apps SQLite database that we use to...
      */
-    private AlarmSQLiteHelper alarmSQLiteHelper;
+    private SQLiteHelperAlarm SQLiteHelperAlarm;
 
     /**
      * This is the start of the application lifecycle. Sets the main content layout while calling/initialising methods to setup UI elements and
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         final int DOESNT_EXIST = -1;
 
         // setting up database
-        alarmSQLiteHelper = new AlarmSQLiteHelper(this);
+        SQLiteHelperAlarm = new SQLiteHelperAlarm(this);
 
         // Get current version code
         int currentVersionCode = BuildConfig.VERSION_CODE;
@@ -98,10 +98,10 @@ public class MainActivity extends AppCompatActivity {
 
         // Check for first run - want db to be persistent even on activity upgrade as re-adding alarms on each update would be irritating to user
         if (savedVersionCode == DOESNT_EXIST) {
-            alarmSQLiteHelper.onUpgrade(alarmSQLiteHelper.getWritableDatabase(), 0, 1);
+            SQLiteHelperAlarm.onUpgrade(SQLiteHelperAlarm.getWritableDatabase(), 0, 1);
         }
 
-        //alarmSQLiteHelper.onUpgrade(alarmSQLiteHelper.getWritableDatabase(),0,1);
+        //SQLiteHelperAlarm.onUpgrade(SQLiteHelperAlarm.getWritableDatabase(),0,1);
         // Update the s+hared preferences with the current version code
         prefs.edit().putInt(PREF_VERSION_CODE_KEY, currentVersionCode).commit();
 
@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
      * Simple method that once called, will create an intent for launching the add new alarm view.
      */
     private void intentNewAlarm() {
-        Intent openActivity = new Intent(this, AddNewAlarm.class);
+        Intent openActivity = new Intent(this, ActivityAddNewAlarmTime.class);
         startActivity(openActivity);
     }
 

@@ -11,7 +11,7 @@ import android.widget.TimePicker;
 /**
  * Created by Hannah on 12/04/2016.
  */
-public class AlarmDialogueFragment extends DialogFragment {
+public class DialogAlarm extends DialogFragment {
 
 
     private int timeHour;

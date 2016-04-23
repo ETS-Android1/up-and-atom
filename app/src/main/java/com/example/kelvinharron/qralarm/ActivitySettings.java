@@ -14,8 +14,6 @@ import android.util.TypedValue;
  */
 public class ActivitySettings extends AppCompatActivity {
 
-    private Toolbar toolbar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by Conor on 08-Apr-16.
  */
-public class AlarmSQLiteHelper extends SQLiteOpenHelper {
+public class SQLiteHelperAlarm extends SQLiteOpenHelper {
 
     private static final String ALARMS = "alarm";
     private static final String ALARM_ID = "id";
@@ -46,7 +46,7 @@ public class AlarmSQLiteHelper extends SQLiteOpenHelper {
             + ALARM_ON + " numeric"
             + ");";
 
-    public AlarmSQLiteHelper(Context context) {
+    public SQLiteHelperAlarm(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

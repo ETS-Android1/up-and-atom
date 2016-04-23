@@ -70,6 +70,6 @@ public class FragmentTimeAlarm extends Fragment {
      * @return
      */
     public List<Alarm> getData() {
-        return new AlarmSQLiteHelper(context).getAllAlarms();
+        return new SQLiteHelperAlarm(context).getAllAlarms();
     }
 }

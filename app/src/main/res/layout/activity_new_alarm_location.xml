@@ -2,7 +2,7 @@
 
 <!-->
 DEPRECIATED
-XML Layout for the 'Add new (location) alarm screen' links to the AddNewLocationAlarm class<-->
+XML Layout for the 'Add new (location) alarm screen' links to the ActivityAddNewAlarmLocation class<-->
 
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -11,7 +11,7 @@ XML Layout for the 'Add new (location) alarm screen' links to the AddNewLocation
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".AddNewAlarm"
+    tools:context=".ActivityAddNewAlarmTime"
     android:theme="@android:style/Theme.Material.Light">
 
     <android.support.v4.widget.NestedScrollView

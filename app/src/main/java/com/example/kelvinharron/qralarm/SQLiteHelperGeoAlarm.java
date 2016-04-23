@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by kelvinharron on 19/04/2016.
  */
-public class GeoAlarmSQLiteHelper {
+public class SQLiteHelperGeoAlarm {
 /*
     private static final String GEO_ALARMS = "Alarms";
     private static final String GEO_ALARM_ID = "_id";
@@ -45,7 +45,7 @@ public class GeoAlarmSQLiteHelper {
             + GEO_ALARM_ON + " numeric, "
             + ");";
 
-    public GeoAlarmSQLiteHelper(Context context) {
+    public SQLiteHelperGeoAlarm(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

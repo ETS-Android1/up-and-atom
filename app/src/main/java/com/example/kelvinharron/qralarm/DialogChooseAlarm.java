@@ -63,12 +63,12 @@ public class DialogChooseAlarm extends DialogFragment implements View.OnClickLis
     }
 
     private void intentNewTimeAlarm() {
-        Intent openActivity = new Intent(getContext(), AddNewAlarm.class);
+        Intent openActivity = new Intent(getContext(), ActivityAddNewAlarmTime.class);
         startActivity(openActivity);
     }
 
     private void intentNewLocationAlarm() {
-        Intent openActivity = new Intent(getContext(), AddNewLocationAlarm.class);
+        Intent openActivity = new Intent(getContext(), ActivityAddNewAlarmLocation.class);
         startActivity(openActivity);
     }
 

@@ -10,12 +10,12 @@ import android.widget.Button;
 import android.widget.EditText;
 
 /**
- * This class is a fragment that when called, will allow the display of a custom dialog that is used in the AddNewAlarm class.
+ * This class is a fragment that when called, will allow the display of a custom dialog that is used in the ActivityAddNewAlarmTime class.
  * Subclass of DialogFragment allows us to utilise methods specific to interacting with a dialog.
  * Implementing View.OnClickListener forces us to use an onClick method that we need for registering button clicks.
  * Created by kelvinharron on 05/04/2016.
  */
-public class AlarmOverrideDialogFragment extends DialogFragment implements View.OnClickListener {
+public class DialogAlarmOverride extends DialogFragment implements View.OnClickListener {
 
 
     private OnCompleteListener listener;
@@ -80,7 +80,7 @@ public class AlarmOverrideDialogFragment extends DialogFragment implements View.
     /**
      * Attaches the fragment to the activity
      *
-     * @param dismissAlarmActvity - in this instance the AddNewAlarm activity
+     * @param dismissAlarmActvity - in this instance the ActivityAddNewAlarmTime activity
      */
     @Override
     public void onAttach(Activity dismissAlarmActvity ) {

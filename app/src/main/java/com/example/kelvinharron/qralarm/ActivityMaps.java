@@ -2,6 +2,8 @@ package com.example.kelvinharron.qralarm;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.widget.Toast;
+
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -16,7 +18,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
  * TODO: Get the location and store it in the database.
  * TODO: Remove Google buttons that appear on the bottom right of the map when a user taps their location marker.
  */
-public class MapsActivity extends FragmentActivity {
+public class ActivityMaps extends FragmentActivity {
 
     /**
      * Main class for the GoogleMap object that will allow us to setup an entry point to creating and interacting with GoogleMaps.
@@ -28,8 +30,9 @@ public class MapsActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-       // setUpMapIfNeeded();
-      //  setMarkerLocation();
+        Toast.makeText(getApplicationContext(), "To set your location simply long press on the map", Toast.LENGTH_LONG).show();
+        setUpMapIfNeeded();
+        setMarkerLocation();
     }
 
     /**
@@ -42,6 +45,7 @@ public class MapsActivity extends FragmentActivity {
             @Override
             public void onMapLongClick(LatLng latLng) {
                 googleMap.clear();
+                Toast.makeText(getApplicationContext(), "Home location set", Toast.LENGTH_LONG).show();
                 googleMap.addMarker(new MarkerOptions().position(latLng));
             }
         });
@@ -69,6 +73,7 @@ public class MapsActivity extends FragmentActivity {
         LatLng userLocation = new LatLng(54.5731707, -5.9428905); // default for now
         CameraUpdate centre = CameraUpdateFactory.newLatLng(userLocation);
         CameraUpdate zoom = CameraUpdateFactory.zoomTo(20);
+        googleMap.getUiSettings().setMapToolbarEnabled(false);
         googleMap.addMarker(new MarkerOptions().position(userLocation).title("My place")); // string on marker when user clicks
         googleMap.moveCamera(centre);
         googleMap.animateCamera(zoom);

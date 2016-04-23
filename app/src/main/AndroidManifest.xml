@@ -21,7 +21,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".ActivityMain">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -31,7 +31,7 @@
         <activity
             android:name=".ActivitySettings"
             android:label="Settings"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".ActivityMain">
 
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
@@ -40,23 +40,23 @@
         </activity>
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".ActivityMaps"
             android:label="@string/title_activity_maps" />
         <activity
-            android:name=".AddNewAlarm"
+            android:name=".ActivityAddNewAlarmTime"
             android:label="@string/add_new_alarm"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".ActivityMain" />
         <activity
-            android:name=".AddNewLocationAlarm"
+            android:name=".ActivityAddNewAlarmLocation"
             android:label="Add new location alarm"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".ActivityMain" />
 
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".DismissAlarmActivity"
+            android:name=".ActivityDismissAlarm"
             android:theme="@style/DismissTheme" />
 
         <receiver android:name=".AlarmReceiver" />
@@ -66,7 +66,7 @@
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyAlvVjKwz8pFrX9LqtPOmdeNvFcoFLB0wE" />
+            android:value="AIzaSyAMwEl3VmYcUeXwTSxQ3wKD6n9vG8x--8E" />
 
     </application>
 

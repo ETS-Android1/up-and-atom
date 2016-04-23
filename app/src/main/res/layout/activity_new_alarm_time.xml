@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-->XML Layout for the 'Add new (time) alarm screen' links to the AddNewAlarm class<-->
+<!-->XML Layout for the 'Add new (time) alarm screen' links to the ActivityAddNewAlarmTime class<-->
 
 <!--> Coordinator layout containing the all the children in this layout<-->
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -10,7 +10,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:theme="@android:style/Theme.Material.Light"
-    tools:context=".AddNewAlarm">
+    tools:context=".ActivityAddNewAlarmTime">
 
     <!--> Layout allowing the user to scroll <-->
     <android.support.v4.widget.NestedScrollView

@@ -14,7 +14,7 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
     public void onReceive(final Context context, Intent intent) {
 
         Toast.makeText(context, "Alarm", Toast.LENGTH_SHORT).show();
-        Intent dismissAlarmIntent = new Intent(context.getApplicationContext(), DismissAlarmActivity.class);
+        Intent dismissAlarmIntent = new Intent(context.getApplicationContext(), ActivityDismissAlarm.class);
         long alarmID = intent.getLongExtra("alarmID", 0);
         System.out.print("Outputting ID: "+alarmID+"\n");
         dismissAlarmIntent.putExtra("alarmID", alarmID);

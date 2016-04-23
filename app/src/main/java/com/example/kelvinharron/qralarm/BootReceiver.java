@@ -15,7 +15,7 @@ public class BootReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
             AlarmScheduler alarmScheduler = new AlarmScheduler();
-            AlarmSQLiteHelper sqLiteHelper = new AlarmSQLiteHelper(context);
+            SQLiteHelperAlarm sqLiteHelper = new SQLiteHelperAlarm(context);
             List<Alarm> alarms = sqLiteHelper.getAllAlarms();
             for (Alarm alarm : alarms) {
                 alarmScheduler.setAlarm(context, alarm);

@@ -31,7 +31,7 @@ import java.io.IOException;
 /**
  * Created by Hannah on 12/04/2016.
  */
-public class DismissAlarmActivity extends AppCompatActivity implements OnCompleteListener, LocationListener {
+public class ActivityDismissAlarm extends AppCompatActivity implements OnCompleteListener, LocationListener {
 
 
     //set integers required for alarm activity
@@ -42,10 +42,12 @@ public class DismissAlarmActivity extends AppCompatActivity implements OnComplet
     Uri uriAlarm;
     Ringtone ring;
     String qrResult;
-    AlarmSQLiteHelper alarmSQLiteHelper;
+    SQLiteHelperAlarm SQLiteHelperAlarm;
     Alarm alarm;
     MediaPlayer mediaPlayer;
     //TODO sort out actual setting preferences to set overrideCode
+
+    //SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
     String prefOverrideCode = "1";
 
     public static double HOME_LATITUDE = 54.568354;
@@ -83,16 +85,16 @@ public class DismissAlarmActivity extends AppCompatActivity implements OnComplet
 
     private final static boolean forceNetwork = false;
 
-    private static DismissAlarmActivity instance = null;
+    private static ActivityDismissAlarm instance = null;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_dismiss_layout);
-        alarmSQLiteHelper = new AlarmSQLiteHelper(getApplicationContext());
+        SQLiteHelperAlarm = new SQLiteHelperAlarm(getApplicationContext());
         Bundle extras = getIntent().getExtras();
         long alarmId = extras.getLong("alarmID");
         System.out.print("Outputting ID: " + alarmId + "\n");
-        alarm = alarmSQLiteHelper.readAlarm(alarmId);
+        alarm = SQLiteHelperAlarm.readAlarm(alarmId);
 
         title = (TextView) findViewById(R.id.dismiss_title);
         title.setText(alarm.getName());
@@ -102,7 +104,7 @@ public class DismissAlarmActivity extends AppCompatActivity implements OnComplet
 
         if (!alarm.isRecurring()) {
             alarm.setOn(false);
-            alarmSQLiteHelper.update(alarm);
+            SQLiteHelperAlarm.update(alarm);
         }
         mediaPlayer = new MediaPlayer();
         try {
@@ -273,7 +275,7 @@ public class DismissAlarmActivity extends AppCompatActivity implements OnComplet
             @Override
             public void onClick(View v) {
                 final android.support.v4.app.FragmentManager manager = getSupportFragmentManager(); // fragment manager allows us to instantiate the dialog fragment
-                final AlarmOverrideDialogFragment dialogFragment = new AlarmOverrideDialogFragment(); // create an object of the dialogfragment that will allow us to display it once a button is pressed.
+                final DialogAlarmOverride dialogFragment = new DialogAlarmOverride(); // create an object of the dialogfragment that will allow us to display it once a button is pressed.
                 dialogFragment.show(manager, "fragment");
             }
         });
@@ -290,7 +292,7 @@ public class DismissAlarmActivity extends AppCompatActivity implements OnComplet
     }
 
     public void startScanning(String prompt) {
-        integrator = new IntentIntegrator(DismissAlarmActivity.this);
+        integrator = new IntentIntegrator(ActivityDismissAlarm.this);
         integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
         integrator.setPrompt(prompt);
         integrator.setCameraId(0);  // Use a specific camera of the device
