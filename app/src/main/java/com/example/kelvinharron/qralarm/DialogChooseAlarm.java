@@ -10,9 +10,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 /**
+ * DEPRECIATED CLASS.
  * Created by kelvinharron on 17/04/2016.
  */
-public class NewAlarmDialogFragment extends DialogFragment implements View.OnClickListener {
+public class DialogChooseAlarm extends DialogFragment implements View.OnClickListener {
 
     private Button timeAlarmButton;
 
@@ -42,7 +43,9 @@ public class NewAlarmDialogFragment extends DialogFragment implements View.OnCli
         getDialog().setTitle("Add new Alarm");
         timeAlarmButton = (Button) viewFragment.findViewById(R.id.newTimeAlarm);
         timeAlarmButton.setOnClickListener(this);
-        setCancelable(true); // prevents a tap outside of screen or back button from cancelling the dialog
+        locationAlarmButton = (Button) viewFragment.findViewById(R.id.newTimeAlarm);
+        locationAlarmButton.setOnClickListener(this);
+        setCancelable(true);
         return viewFragment;
     }
 
@@ -50,11 +53,23 @@ public class NewAlarmDialogFragment extends DialogFragment implements View.OnCli
     @Override
     public void onClick(View viewFragment) {
         if (viewFragment.getId() == R.id.newTimeAlarm) {
-            //TODO add Peters activity
-            Intent openActivity = new Intent(getContext(), AddNewAlarm.class);
-            startActivity(openActivity);
+            intentNewTimeAlarm();
             dismiss();
         }
+        if (viewFragment.getId() == R.id.newLocationAlarm) {
+            intentNewLocationAlarm();
+            dismiss();
+        }
+    }
+
+    private void intentNewTimeAlarm() {
+        Intent openActivity = new Intent(getContext(), AddNewAlarm.class);
+        startActivity(openActivity);
+    }
+
+    private void intentNewLocationAlarm() {
+        Intent openActivity = new Intent(getContext(), AddNewLocationAlarm.class);
+        startActivity(openActivity);
     }
 
 }

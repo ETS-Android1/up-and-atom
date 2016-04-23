@@ -25,17 +25,24 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
 
+    /**
+     * Used globally to create transactions for adding our fragments into view when appropriate.
+     */
     private FragmentManager fragmentManager;
+
     /**
      * Global variable that allows us to implement a tab based browsing experience with the tabbed layout.
      */
     private ViewPager viewPager;
 
-
+    /**
+     * Global variable that allows us access to the apps SQLite database that we use to...
+     */
     private AlarmSQLiteHelper alarmSQLiteHelper;
 
     /**
-     * This is the start of the application lifecycle. Sets the main content layout while calling/initilisng methods to setup UI elements.
+     * This is the start of the application lifecycle. Sets the main content layout while calling/initialising methods to setup UI elements and
+     * checking the status of the database objects.
      *
      * @param savedInstanceState
      */
@@ -61,13 +68,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * As part of the application lifecycle, we need to refresh the view of our alarm object elements if there are any when the user goes out and into the applicaiton.
+     */
     @Override
     protected void onResume() {
         super.onResume();
         setupViewPager(viewPager);
     }
 
-
+    /**
+     *
+     */
     private void checkFirstRun() {
 
         final String PREFS_NAME = "MyPrefsFile";
@@ -103,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Method handles the action bar quick access to settings and about page.
-     * TODO: reimplement action bar functionality in XML
+     * We control the view
      *
      * @param item
      * @return
@@ -115,10 +127,9 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
 
         int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
+
         if (id == R.id.action_settings) {
-            Intent launchNewIntent = new Intent(this, ActivitySettings.class);
-            startActivity(launchNewIntent);
+            intentSettings();
             return true;
         }
         if (id == R.id.action_about) {
@@ -138,9 +149,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Method for the famous floating action button. Once clicked.
-     * Once clicked, it will open the NewAlarmDialogFragment allowing a user to choose the type of alarm to create.
-     * TODO: explore use of startActivityForResult function instead of standard startActivity. Might be a better choice when creating a new object?
+     * Method for the famous floating action button. Includes an inner onclick method.
+     * Once clicked, it will open the new alarm intent allowing a user to create an alarm.
      */
     private void setupFAB() {
         FloatingActionButton addAlarmFAB = (FloatingActionButton) findViewById(R.id.floating_action_button);
@@ -148,21 +158,32 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-               showNewAlarmDialog();
+                //showNewAlarmDialog();
+                intentNewAlarm();
+
             }
         });
     }
 
     /**
-     * Allows us to establish a link to the NewAlarmDialogFragment.
-     * This displays a prompt to the user when the FAB is clicked allowing them to choose the type of alarm they want to create.
+     * Simple method that once called, will create an intent for launching the activity settings view.
      */
-    private void showNewAlarmDialog() {
-        fragmentManager = getSupportFragmentManager();
-        NewAlarmDialogFragment newAlarmDialogFragment = new NewAlarmDialogFragment();
-        newAlarmDialogFragment.show(fragmentManager, "Add New Alarm");
+    private void intentSettings() {
+        Intent launchNewIntent = new Intent(this, ActivitySettings.class);
+        startActivity(launchNewIntent);
     }
 
+    /**
+     * Simple method that once called, will create an intent for launching the add new alarm view.
+     */
+    private void intentNewAlarm() {
+        Intent openActivity = new Intent(this, AddNewAlarm.class);
+        startActivity(openActivity);
+    }
+
+    /**
+     * Simple method that once called in the menu toolbar, will allow a user to view the about dialog for the developers of the app.
+     */
     private void showAboutDialog() {
         fragmentManager = getSupportFragmentManager();
         DialogAbout dialogAbout = new DialogAbout();
@@ -181,6 +202,18 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new FragmentTimeAlarm(), "Alarms");
         adapter.addFragment(new FragmentGettingStarted(), "Getting Started");
         viewPager.setAdapter(adapter);
+    }
+
+
+    /**
+     * DEPRECIATED method.
+     * Allows us to establish a link to the DialogChooseAlarm.
+     * This displays a prompt to the user when the FAB is clicked allowing them to choose the type of alarm they want to create.
+     */
+    private void showNewAlarmDialog() {
+        fragmentManager = getSupportFragmentManager();
+        DialogChooseAlarm dialogChooseAlarm = new DialogChooseAlarm();
+        dialogChooseAlarm.show(fragmentManager, "Add New Alarm");
     }
 
     /**
@@ -215,5 +248,4 @@ public class MainActivity extends AppCompatActivity {
             return mFragmentTitleList.get(position);
         }
     }
-
 }

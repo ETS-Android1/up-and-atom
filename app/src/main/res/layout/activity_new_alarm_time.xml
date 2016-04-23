@@ -31,6 +31,7 @@
                 android:id="@+id/timeTIL1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:background="@color/white">
 
                 <!--> Text view widget that shows a floating label instead of a hint
@@ -41,12 +42,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
                     android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
+                    android:backgroundTint="@color/themeBlue"
                     android:hint="@string/alarm_name_hint"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:textColorHighlight="@color/themeBlue" />
             </android.support.design.widget.TextInputLayout>
 
             <!-->Text view widget that shows a floating label instead of a hint<-->
             <android.support.design.widget.TextInputLayout
+
                 android:id="@+id/timeTIL2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -61,19 +65,20 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
                     android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
+                    android:backgroundTint="@color/themeBlue"
                     android:hint="@string/alarm_memo_hint"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:textColorHighlight="@color/themeBlue" />
 
                 <!--> Widget for setting the time of the alarm. Must use 'spinner' appearance<!-->
                 <TimePicker
-                    android:timePickerMode="spinner"
                     android:id="@+id/timeAlarmTimepicker"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:numbersSelectorColor="@color/themeAccent"
                     android:paddingLeft="@dimen/add_new_alarm_standard_padding"
                     android:paddingRight="@dimen/add_new_alarm_standard_padding"
-                    >
-                </TimePicker>
+                    android:timePickerMode="spinner" />
 
                 <!-->Linear, horizontal layout containing 7 checkboxes - one for each
                      day of the week<-->
@@ -87,9 +92,8 @@
                     android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
                     android:layout_marginTop="@dimen/add_new_alarm_standard_padding"
                     android:background="?attr/colorPrimary"
-                    android:orientation="horizontal"
                     android:gravity="center_horizontal"
-                    >
+                    android:orientation="horizontal">
 
                     <!--> checkboxes to allow the user to set the days the alarm
                     should repeat on<-->
@@ -98,8 +102,8 @@
                         android:id="@+id/timeMonday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="M"
                         android:buttonTint="@color/white"
+                        android:text="M"
                         android:textColor="@color/white" />
 
                     <!--> Checkbox for Tuesday<-->
@@ -107,8 +111,8 @@
                         android:id="@+id/timeTuesday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="T"
                         android:buttonTint="@color/white"
+                        android:text="T"
                         android:textColor="@color/white" />
 
                     <!--> Checkbox for Wednesday<-->
@@ -116,8 +120,8 @@
                         android:id="@+id/timeWednesday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="W"
                         android:buttonTint="@color/white"
+                        android:text="W"
                         android:textColor="@color/white" />
 
                     <!--> Checkbox for Thursday<-->
@@ -125,8 +129,8 @@
                         android:id="@+id/timeThursday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Th"
                         android:buttonTint="@color/white"
+                        android:text="Th"
                         android:textColor="@color/white" />
 
                     <!--> Checkbox for Friday<-->
@@ -134,8 +138,8 @@
                         android:id="@+id/timeFriday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="F"
                         android:buttonTint="@color/white"
+                        android:text="F"
                         android:textColor="@color/white" />
 
                     <!--> Checkbox for Saturday<-->
@@ -143,8 +147,8 @@
                         android:id="@+id/timeSaturday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="S"
                         android:buttonTint="@color/white"
+                        android:text="S"
                         android:textColor="@color/white" />
 
                     <!--> Checkbox for Sunday<-->
@@ -152,8 +156,8 @@
                         android:id="@+id/timeSunday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="S"
                         android:buttonTint="@color/white"
+                        android:text="S"
                         android:textColor="@color/white" />
                 </LinearLayout>
 
@@ -162,7 +166,8 @@
                     android:id="@+id/line6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/add_new_alarm_standard_padding">
+                    android:layout_marginTop="@dimen/add_new_alarm_standard_padding"
+                    android:background="@android:color/transparent">
 
                     <!-->Button that activates the QR Scanner, allowing the user to assign a
                      barcode or QR code to an alarm, the same barcode must be scanned
@@ -179,7 +184,7 @@
                         android:clickable="true"
                         android:text="@string/qr_button_text"
                         android:textAllCaps="true"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/textWhite" />
 
                 </RelativeLayout>
 
@@ -189,8 +194,8 @@
                     android:id="@+id/line8"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="15dp"
-                    android:layout_marginTop="@dimen/add_new_alarm_standard_padding">
+                    android:layout_marginTop="@dimen/add_new_alarm_standard_padding"
+                    android:paddingBottom="15dp">
 
                     <TextView
                         android:id="@+id/alarm_sound"
@@ -203,7 +208,7 @@
                         android:paddingBottom="5dp"
                         android:paddingLeft="10dp"
                         android:paddingTop="12dp"
-                        android:text="Alarm Sound"
+                        android:text="@string/alarm_sound"
                         android:textColor="@color/white"
                         android:textSize="16sp"
                         android:textStyle="normal" />
@@ -234,14 +239,15 @@
                         android:id="@+id/confirmButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="bottom|end"
                         android:layout_below="@id/get_ringtone"
-                        android:src="@drawable/ic_done_white_36dp"
-                        app:backgroundTint="@color/confirm_green"
-                        app:layout_anchorGravity="end"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="bottom|end"
+                        android:layout_marginBottom="4dp"
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="16dp"
-                        android:layout_centerHorizontal="true" />
+                        android:src="@drawable/ic_done_white_36dp"
+                        app:backgroundTint="@color/confirm_green"
+                        app:layout_anchorGravity="end" />
 
                 </RelativeLayout>
             </android.support.design.widget.TextInputLayout>
