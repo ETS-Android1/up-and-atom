@@ -37,7 +37,7 @@ public class SQLiteHelperAlarm extends SQLiteOpenHelper {
             + ALARM_NAME + " text not null, "
             + ALARM_MEMO + " text not null, "
             + ALARM_SOUND + " text, "
-            + ALARM_VOLUME + " integer not null, "
+            + ALARM_VOLUME + " integer, "
             + ALARM_RECURRING + " numeric, "
             + ALARM_DAYS + " integer, "
             + ALARM_HOUR + " integer, "

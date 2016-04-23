@@ -51,7 +51,7 @@
         android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
         android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
         android:layout_gravity="center"
-        android:text="Scan : "
+        android:text="Memo: "
         android:textSize="16sp" />
     <TextView
         android:id="@+id/scan_item"

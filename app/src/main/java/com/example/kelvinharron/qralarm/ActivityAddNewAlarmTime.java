@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -180,7 +182,7 @@ public class ActivityAddNewAlarmTime extends AppCompatActivity {
                 } else {
                     dayArray.remove(Integer.valueOf(3));
                 }
-             }
+            }
         });
         wedCB = (CheckBox) findViewById(R.id.timeWednesday);
         wedCB.setOnClickListener(new View.OnClickListener() {
@@ -262,6 +264,18 @@ public class ActivityAddNewAlarmTime extends AppCompatActivity {
      */
     private void setAlarm() {
         final TimePicker timePicker = (TimePicker) findViewById(R.id.timeAlarmTimepicker);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            tpHour = timePicker.getHour();
+        } else {
+            tpHour = 07;
+            timePicker.equals(tpHour);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            tpMinute = timePicker.getMinute();
+        } else {
+            tpMinute = 30;
+            timePicker.equals(tpMinute);
+        }
         timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
@@ -286,6 +300,7 @@ public class ActivityAddNewAlarmTime extends AppCompatActivity {
                     stringBuilder.append(string);
                 }
                 qrResult = stringBuilder.toString();
+                Log.e(qrResult, "QR ONACTIITYRESULT");
             }
         } else if (resultCode == Activity.RESULT_OK && requestCode == 5) {
             Uri uri = intent.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
@@ -345,7 +360,7 @@ public class ActivityAddNewAlarmTime extends AppCompatActivity {
         });
     }
 
-    private void getAvailableRingtones(){
+    private void getAvailableRingtones() {
         Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
         intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_NOTIFICATION);
         intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, "Select Tone");
@@ -357,8 +372,8 @@ public class ActivityAddNewAlarmTime extends AppCompatActivity {
      *
      */
 
-    private void createAlarm() {
-
+    private void newAlarm() {
+        Log.e(qrResult, "QR CREATEENTRY");
         alarm = new Alarm();
         //alarmId = 1;
         //alarmId = db.getNewId();
@@ -381,10 +396,15 @@ public class ActivityAddNewAlarmTime extends AppCompatActivity {
         alarm.setMin(tpMinute);
         alarm.setSound(chosenRingtone.toString());
         alarm.setVolume(volume / VOLUME_MODIFIER);
+        Log.e(qrResult, "QR CREATEALARM");
         alarm.setQrResult(qrResult);
         alarm.setOn(true);
 
         //return alarm;
+    }
+
+    public void storeAlarm() {
+        alarmId = db.createAlarm(this.alarm);
     }
 
     public void scheduleAlarm() {
@@ -392,11 +412,6 @@ public class ActivityAddNewAlarmTime extends AppCompatActivity {
         alarm.setId(alarmId);
         alarmScheduler.setAlarm(getApplicationContext(), this.alarm);
     }
-
-    public void storeAlarm() {
-        alarmId = db.createAlarm(this.alarm);
-    }
-
     /**
      * Confirm the alarm settings & push to DB
      */
@@ -408,7 +423,7 @@ public class ActivityAddNewAlarmTime extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createAlarm();
+                newAlarm();
                 storeAlarm();
                 scheduleAlarm();
                 Toast.makeText(getApplicationContext(), "Alarm created", Toast.LENGTH_SHORT).show();

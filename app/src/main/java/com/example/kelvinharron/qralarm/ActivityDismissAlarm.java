@@ -3,6 +3,7 @@ package com.example.kelvinharron.qralarm;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -13,15 +14,17 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -47,14 +50,14 @@ public class ActivityDismissAlarm extends AppCompatActivity implements OnComplet
     MediaPlayer mediaPlayer;
     //TODO sort out actual setting preferences to set overrideCode
 
-    //SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-    String prefOverrideCode = "1";
 
-    public static double HOME_LATITUDE = 54.568354;
-    public static double HOME_LONGITUDE = -5.913660;
+    String prefOverrideCode;
 
-    public static double LOCATION_MARGIN = 1000;
+    String prefLatLng;
 
+    SharedPreferences preferences;
+
+    public static double LOCATION_MARGIN = 100;
 
     Button snooze;
     Button scan;
@@ -106,6 +109,11 @@ public class ActivityDismissAlarm extends AppCompatActivity implements OnComplet
             alarm.setOn(false);
             SQLiteHelperAlarm.update(alarm);
         }
+
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
         mediaPlayer = new MediaPlayer();
         try {
             mediaPlayer.setDataSource(this, alarm.getSound());
@@ -123,6 +131,7 @@ public class ActivityDismissAlarm extends AppCompatActivity implements OnComplet
 
         setupSnooze();
         setupOverride();
+        getOverridePreference();
 
         if (isPrefLocation()) {
             setupScan();
@@ -131,23 +140,24 @@ public class ActivityDismissAlarm extends AppCompatActivity implements OnComplet
         }
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        if (requestCode != LOCATION_PERMISSION_REQUEST_CODE) {
-            return;
-        }
+    private void getOverridePreference() {
+        preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        prefOverrideCode = preferences.getString("override", "");
 
-        if (PermissionUtils.isPermissionGranted(permissions, grantResults,
-                Manifest.permission.ACCESS_FINE_LOCATION)) {
-            // Enable the my location layer if the permission has been granted.
-            getMyLocation();
-        } else {
-            // Display the missing permission error dialog when the fragments resume.
-            permissionDenied = true;
-        }
     }
 
+    private LatLng getLocationPreference() {
+        preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        prefLatLng = preferences.getString("location", "");
+        String[] latLng = prefLatLng.split(",");
+        Log.e(prefLatLng, "SPLIT STRING");
+        Double lat = Double.parseDouble(latLng[0]);
+        Double lng = Double.parseDouble(latLng[1]);
+        Log.e(String.valueOf(lat), "LATITUDE AFTER SPLIT");
+        Log.e(String.valueOf(lng), "LONGTITUDE AFTER SPLIT");
+
+        return new LatLng(lat, lng);
+    }
 
     @Override
     protected void onResumeFragments() {
@@ -157,6 +167,11 @@ public class ActivityDismissAlarm extends AppCompatActivity implements OnComplet
             showMissingPermissionError();
             permissionDenied = false;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     /**
@@ -251,21 +266,25 @@ public class ActivityDismissAlarm extends AppCompatActivity implements OnComplet
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         IntentResult scanResult = integrator.parseActivityResult(requestCode, resultCode, intent);
-        if (scanResult != null) {
-            String data[] = scanResult.getContents().split("\n");
-            StringBuilder stringBuilder = new StringBuilder();
-            for (String string : data) {
-                stringBuilder.append(string);
-            }
-            qrResult = stringBuilder.toString();
+        try {
+            if (scanResult != null) {
+                String data[] = scanResult.getContents().split("\n");
+                StringBuilder stringBuilder = new StringBuilder();
+                for (String string : data) {
+                    stringBuilder.append(string);
+                }
+                qrResult = stringBuilder.toString();
 
-            if (qrResult.equals(alarm.getQrResult())) {
-                Toast.makeText(this, "Dismissing Alarm", Toast.LENGTH_SHORT).show();
-                stop();
-            } else {
-                String prompt = "Wrong QR Code - Please Try Again";
-                startScanning(prompt);
+                if (qrResult.equals(alarm.getQrResult())) {
+                    Toast.makeText(this, "Dismissing Alarm", Toast.LENGTH_SHORT).show();
+                    stop();
+                } else {
+                    String prompt = "Wrong QR Code - Please Try Again";
+                    startScanning(prompt);
+                }
             }
+        } catch (NullPointerException nullPointerException) {
+            Toast.makeText(this, "Code not detected", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -318,12 +337,13 @@ public class ActivityDismissAlarm extends AppCompatActivity implements OnComplet
 
     private boolean isPrefLocation() {
         boolean atPrefLocation;
+        LatLng latLng = getLocationPreference();
         getMyLocation();
         // checking if location can be found
         Location localLocation = location;
         Location prefLocation = new Location(provider);
-        prefLocation.setLatitude(HOME_LATITUDE);
-        prefLocation.setLongitude(HOME_LONGITUDE);
+        prefLocation.setLatitude(latLng.latitude);
+        prefLocation.setLongitude(latLng.longitude);
         if (localLocation.distanceTo(prefLocation) < LOCATION_MARGIN && this.locationServiceAvailable) {
             atPrefLocation = true;
         } else {

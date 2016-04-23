@@ -11,7 +11,7 @@
     <PreferenceCategory android:title="Alarm settings" />
     <!-- The category acts like a group container for the preference objects. This organises content and uses the apps accent colour.  -->
     <EditTextPreference
-        android:defaultValue="100"
+        android:defaultValue="override"
         android:dialogMessage="Create an override code for your alarm."
         android:dialogTitle="Alarm Override"
         android:key="override"
@@ -23,15 +23,16 @@
       The fact this is a dialogue box when a user taps it is ideal as it allows us to provide simple instructions on what the setting is for.
       -->
     <PreferenceScreen
-        android:defaultValue="54.577477, -5.955125"
+        android:defaultValue="54.584782,-5.936335"
         android:key="location"
         android:summary="Set this to your home."
         android:title="Home Location">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetClass="com.example.kelvinharron.qralarm.MapsActivity"
+            android:targetClass="com.example.kelvinharron.qralarm.ActivityMaps"
             android:targetPackage="com.example.kelvinharron.qralarm" />
     </PreferenceScreen>
+
 
     <!-- This option is used to open a new maps activity so a user can set their home location.
      This means a user won't have the annoyance of the alarm if we detect them outside this area when the
@@ -41,7 +42,6 @@
     <PreferenceCategory android:title="Contact" />
 
     <PreferenceScreen
-        android:enabled="false"
         android:key="email"
         android:summary="Let us know if you find a bug or just love the app."
         android:title="Email" />

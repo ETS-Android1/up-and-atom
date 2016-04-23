@@ -14,6 +14,9 @@ android {
     buildTypes {
 
         debug {
+
+            debuggable true
+
             manifestPlaceholders = [google_map_key: "AIzaSyAlvVjKwz8pFrX9LqtPOmdeNvFcoFLB0wE"]
         }
         release {

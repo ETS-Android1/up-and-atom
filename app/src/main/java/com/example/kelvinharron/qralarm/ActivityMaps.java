@@ -1,29 +1,48 @@
 package com.example.kelvinharron.qralarm;
 
+import android.*;
+import android.Manifest;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
+import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 /**
- * This class is used when a user is adding a new alarm and chooses the location alarm type. This class will open a Google Maps screen allowing a user to long press and add a marker of their location.
- * TODO: Create a Dialog when the user first opens the map view with simple instructions on what to do.
- * TODO: Add a button to the map to confirm the location.
- * TODO: Get the location and store it in the database.
- * TODO: Remove Google buttons that appear on the bottom right of the map when a user taps their location marker.
+ * This class is used when a user is adding a new alarm and chooses the location alarm type.
+ * This class will open a Google Maps screen allowing a user to long press and add a marker of their location.
  */
-public class ActivityMaps extends FragmentActivity {
+public class ActivityMaps extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMapLongClickListener {
 
     /**
      * Main class for the GoogleMap object that will allow us to setup an entry point to creating and interacting with GoogleMaps.
      */
     private GoogleMap googleMap;
+
+    private SharedPreferences sharedPrefs;
+
+    private SharedPreferences.Editor editor;
+
+    private String testVar;
 
 
     @Override
@@ -31,51 +50,61 @@ public class ActivityMaps extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         Toast.makeText(getApplicationContext(), "To set your location simply long press on the map", Toast.LENGTH_LONG).show();
-        setUpMapIfNeeded();
-        setMarkerLocation();
+        ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
+                .getMapAsync(this);
+
+
     }
 
-    /**
-     * Method where a user can long press a location on a map to set as their location.
-     * TODO: get and store LatLng from user.
-     */
-    private void setMarkerLocation() {
-        googleMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
-
-            @Override
-            public void onMapLongClick(LatLng latLng) {
-                googleMap.clear();
-                Toast.makeText(getApplicationContext(), "Home location set", Toast.LENGTH_LONG).show();
-                googleMap.addMarker(new MarkerOptions().position(latLng));
-            }
-        });
-    }
-
-    /**
-     * Method checks if we have already instantiated a googlemap view.
-     * If not instantiated, we use the supportMapFragment to obtain a reference to the map.
-     * Calls setUpMap method.
-     */
-    private void setUpMapIfNeeded() {
-        if (googleMap == null) {
-            googleMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
-                    .getMap();
-            if (googleMap != null) {
-                setUpMap();
-            }
-        }
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        this.googleMap = googleMap;
+        googleMap.setOnMapLongClickListener(this);
+        setUpMap();
     }
 
     /**
      * Method sets up camera view with predefined location and uses functions to set marker on map at specific zoom level.
      */
     private void setUpMap() {
-        LatLng userLocation = new LatLng(54.5731707, -5.9428905); // default for now
+        LatLng userLocation = new LatLng(54.584782, -5.936335); // default location set to Queen's University
         CameraUpdate centre = CameraUpdateFactory.newLatLng(userLocation);
-        CameraUpdate zoom = CameraUpdateFactory.zoomTo(20);
+        CameraUpdate zoom = CameraUpdateFactory.zoomTo(50);
         googleMap.getUiSettings().setMapToolbarEnabled(false);
-        googleMap.addMarker(new MarkerOptions().position(userLocation).title("My place")); // string on marker when user clicks
+        googleMap.addMarker(new MarkerOptions().position(userLocation).title("Home")); // string on marker when user clicks
         googleMap.moveCamera(centre);
-        googleMap.animateCamera(zoom);
+        try {
+            googleMap.setMyLocationEnabled(true);
+            googleMap.animateCamera(zoom);
+        } catch (SecurityException securityException) {
+            securityException.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onMapLongClick(LatLng latLng) {
+        if (googleMap != null) {
+            googleMap.clear();
+            googleMap.addMarker(new MarkerOptions()
+                    .position(latLng)
+                    .title("Home")
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+            appendLocationString(latLng);
+            Toast.makeText(getApplicationContext(), "Home Location set", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+    }
+
+    private void appendLocationString(LatLng latLng) {
+        StringBuilder builder = new StringBuilder();
+        builder.append(latLng.latitude);
+        builder.append(",");
+        builder.append(latLng.longitude);
+        editor = sharedPrefs.edit();
+        editor.putString("location", builder.toString());
+        editor.apply();
+        testVar = sharedPrefs.getString("location", "");
+        Log.e(testVar, "Location Log Test");
     }
 }

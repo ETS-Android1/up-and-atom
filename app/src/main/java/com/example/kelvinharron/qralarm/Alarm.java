@@ -4,10 +4,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.text.TextUtils;
+import android.util.Log;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Arrays;
+import java.util.IllegalFormatException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -91,8 +97,14 @@ public class Alarm {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String name) throws IllegalArgumentException {
+        if (TextUtils.isEmpty(name) || (name.equals(null))) {
+            throw new IllegalArgumentException("Alarm name cannot be null");
+        } else if (name.length() <= 20) {
+            this.name = name;
+        } else {
+            this.name = "Default";
+        }
     }
 
     public String getMemo() {
@@ -100,7 +112,13 @@ public class Alarm {
     }
 
     public void setMemo(String memo) {
-        this.memo = memo;
+        if (TextUtils.isEmpty(memo) || (memo.equals(null))) {
+            throw new IllegalArgumentException("Alarm name cannot be null");
+        } else if (memo.length() <= 30) {
+            this.memo = memo;
+        } else {
+            this.memo = "default";
+        }
     }
 
     public boolean isRecurring() {
@@ -156,9 +174,14 @@ public class Alarm {
         return this.days;
     }
 
-    public void setQrResult(String qrResult) {
-        this.qrResult = qrResult;
-    }
+    public void setQrResult(String qrResult){
+        Log.e(qrResult, "Setter QR RESULT");
+      //  if (qrResult.equals(n)) {
+        //    throw new IllegalArgumentException("Please scan a QR code");
+        //} else {
+            this.qrResult = qrResult;
+        }
+    //}
 
     public String getQrResult() {
         return this.qrResult;
