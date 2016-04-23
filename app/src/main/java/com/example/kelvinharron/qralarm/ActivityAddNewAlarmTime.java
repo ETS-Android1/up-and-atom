@@ -1,12 +1,14 @@
 package com.example.kelvinharron.qralarm;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -122,6 +124,9 @@ public class ActivityAddNewAlarmTime extends AppCompatActivity {
     SQLiteHelperAlarm db;
     public static final float VOLUME_MODIFIER = 10;
 
+
+    private boolean scanClick;
+
     /**
      * Start of activity lifecycle. Sets the view of the ActivityAddNewAlarmTime activity and calls the methods enabling behavior.
      *
@@ -132,6 +137,7 @@ public class ActivityAddNewAlarmTime extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_alarm_time);
 
+        scanClick = false;
         //Bundle extras = getIntent().getExtras();
         //alarmId = extras.getInt("alarmID");
 
@@ -293,14 +299,17 @@ public class ActivityAddNewAlarmTime extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         IntentResult scanResult = integrator.parseActivityResult(requestCode, resultCode, intent);
         if (requestCode == IntentIntegrator.REQUEST_CODE) {
-            if (scanResult != null) {
-                String data[] = scanResult.getContents().split("\n");
-                StringBuilder stringBuilder = new StringBuilder();
-                for (String string : data) {
-                    stringBuilder.append(string);
+            if (scanResult != null) {//todo try != null
+                if (!scanResult.getContents().equals(null)) {
+                    String data[] = scanResult.getContents().split("\n");
+                    StringBuilder stringBuilder = new StringBuilder();
+                    for (String string : data) {
+                        stringBuilder.append(string);
+                    }
+                    qrResult = stringBuilder.toString();
+                    Log.e(qrResult, "QR ONACTIITYRESULT");
+                    scanClick = true;
                 }
-                qrResult = stringBuilder.toString();
-                Log.e(qrResult, "QR ONACTIITYRESULT");
             }
         } else if (resultCode == Activity.RESULT_OK && requestCode == 5) {
             Uri uri = intent.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
@@ -372,7 +381,7 @@ public class ActivityAddNewAlarmTime extends AppCompatActivity {
      *
      */
 
-    private void newAlarm() {
+    private void newAlarm() throws IllegalArgumentException, NullPointerException {
         Log.e(qrResult, "QR CREATEENTRY");
         alarm = new Alarm();
         //alarmId = 1;
@@ -395,11 +404,13 @@ public class ActivityAddNewAlarmTime extends AppCompatActivity {
         alarm.setHour(tpHour);
         alarm.setMin(tpMinute);
         alarm.setSound(chosenRingtone.toString());
-        alarm.setVolume(volume / VOLUME_MODIFIER);
         Log.e(qrResult, "QR CREATEALARM");
-        alarm.setQrResult(qrResult);
+        if (scanClick) {
+            alarm.setQrResult(qrResult);
+        } else {
+            throw new IllegalArgumentException("Please ensure to scan a code");
+        }
         alarm.setOn(true);
-
         //return alarm;
     }
 
@@ -412,6 +423,7 @@ public class ActivityAddNewAlarmTime extends AppCompatActivity {
         alarm.setId(alarmId);
         alarmScheduler.setAlarm(getApplicationContext(), this.alarm);
     }
+
     /**
      * Confirm the alarm settings & push to DB
      */
@@ -423,12 +435,27 @@ public class ActivityAddNewAlarmTime extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                newAlarm();
-                storeAlarm();
-                scheduleAlarm();
-                Toast.makeText(getApplicationContext(), "Alarm created", Toast.LENGTH_SHORT).show();
-                finish();
+                try {
+                    newAlarm();
+                    storeAlarm();
+                    scheduleAlarm();
+                    Toast.makeText(getApplicationContext(), "Alarm created", Toast.LENGTH_SHORT).show();
+                    finish();
+                } catch (IllegalArgumentException | NullPointerException e) {
+                    errorMessage(e.getMessage());
+                }
             }
         });
+    }
+
+    public void errorMessage(String message) {
+        new AlertDialog.Builder(this)
+                .setTitle("Warning")
+                .setMessage(message)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                }).setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 }

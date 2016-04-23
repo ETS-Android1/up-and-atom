@@ -103,7 +103,7 @@ public class Alarm {
         } else if (name.length() <= 20) {
             this.name = name;
         } else {
-            this.name = "Default";
+            throw new IllegalArgumentException("Alarm name should be less than 20 characters");
         }
     }
 
@@ -117,7 +117,7 @@ public class Alarm {
         } else if (memo.length() <= 30) {
             this.memo = memo;
         } else {
-            this.memo = "default";
+            throw new IllegalArgumentException("Alarm name should be less than 30 characters");
         }
     }
 
@@ -174,14 +174,9 @@ public class Alarm {
         return this.days;
     }
 
-    public void setQrResult(String qrResult){
-        Log.e(qrResult, "Setter QR RESULT");
-      //  if (qrResult.equals(n)) {
-        //    throw new IllegalArgumentException("Please scan a QR code");
-        //} else {
-            this.qrResult = qrResult;
-        }
-    //}
+    public void setQrResult(String qrResult) {
+        this.qrResult = qrResult;
+    }
 
     public String getQrResult() {
         return this.qrResult;
@@ -227,12 +222,7 @@ public class Alarm {
     }
 
     public void setVolume(float volume) throws IllegalArgumentException {
-
-        if (volume >= MIN_VOLUME && volume <= MAX_VOLUME) {
-            this.volume = volume;
-        } else {
-            throw new IllegalArgumentException("Volume should be between +" + MIN_VOLUME * 100 + "% & " + MAX_VOLUME * 100 + "%.");
-        }
+        this.volume = volume;
     }
 
     public boolean isOn() {
@@ -246,17 +236,6 @@ public class Alarm {
     public void setOn(int on) {
         this.on = (on == 1);
     }
-
-    public int storeRecurring() {
-        int isRecurring;
-        if (this.recurring) {
-            isRecurring = 1;
-        } else {
-            isRecurring = 0;
-        }
-        return isRecurring;
-    }
-
 
     public String storeSound() {
         if (sound != null) {
@@ -281,7 +260,6 @@ public class Alarm {
         return defaultUri;
     }
 
-    //TODO turn into string builder
     public String storeDays() {
         String str = "";
         for (int count = 0; count < days.length; count++) {

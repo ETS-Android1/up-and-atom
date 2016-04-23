@@ -23,7 +23,7 @@
       The fact this is a dialogue box when a user taps it is ideal as it allows us to provide simple instructions on what the setting is for.
       -->
     <PreferenceScreen
-        android:defaultValue="54.584782,-5.936335"
+        android:defaultValue="54.58487776321973,-5.935247428715229"
         android:key="location"
         android:summary="Set this to your home."
         android:title="Home Location">

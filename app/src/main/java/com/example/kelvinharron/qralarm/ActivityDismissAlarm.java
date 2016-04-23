@@ -80,6 +80,8 @@ public class ActivityDismissAlarm extends AppCompatActivity implements OnComplet
     public boolean locationServiceAvailable;
 
 
+
+
     //The minimum distance to change updates in meters
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 0; // 10 meters
 
@@ -151,8 +153,8 @@ public class ActivityDismissAlarm extends AppCompatActivity implements OnComplet
         prefLatLng = preferences.getString("location", "");
         String[] latLng = prefLatLng.split(",");
         Log.e(prefLatLng, "SPLIT STRING");
-        Double lat = Double.parseDouble(latLng[0]);
-        Double lng = Double.parseDouble(latLng[1]);
+        double lat = new Double(latLng[0]);
+        double lng = new Double(latLng[1]);
         Log.e(String.valueOf(lat), "LATITUDE AFTER SPLIT");
         Log.e(String.valueOf(lng), "LONGTITUDE AFTER SPLIT");
 

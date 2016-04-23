@@ -1,7 +1,9 @@
 package com.example.kelvinharron.qralarm;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,6 +37,9 @@ public class ActivityMain extends AppCompatActivity {
      * Global variable that allows us to implement a tab based browsing experience with the tabbed layout.
      */
     private ViewPager viewPager;
+
+    private TabLayout tabLayout;
+
 
     /**
      * Global variable that allows us access to the apps SQLite database that we use to...
@@ -61,7 +67,6 @@ public class ActivityMain extends AppCompatActivity {
         setupViewPager(viewPager);
 
         // setup the tabbed layout, doesn't show if segregated into its own method and called in main
-        TabLayout tabLayout;
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
@@ -75,6 +80,7 @@ public class ActivityMain extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         setupViewPager(viewPager);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     /**
@@ -99,6 +105,16 @@ public class ActivityMain extends AppCompatActivity {
         // Check for first run - want db to be persistent even on activity upgrade as re-adding alarms on each update would be irritating to user
         if (savedVersionCode == DOESNT_EXIST) {
             SQLiteHelperAlarm.onUpgrade(SQLiteHelperAlarm.getWritableDatabase(), 0, 1);
+
+            SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor editor;
+            StringBuilder builder = new StringBuilder();
+            builder.append(54.58487776321973);
+            builder.append(",");
+            builder.append(-5.935247428715229);
+            editor = sharedPrefs.edit();
+            editor.putString("location", builder.toString());
+            editor.apply();
         }
 
         //SQLiteHelperAlarm.onUpgrade(SQLiteHelperAlarm.getWritableDatabase(),0,1);
