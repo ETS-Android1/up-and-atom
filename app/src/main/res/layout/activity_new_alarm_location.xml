@@ -249,7 +249,8 @@ XML Layout for the 'Add new (location) alarm screen' links to the ActivityAddNew
         </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
 
-    <!--> A Vertical linear layout with many 'material' design features<-->
+    <!--> Coordinator layout containing the all the children in this layout. The coordinator is a
+    super-powered Frame layout<-->
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

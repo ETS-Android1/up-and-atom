@@ -2,7 +2,8 @@
 
 <!-->XML Layout for the 'Add new (time) alarm screen' links to the ActivityAddNewAlarmTime class<-->
 
-<!--> Coordinator layout containing the all the children in this layout<-->
+<!--> Coordinator layout containing the all the children in this layout. The coordinator is a
+super-powered Frame layout<-->
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -12,7 +13,9 @@
     android:theme="@android:style/Theme.Material.Light"
     tools:context=".ActivityAddNewAlarmTime">
 
-    <!--> Layout allowing the user to scroll <-->
+    <!--> Layout allowing the user to scroll, also hides the toolbar so more of the screen real
+     estate is visible, nested scroll view fits the overall material feel of the app.
+     NestedScrollViews can contain only one child<-->
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -34,8 +37,8 @@
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:background="@color/white">
 
-                <!--> Text view widget that shows a floating label instead of a hint
-                 Alarm name<-->
+                <!--> An enhanced Text view widget that shows a floating label instead of a hint,
+                 it links to the Alarm name on the 'Add New Alarm' Screen<-->
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/time_alarm_name"
                     android:layout_width="match_parent"
@@ -57,8 +60,8 @@
                 android:layout_below="@+id/timeTIL1"
                 android:background="@color/white">
 
-                <!--> Text view widget that shows a floating label instead of a hint
-                 Alarm Memo<-->
+                <!--> An enhanced Text view widget that shows a floating label instead of a hint,
+                 it links to the Alarm memo on the 'Add New Alarm' Screen<-->
                 <android.support.design.widget.TextInputEditText
                     android:id="@+id/time_alarm_memo"
                     android:layout_width="match_parent"
@@ -70,7 +73,8 @@
                     android:singleLine="true"
                     android:textColorHighlight="@color/themeBlue" />
 
-                <!--> Widget for setting the time of the alarm. Must use 'spinner' appearance<!-->
+                <!--> A Widget used for setting the time of the alarm. Must use 'spinner'
+                appearance as 'clock' appearance has caused stability issues<!-->
                 <TimePicker
                     android:id="@+id/timeAlarmTimepicker"
                     android:layout_width="match_parent"
@@ -80,8 +84,9 @@
                     android:paddingRight="@dimen/add_new_alarm_standard_padding"
                     android:timePickerMode="spinner" />
 
-                <!-->Linear, horizontal layout containing 7 checkboxes - one for each
-                     day of the week<-->
+                <!-->Linear layout containing 7 checkboxes - one for each day of the week. The
+                days of the week are in a single row therefore a linear layout with a horizontal
+                orientation is preferable <-->
                 <LinearLayout
                     android:id="@+id/line4"
                     android:layout_width="match_parent"
@@ -96,7 +101,7 @@
                     android:orientation="horizontal">
 
                     <!--> checkboxes to allow the user to set the days the alarm
-                    should repeat on<-->
+                    should repeat on, if the box is checked the alarm will repeat.<-->
                     <!--> Checkbox for Monday<-->
                     <CheckBox
                         android:id="@+id/timeMonday"
@@ -162,6 +167,7 @@
                 </LinearLayout>
 
 
+                <!--> A Relative layout containing the QR scanner button<-->
                 <RelativeLayout
                     android:id="@+id/line6"
                     android:layout_width="match_parent"
@@ -187,7 +193,6 @@
                         android:textColor="@color/textWhite" />
 
                 </RelativeLayout>
-
                 <!--> Layout containing 2x TextViews, which allow the user to set their
                 preferred ringtone for the alarm<-->
                 <RelativeLayout
@@ -254,13 +259,16 @@
         </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
 
-    <!--> A Vertical linear layout with many 'material' design features<-->
+    <!--> A Vertical linear layout with many 'material' design features
+    especially scrolling features,'material' look, must be used as a child
+    within a Coordinator Layout<-->
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <!--> Places a toolbar at the top of the screen<-->
+        <!--> Places a toolbar at the top of the screen to ensure the app has a
+        'material' look, it also contains the screen title & a back button<-->
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
