@@ -119,11 +119,8 @@ public class ActivityAddNewAlarmTime extends AppCompatActivity {
 
     private Uri chosenRingtone;
 
-    private float volume;
 
     SQLiteHelperAlarm db;
-    public static final float VOLUME_MODIFIER = 10;
-
 
     private boolean scanClick;
 

@@ -41,8 +41,6 @@ public class Alarm {
     public static final int MAX_MINUTE = 23;
     public static final int DEFAULT_HOUR = 8;
     public static final int DEFAULT_MIN = 30;
-    public static final float MIN_VOLUME = 0.0f;
-    public static final float MAX_VOLUME = 1.0f;
 
     public static String strSeparator = ",";
 
