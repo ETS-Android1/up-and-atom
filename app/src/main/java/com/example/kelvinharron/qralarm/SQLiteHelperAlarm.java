@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.text.TextUtils;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -118,23 +119,26 @@ public class SQLiteHelperAlarm extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(query, null);
 
         Alarm alarm = null;
+        try {
+            if (cursor.moveToFirst()) {
+                do {
+                    alarm = new Alarm();
+                    alarm.setId(cursor.getInt(0));
+                    alarm.setName(cursor.getString(1));
+                    alarm.setMemo(cursor.getString(2));
+                    alarm.setSound(cursor.getString(3));
+                    alarm.setVolume(cursor.getInt(4));
+                    alarm.setRecurring(cursor.getInt(5));
+                    alarm.setDays(cursor.getString(6));
+                    alarm.setHour(cursor.getInt(7));
+                    alarm.setMin(cursor.getInt(8));
+                    alarm.setQrResult(cursor.getString(9));
+                    alarm.setOn(cursor.getInt(10));
+                    alarms.add(alarm);
+                } while (cursor.moveToNext());
+            }
+        } catch (Exception exception) {
 
-        if (cursor.moveToFirst()) {
-            do {
-                alarm = new Alarm();
-                alarm.setId(cursor.getInt(0));
-                alarm.setName(cursor.getString(1));
-                alarm.setMemo(cursor.getString(2));
-                alarm.setSound(cursor.getString(3));
-                alarm.setVolume(cursor.getInt(4));
-                alarm.setRecurring(cursor.getInt(5));
-                alarm.setDays(cursor.getString(6));
-                alarm.setHour(cursor.getInt(7));
-                alarm.setMin(cursor.getInt(8));
-                alarm.setQrResult(cursor.getString(9));
-                alarm.setOn(cursor.getInt(10));
-                alarms.add(alarm);
-            } while (cursor.moveToNext());
         }
         return alarms;
     }
@@ -162,7 +166,7 @@ public class SQLiteHelperAlarm extends SQLiteOpenHelper {
         return i;
     }
 
-    public int getNewId(){
+    public int getNewId() {
         SQLiteDatabase db = this.getWritableDatabase();
         int maxID = 0;
         String query = "SELECT MAX(id) FROM " + ALARMS;

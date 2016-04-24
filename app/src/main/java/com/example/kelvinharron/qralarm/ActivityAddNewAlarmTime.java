@@ -137,7 +137,6 @@ public class ActivityAddNewAlarmTime extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_alarm_time);
 
-        scanClick = false;
         //Bundle extras = getIntent().getExtras();
         //alarmId = extras.getInt("alarmID");
 
@@ -300,7 +299,7 @@ public class ActivityAddNewAlarmTime extends AppCompatActivity {
         IntentResult scanResult = integrator.parseActivityResult(requestCode, resultCode, intent);
         if (requestCode == IntentIntegrator.REQUEST_CODE) {
             if (scanResult != null) {//todo try != null
-                if (!scanResult.getContents().equals(null)) {
+                if (scanResult.getContents() != null) {
                     String data[] = scanResult.getContents().split("\n");
                     StringBuilder stringBuilder = new StringBuilder();
                     for (String string : data) {
@@ -453,8 +452,7 @@ public class ActivityAddNewAlarmTime extends AppCompatActivity {
                 .setTitle("Warning")
                 .setMessage(message)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
+                    public void onClick(DialogInterface dialog, int which) {}
                 }).setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
     }
