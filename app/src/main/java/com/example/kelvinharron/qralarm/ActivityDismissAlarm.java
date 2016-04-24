@@ -377,9 +377,13 @@ public class ActivityDismissAlarm extends AppCompatActivity implements OnComplet
             Toast.makeText(this, "Code not detected", Toast.LENGTH_SHORT).show();
         }
     }
-
+    /**
+     * Method instantiates the uverride button and sets up the onClickEvent handler and listener
+     */
     public void setupOverride() {
+        // instantiate the override button
         override = (Button) findViewById(R.id.override_button);
+        // set up the listener and handler for the button click
         override.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -390,6 +394,10 @@ public class ActivityDismissAlarm extends AppCompatActivity implements OnComplet
         });
     }
 
+    /**
+     * Method called to stop the alarm tone and release the resource. If the ringtone manager was used
+     * to play the tone, it stops playing
+     */
     public void stop() {
         if (mediaPlayer != null) {
             mediaPlayer.stop();
@@ -397,46 +405,87 @@ public class ActivityDismissAlarm extends AppCompatActivity implements OnComplet
         } else if (ring != null) {
             ring.stop();
         }
+        // close/stop the activity
         finish();
     }
 
+    /**
+     * Method handles the intent integrator compiled from the XZing barcode scanner library to scan
+     * QRCode/Barcodes - used start a scanning activity
+     * @param prompt - message to be displayed when the scanner starts
+     */
     public void startScanning(String prompt) {
+        // instaniate the IntentIntegrator using context from this activity
         integrator = new IntentIntegrator(ActivityDismissAlarm.this);
+        // set the barcode format
         integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
+        // set the prompt which display in the scanning activity - passed through method arguments
         integrator.setPrompt(prompt);
+        // specfy the back camera is to be used
         integrator.setCameraId(0);  // Use a specific camera of the device
+        // stops the activity from beeping when a code is scanned
         integrator.setBeepEnabled(false);
+        // start the scanning activity
         integrator.initiateScan();
     }
 
+    /**
+     * Implements the OnCompleteListener interface method onComplete which is used to pass
+     * the code entered by the user when the override button is pressed
+     * @param overrideCode - user specified String override code entered in dialog fragment when Override
+     *                     butt is pressed
+     */
     @Override
     public void onComplete(String overrideCode) {
+        // check if user specified code is equal to code specified in user preferences. prefOverride
+        // code set in the getOverridePreferences
         if (prefOverrideCode.equals(overrideCode)) {
+            // if they match, call the stop method to dismiss the activity
             stop();
         } else {
+            // inform user with toast that the code was wrong
             Toast.makeText(getApplicationContext(), "Wrong override code, please try again.", Toast.LENGTH_SHORT).show();
         }
     }
 
-
+    /**
+     * Implements the LocationListener method onLocationChanged which is called when a change in
+     * user position is detected
+     * @param location
+     */
+    // update the latitude and longitude if the location changes
     @Override
     public void onLocationChanged(Location location) {
         this.latitude = location.getLatitude();
         this.longitude = location.getLongitude();
     }
 
+    /**
+     * Called to determine if the user is currently in the homeLocation set in their User
+     * Preferences and compare it the current location. Returns true if at home or Preferences
+     * location
+     * @return boolean indicating if user is currently at home location.
+     */
     private boolean isPrefLocation() {
         boolean atPrefLocation;
+        // calls method to get location stored in user preferences or app settings
         LatLng latLng = getLocationPreference();
+        // get the users current locations
         getMyLocation();
         // checking if location can be found
         Location localLocation = location;
+        // instantiate a location object using the provider that set the location
         Location prefLocation = new Location(provider);
+        // set lat long values
         prefLocation.setLatitude(latLng.latitude);
         prefLocation.setLongitude(latLng.longitude);
+        // compare the two locations with a set margin or allowable difference and check if location
+        // service was available
         if (localLocation.distanceTo(prefLocation) < LOCATION_MARGIN && this.locationServiceAvailable) {
+            // if at home location return true
             atPrefLocation = true;
         } else {
+            // if location was unavailable or not at home location set false
             atPrefLocation = false;
         }
         return atPrefLocation;
