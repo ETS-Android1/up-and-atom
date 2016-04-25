@@ -108,17 +108,13 @@ public class ActivityAddNewAlarmTime extends AppCompatActivity {
     private TextView alarmTitle;
 
     /**
-     *
+     * String passed from the QR scanner
      */
     private String qrResult;
 
-    /**
-     *
-     */
     private IntentIntegrator integrator;
 
     private Uri chosenRingtone;
-
 
     SQLiteHelperAlarm db;
 
@@ -134,12 +130,8 @@ public class ActivityAddNewAlarmTime extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_alarm_time);
 
-        //Bundle extras = getIntent().getExtras();
-        //alarmId = extras.getInt("alarmID");
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         db = new SQLiteHelperAlarm(this);
 
@@ -148,9 +140,9 @@ public class ActivityAddNewAlarmTime extends AppCompatActivity {
         setAlarm();
         setScanQR();
         setRingtone();
-        //setSeekbar();
         confirmAlarm();
 
+        // Arraylist used to set on which days the alarm will go off
         dayArray = new ArrayList<>();
         sunCB = (CheckBox) findViewById(R.id.timeSunday);
         sunCB.setOnClickListener(new View.OnClickListener() {
@@ -288,6 +280,7 @@ public class ActivityAddNewAlarmTime extends AppCompatActivity {
     }
 
     /**
+     * Checks the scanned in QR code
      * @param requestCode
      * @param resultCode
      * @param intent
@@ -317,7 +310,6 @@ public class ActivityAddNewAlarmTime extends AppCompatActivity {
             Ringtone ringtone = RingtoneManager.getRingtone(this, uri);
             alarmSound.setText(ringtone.getTitle(getApplicationContext()));
         }
-
     }
 
 
@@ -365,6 +357,10 @@ public class ActivityAddNewAlarmTime extends AppCompatActivity {
         });
     }
 
+    /**
+     * Method that makes ringtones available for the user to view & select
+     */
+
     private void getAvailableRingtones() {
         Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
         intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_NOTIFICATION);
@@ -374,14 +370,12 @@ public class ActivityAddNewAlarmTime extends AppCompatActivity {
     }
 
     /**
-     *
+     * New alarm object, all alarm variables are set here
      */
 
     private void newAlarm() throws IllegalArgumentException, NullPointerException {
         Log.e(qrResult, "QR CREATEENTRY");
         alarm = new Alarm();
-        //alarmId = 1;
-        //alarmId = db.getNewId();
         alarm.setName(time_name.getText().toString());
         alarm.setMemo(time_memo.getText().toString());
 
@@ -410,10 +404,18 @@ public class ActivityAddNewAlarmTime extends AppCompatActivity {
         //return alarm;
     }
 
+    /**
+     * Saves the alarm object to the database
+     */
+
     public void storeAlarm() {
+
         alarmId = db.createAlarm(this.alarm);
     }
 
+    /**
+     * Ensures time will go off at the time set by the picker
+     */
     public void scheduleAlarm() {
         AlarmScheduler alarmScheduler = new AlarmScheduler();
         alarm.setId(alarmId);
@@ -443,6 +445,11 @@ public class ActivityAddNewAlarmTime extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * Displays an error message
+     * @param message
+     */
 
     public void errorMessage(String message) {
         new AlertDialog.Builder(this)
