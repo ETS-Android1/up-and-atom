@@ -9,6 +9,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * UNUSED CLASS FILE
+ * <p/>
+ * Database class for the GeoAlarm that we were working on but could not implement.
+ * Commented out so to keep it compile friendly. Follows similar format to standard time alarm
+ * but unique in how we store the lat, lng and radius.
+ * <p/>
  * Created by kelvinharron on 19/04/2016.
  */
 public class SQLiteHelperGeoAlarm {

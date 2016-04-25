@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
+ * UNUSED CLASS FILE
+ * Not used as we did not implement Geo Alarms.
+ * <p/>
  * Class is used to inflate the alarm fragment view on our interface.
  * Created by kelvinharron on 04/04/2016.
  */

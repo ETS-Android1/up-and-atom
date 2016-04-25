@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<!-- This is the dialog box that appears when the users alarm triggers and it takes focus allowing
+the user to select an appropriate option to deal with the alarm.-->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/dismiss_layout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginBottom="@dimen/add_new_alarm_standard_padding"
     android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
     android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
-    android:layout_marginBottom="@dimen/add_new_alarm_standard_padding"
     android:layout_marginTop="@dimen/add_new_alarm_standard_padding"
-    android:layout_gravity="center"
     android:orientation="vertical">
 
     <TextView
@@ -29,42 +31,45 @@
         android:layout_gravity="center"
         android:text="Alarm"
         android:textSize="32sp" />
-<!--
-    <TextClock
+    <!--
+        <TextClock
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Time"
+            android:textSize="40sp" /> -->
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Time"
-        android:textSize="40sp" /> -->
-<RelativeLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
-    android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
-    android:layout_marginTop="@dimen/add_new_alarm_standard_padding"
-    android:layout_gravity="center">
-    <TextView
-        android:id="@+id/scan_title"
-        style="@style/Base.TextAppearance.AppCompat.Title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
         android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
-        android:layout_gravity="center"
-        android:text="Memo: "
-        android:textSize="16sp" />
-    <TextView
-        android:id="@+id/scan_item"
-        style="@style/Base.TextAppearance.AppCompat.Title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
-        android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
-        android:layout_gravity="center"
-        android:layout_toRightOf="@+id/scan_title"
-        android:text="Alarm"
-        android:textSize="16sp" />
-</RelativeLayout>
+        android:layout_marginTop="@dimen/add_new_alarm_standard_padding">
+
+        <TextView
+            android:id="@+id/scan_title"
+            style="@style/Base.TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
+            android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
+            android:text="Memo: "
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/scan_item"
+            style="@style/Base.TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
+            android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
+            android:layout_toRightOf="@+id/scan_title"
+            android:text="Alarm"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/button_layout"
         android:layout_width="wrap_content"

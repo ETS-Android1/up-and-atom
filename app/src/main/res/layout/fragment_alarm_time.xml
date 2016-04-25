@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!-- This fragment is displayed when the tab selected by the user is set to Alarms
-TODO: Establish connection to a dataset to enable empty state that shows text and image when no cards/alarm objects exist
 -->
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -11,6 +10,8 @@ TODO: Establish connection to a dataset to enable empty state that shows text an
     android:layout_height="match_parent"
     tools:context=".FragmentTimeAlarm">
 
+    <!-- Many attempts were made to create an empty state view for the recycler view but we were
+     unsuccessful getting it to display. -->
 
     <TextView
         android:id="@+id/empty_view"
@@ -21,6 +22,9 @@ TODO: Establish connection to a dataset to enable empty state that shows text an
         android:textSize="30dp"
         android:visibility="invisible" />
 
+    <!-- We get a reference to the recyclerview in the FragmentTimeAlarm.class file to populate it
+     with any existing or new alarm objects when the user creates them. -->
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/time_alarm_recycler_view"
         android:layout_width="match_parent"
@@ -29,6 +33,5 @@ TODO: Establish connection to a dataset to enable empty state that shows text an
         android:paddingBottom="100dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_scrollFlags="scroll|enterAlways" />
-
 
 </android.support.design.widget.CoordinatorLayout>

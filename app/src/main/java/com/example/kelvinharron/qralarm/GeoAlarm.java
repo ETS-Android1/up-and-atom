@@ -10,6 +10,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 /**
+ * UNUSED CLASS FILE
+ * <p/>
  * Created by Conor on 17/04/2016.
  */
 public class GeoAlarm {

@@ -35,10 +35,8 @@ public class DialogAlarmOverride extends DialogFragment implements View.OnClickL
      */
     private Button confirmButton;
 
-    private String overridePassword;
 
-
-     /**
+    /**
      * Creates the dialog view and instantiates the button views.
      *
      * @param inflater           - instantiates the xml file into the view objects
@@ -54,42 +52,38 @@ public class DialogAlarmOverride extends DialogFragment implements View.OnClickL
         confirmButton = (Button) viewFragment.findViewById(R.id.confirmButton);
         confirmButton.setOnClickListener(this);
         setCancelable(false); // prevents a tap outside of screen or back button from cancelling the dialog
-        passcodeEditText = (EditText)viewFragment.findViewById(R.id.editTextPasscode);
+        passcodeEditText = (EditText) viewFragment.findViewById(R.id.editTextPasscode);
         return viewFragment;
     }
 
     /**
-     * Handles the input of the buttons in the dialog.
-     * CURRENTLY CRASHES APP WHEN YOU CLICK SUBMIT
+     * Handles the input of the buttons in the dialog
      *
      * @param viewFragment
      */
     public void onClick(View viewFragment) {
 
         if (viewFragment.getId() == R.id.confirmButton) {
-            //ToDO: fix app crash when confirm button is clicked + get the passcode toString and send back to Activity/database
             this.listener.onComplete(passcodeEditText.getText().toString());
-            // SOURCE OF ISSUE
             dismiss(); // Dismisses dialog from view, returning focus to activity
         }
-
         if (viewFragment.getId() == R.id.cancelButton) {
             dismiss(); // Dismisses dialog from view, returning focus to activity
         }
     }
+
     /**
      * Attaches the fragment to the activity
      *
      * @param dismissAlarmActvity - in this instance the ActivityAddNewAlarmTime activity
      */
     @Override
-    public void onAttach(Activity dismissAlarmActvity ) {
-        super.onAttach(dismissAlarmActvity );
+    public void onAttach(Activity dismissAlarmActvity) {
+        super.onAttach(dismissAlarmActvity);
         try {
-            this.listener = (OnCompleteListener)dismissAlarmActvity ;
-        }
-        catch (final ClassCastException e) {
-            throw new ClassCastException(dismissAlarmActvity .toString() + " must implement OnCompleteListener");
+            this.listener = (OnCompleteListener) dismissAlarmActvity;
+        } catch (final ClassCastException e) {
+            throw new ClassCastException(dismissAlarmActvity.toString() + " must implement OnCompleteListener");
         }
     }
 }

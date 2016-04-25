@@ -1,21 +1,9 @@
 package com.example.kelvinharron.qralarm;
 
-import android.*;
-import android.Manifest;
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationManager;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -28,8 +16,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 /**
- * This class is used when a user is adding a new alarm and chooses the location alarm type.
- * This class will open a Google Maps screen allowing a user to long press and add a marker of their location.
+ * The ActivityMaps.class file is used to handle the logic of the preferences menu where the user
+ * can set their location. As part of the location aspect of this application, if a user is away
+ * from a home location when the alarm goes off, we can't expect them to scan the normal object code
+ * so instead we allow them to dismiss the alarm from view to avoid annoyance.
  */
 public class ActivityMaps extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMapLongClickListener {
 
@@ -38,13 +28,31 @@ public class ActivityMaps extends FragmentActivity implements OnMapReadyCallback
      */
     private GoogleMap googleMap;
 
+    /**
+     * Gets a reference to the shared preferences object that allows us to get and set the value
+     * of the location key.
+     */
     private SharedPreferences sharedPrefs;
 
+    /**
+     * Allows us to edit and commit the values of the latLng to the preferences file.
+     */
     private SharedPreferences.Editor editor;
 
-    private String testVar;
+    /**
+     * Stores a reference to the latLng of the user when we commit the changes to the preferences.
+     */
+    private String prefsLocation;
 
 
+    /**
+     * When the user opens this activity, they are given basic instructions on what to do. We need
+     * them to verify their home location by long pressing on the map where they live.
+     * We use this value each time the alarm goes off as an exception where they cannot scan the
+     * object code as they are likely away from it if they are not at the home location.
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,8 +60,6 @@ public class ActivityMaps extends FragmentActivity implements OnMapReadyCallback
         Toast.makeText(getApplicationContext(), "To set your location simply long press on the map", Toast.LENGTH_LONG).show();
         ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                 .getMapAsync(this);
-
-
     }
 
     @Override
@@ -70,7 +76,7 @@ public class ActivityMaps extends FragmentActivity implements OnMapReadyCallback
         LatLng userLocation = new LatLng(54.584782, -5.936335); // default location set to Queen's University
         CameraUpdate centre = CameraUpdateFactory.newLatLng(userLocation);
         CameraUpdate zoom = CameraUpdateFactory.zoomTo(50);
-        googleMap.getUiSettings().setMapToolbarEnabled(false);
+        googleMap.getUiSettings().setMapToolbarEnabled(false); // disables google specific controls from appearing
         googleMap.addMarker(new MarkerOptions().position(userLocation).title("Home")); // string on marker when user clicks
         googleMap.moveCamera(centre);
         try {
@@ -81,6 +87,13 @@ public class ActivityMaps extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+    /**
+     * Method handles the action when a user long presses on the map to set their location.
+     * When we recieve this input, we toast as a confirmation to the user and close the activity
+     * because we do not require them to commit more than one home location.
+     *
+     * @param latLng
+     */
     @Override
     public void onMapLongClick(LatLng latLng) {
         if (googleMap != null) {
@@ -96,15 +109,23 @@ public class ActivityMaps extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+    /**
+     * As the value of the location is stored as a latLng, we need to append it before storing it
+     * as a unique value. We use a StringBuilder to split the values in half at the comma mark so we
+     * can extract the values in a usable state. By doing this, we use the prefs editor to commit
+     * the new values to the preferences file once the user has long pressed to state their home
+     * location.
+     *
+     * @param latLng
+     */
     private void appendLocationString(LatLng latLng) {
         StringBuilder builder = new StringBuilder();
         builder.append(latLng.latitude);
-        builder.append(",");
+        builder.append(","); // split the latLng in the middle
         builder.append(latLng.longitude);
         editor = sharedPrefs.edit();
         editor.putString("location", builder.toString());
         editor.apply();
-        testVar = sharedPrefs.getString("location", "");
-        Log.e(testVar, "Location Log Test");
+        prefsLocation = sharedPrefs.getString("location", "");
     }
 }

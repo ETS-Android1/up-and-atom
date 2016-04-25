@@ -12,23 +12,41 @@ import android.view.ViewGroup;
 import java.util.List;
 
 /**
- * Class is used to inflate the alarm fragment view on our interface.
+ * Class is used to inflate the alarm fragment view on our interface. Here we employ the use of the
+ * RecyclerView, the custom AdapterTimeAlarm and LinearLayout to create our alarm card view objects.
+ * <p/>
  * Created by kelvinharron on 04/04/2016.
  */
 public class FragmentTimeAlarm extends Fragment {
 
-
+    /**
+     * The view widget we use to efficiently display multiple instances of unique alarms efficiently.
+     * This widget coupled with the LayoutManager means we can easily customise the look and layout
+     * of our alarms should we wish.
+     */
     private RecyclerView recyclerView;
+
+    /**
+     * Creates a reference to our custom adapter where we bind the data of alarm objects to the views
+     * held inside the card layout.
+     */
     private AdapterTimeAlarm adapter;
+
+    /**
+     * Used as a means to draw the layout file where our recycler view is defined in XML.
+     */
     private View layout;
+
+    /**
+     * Used as a means to get the context of the application activity.
+     */
     private Context context;
 
     /**
-     * Default class constructor, empty as standard
+     * On create of the Fragment, where we instantiate the context of the associated activity.
+     *
+     * @param savedInstanceState
      */
-    public FragmentTimeAlarm() {
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +59,7 @@ public class FragmentTimeAlarm extends Fragment {
      * @param inflater
      * @param container
      * @param savedInstanceState
-     * @return
+     * @return the recycler view layout
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -59,15 +77,15 @@ public class FragmentTimeAlarm extends Fragment {
         recyclerView = (RecyclerView) layout.findViewById(R.id.time_alarm_recycler_view);
         adapter = new AdapterTimeAlarm(getActivity(), getData());
         recyclerView.setAdapter(adapter);
+        // Setting the layout to a simple linear layout allowing vertical display of the cards
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
     /**
-     * Test data class. Local arraylists provide test data
-     * TODO: HOUR AND MIN SHOW ONE DIGIT INSTEAD OF TWO, RELATED TO PHONE TIME SETTINGS?
-     * TOOD: alarmDays SHOWS NULL ON CARD VIEWS
+     * Gets a reference to the alarm data currently stored meaning we can populate the recycler
+     * view with any existing alarms.
      *
-     * @return
+     * @return all alarms currently existing.
      */
     public List<Alarm> getData() {
         return new SQLiteHelperAlarm(context).getAllAlarms();

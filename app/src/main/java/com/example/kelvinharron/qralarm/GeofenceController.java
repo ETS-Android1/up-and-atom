@@ -18,6 +18,8 @@ android:allowBackup="true">
 */
 
 /**
+ * UNUSED CLASS FILE
+ * <p/>
  * Created by Conor on 19/04/2016.
  */
 public class GeofenceController {
@@ -29,6 +31,7 @@ public class GeofenceController {
     private Gson gson;
     private SharedPreferences preferences;
     private List<GeoAlarm> geoAlarms;
+
     public List<GeoAlarm> getGeoAlarms() {
         return geoAlarms;
     }
@@ -47,7 +50,7 @@ public class GeofenceController {
         return INSTANCE;
     }
 
-    public void init(Context context){
+    public void init(Context context) {
         this.context = context.getApplicationContext();
         gson = new Gson();
         geoAlarms = new ArrayList<>();

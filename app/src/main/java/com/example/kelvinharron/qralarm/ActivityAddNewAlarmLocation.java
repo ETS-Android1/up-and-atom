@@ -28,6 +28,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
+ * UNUSED CLASS FILE
+ * As we did not implement geo alarms, we have disabled this activity from being accessible by the user.
+ * <p/>
  * Created by Peter on 16/04/2016.
  * This class allows the user to set a new alarm based on location. Activated by the user pressing
  * the floating action button on the main menu
@@ -266,8 +269,8 @@ public class ActivityAddNewAlarmLocation extends AppCompatActivity implements On
     }
 
     /**
-    * Button for bringing up QR scanner
-    */
+     * Button for bringing up QR scanner
+     */
     private void setScanQR() {
         scanQR = (Button) findViewById(R.id.QRButton);
 

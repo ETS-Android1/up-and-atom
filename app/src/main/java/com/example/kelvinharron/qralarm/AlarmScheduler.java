@@ -2,11 +2,8 @@ package com.example.kelvinharron.qralarm;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Parcelable;
 import android.os.SystemClock;
 
 import java.math.BigDecimal;
@@ -99,8 +96,9 @@ public class AlarmScheduler {
 
     /**
      * Cancels the passed alarm object for occurring removing alarm from the scheduled time.
+     *
      * @param context - application context
-     * @param alarm - alarm object which indicates time, days and if the alarm will activate.
+     * @param alarm   - alarm object which indicates time, days and if the alarm will activate.
      */
     public void cancelAlarm(Context context, Alarm alarm) {
         // instantiate the system alarm service manager
@@ -129,6 +127,7 @@ public class AlarmScheduler {
     /**
      * Schedules an alarm for a given number of minutes after the current time (enables the snooze
      * function in the dismissAlarmActivity.
+     *
      * @param context - application context
      * @param minutes - int of the number of minutes to schedule an alarm for
      */

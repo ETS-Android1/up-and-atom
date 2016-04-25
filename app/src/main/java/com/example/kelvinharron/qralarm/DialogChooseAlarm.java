@@ -10,7 +10,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 /**
- * DEPRECIATED CLASS.
+ * UNUSED CLASS FILE
+ * <p/>
+ * Draws and handles the logic behind the use of the dialog drawn when a user clicks the FAB.
+ * A user should be able to choose the type of alarm they wish to create.
  * Created by kelvinharron on 17/04/2016.
  */
 public class DialogChooseAlarm extends DialogFragment implements View.OnClickListener {

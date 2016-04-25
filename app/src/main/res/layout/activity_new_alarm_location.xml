@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!-->
-DEPRECIATED
+UNUSED LAYOUT FILE
 XML Layout for the 'Add new (location) alarm screen' links to the ActivityAddNewAlarmLocation class<-->
 
 <android.support.design.widget.CoordinatorLayout

@@ -1,6 +1,5 @@
 package com.example.kelvinharron.qralarm;
 
-import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,19 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Fragment class used to display the information for getting started. This fragment is controlled by the view pager and tab controller contained in the ActivityMain class file.
+ * Fragment class used to display the information for getting started.
+ * This fragment is controlled by the view pager and tab controller contained in the ActivityMain class file.
  * This allows us to easily create and implement more tabs to the main interface in future should we need to.
  * Created by kelvinharron on 22/04/2016.
  */
 public class FragmentGettingStarted extends Fragment {
 
-    private View layout;
-
-    /**
-     * Default class constructor.
-     */
-    public FragmentGettingStarted() {
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,8 +30,7 @@ public class FragmentGettingStarted extends Fragment {
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        layout = inflater.inflate(R.layout.fragment_getting_started, container, false);
-
+        View layout = inflater.inflate(R.layout.fragment_getting_started, container, false);
         return layout;
     }
 }

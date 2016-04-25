@@ -11,7 +11,7 @@
     <PreferenceCategory android:title="Alarm settings" />
     <!-- The category acts like a group container for the preference objects. This organises content and uses the apps accent colour.  -->
     <EditTextPreference
-        android:defaultValue="override"
+        android:defaultValue="atom"
         android:dialogMessage="Create an override code for your alarm."
         android:dialogTitle="Alarm Override"
         android:key="override"
@@ -38,14 +38,5 @@
      This means a user won't have the annoyance of the alarm if we detect them outside this area when the
      alarm triggers. As we can't easily define this intent in java like in other examples, we instead can define it
      in the XML. This means targeting the exact location and package for the class file.-->
-
-    <PreferenceCategory android:title="Contact" />
-
-    <PreferenceScreen
-        android:key="email"
-        android:summary="Let us know if you find a bug or just love the app."
-        android:title="Email" />
-
-    <!-- Stub option where we can implement an intent to open the users email client, either for feedback or attaching an error log.  -->
 
 </PreferenceScreen>

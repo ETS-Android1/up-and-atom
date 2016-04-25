@@ -1,4 +1,7 @@
-<!-- This fragment is displayed when the user selects location from the new alarm spinner-->
+<!-- The map fragment is contained within a frame layout as it will allow us to add view objects
+ later to it if need be such as buttons or edit text fields. We are able to get a reference to the
+ map view in the ActivityMaps.class file. -->
+
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"

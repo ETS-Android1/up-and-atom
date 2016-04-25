@@ -5,22 +5,23 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Switch;
-import android.widget.TextView;
 
 import java.util.Collections;
 import java.util.List;
 
 /**
+ * UNUSED CLASS because we did not implement geoAlarms.
+ * Seperate adapter required for this type of alarm as we would be populating different views than
+ * what the time alarm has.
+ * <p/>
  * This class acts as an adapter between alarm objects data and card view objects.
  * When alarm objects are created we can add them to the alarm view as card layouts through this process.
- * TODO: add database wrapper so we can update database with card information
  * Created by kelvinharron on 10/04/2016.
  */
-public class AdapterLocationAlarm extends RecyclerView.Adapter<AdapterLocationAlarm.AlarmViewHolder>{
+public class AdapterLocationAlarm extends RecyclerView.Adapter<AdapterLocationAlarm.AlarmViewHolder> {
 
+    private List<GeoAlarm> GeoAlarm = Collections.emptyList();
     private LayoutInflater inflater;
-    private List<Alarm> alarmData = Collections.emptyList();
 
     /**
      * Constructor with arguments
@@ -28,9 +29,9 @@ public class AdapterLocationAlarm extends RecyclerView.Adapter<AdapterLocationAl
      * @param context
      * @param alarmData
      */
-    public AdapterLocationAlarm(Context context, List<Alarm> alarmData) {
+    public AdapterLocationAlarm(Context context, List<GeoAlarm> alarmData) {
         inflater = LayoutInflater.from(context);
-        this.alarmData = alarmData;
+        this.GeoAlarm = alarmData;
     }
 
     /**
@@ -42,9 +43,9 @@ public class AdapterLocationAlarm extends RecyclerView.Adapter<AdapterLocationAl
      */
     @Override
     public AlarmViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    //    View alarmView = inflater.inflate(R.layout.card_location_alarm, parent, false);
-     //   AlarmViewHolder holder = new AlarmViewHolder(alarmView);
-      return null;
+        //    View alarmView = inflater.inflate(R.layout.card_location_alarm, parent, false);
+        //   AlarmViewHolder holder = new AlarmViewHolder(alarmView);
+        return null;
     }
 
     /**
@@ -56,7 +57,7 @@ public class AdapterLocationAlarm extends RecyclerView.Adapter<AdapterLocationAl
      */
     @Override
     public void onBindViewHolder(AlarmViewHolder holder, final int position) {
-        Alarm alarm = alarmData.get(position);
+        GeoAlarm geoAlarm = GeoAlarm.get(position);
 
     }
 
@@ -67,7 +68,7 @@ public class AdapterLocationAlarm extends RecyclerView.Adapter<AdapterLocationAl
      */
     @Override
     public int getItemCount() {
-        return alarmData.size();
+        return GeoAlarm.size();
     }
 
 
@@ -75,13 +76,6 @@ public class AdapterLocationAlarm extends RecyclerView.Adapter<AdapterLocationAl
      * Inner class that links the view objects from the card layout object and object properties together.
      */
     static class AlarmViewHolder extends RecyclerView.ViewHolder {
-
-        protected TextView alarmName;
-        protected TextView alarmMemo;
-        protected TextView alarmTimeHour;
-        protected TextView alarmTimeMin;
-        protected TextView alarmDays;
-        protected Switch alarmIsOn;
 
         public AlarmViewHolder(View itemView) {
             super(itemView);

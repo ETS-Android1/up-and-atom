@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-DEPRECIATED LAYOUT
+UNUSED LAYOUT
 
 This dialogue appears over the main view when a user selects the add new alarm Floating Action Button.
  It displays a dialog box giving a choice of creating either a location or time based alarm.

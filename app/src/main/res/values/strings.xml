@@ -32,6 +32,17 @@
         permission has been permanently denied, it can be enabled from the System Settings
         &gt; Apps &gt; \'QR Alarm\'.</string>
     <string name="alarm_sound">Alarm Sound</string>
+    <string name="getting_started_override_tip">If you lose the object you scanned you can always use the override code above.\nIf you want to set a new one, click on the overflow menu (top right) and go to settings.</string>
+    <string name="default_override">atom</string>
+    <string name="override_card_name">Default override code</string>
+    <string name="step_one_description">A name and memo will help you quickly choose what to scan</string>
+    <string name="step_one_title">Set a name and memo</string>
+    <string name="step_two_title">Scan a barcode or QR code</string>
+    <string name="step_two_description">Something that you tend to use each morning!</string>
+    <string name="step_three_title">Wait for your alarm</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="button_confirm">Confirm</string>
+    <string name="step_three_description">Get the object and scan to deactivate the alarm. Now you\'re all set for the day!</string>
 
 
 </resources>

@@ -17,7 +17,7 @@ android {
 
             debuggable true
 
-            manifestPlaceholders = [google_map_key: "AIzaSyAlvVjKwz8pFrX9LqtPOmdeNvFcoFLB0wE"]
+            manifestPlaceholders = [google_map_key: "AIzaSyAMwEl3VmYcUeXwTSxQ3wKD6n9vG8x--8E"]
         }
         release {
             minifyEnabled false

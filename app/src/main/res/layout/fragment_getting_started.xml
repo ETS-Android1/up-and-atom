@@ -7,8 +7,8 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:theme="@android:style/Theme.Material.Light"
     tools:context=".FragmentGettingStarted">
 
@@ -20,9 +20,83 @@
 
         <!-- Because a nested scroll view can only hold one child, we need to wrap all of our views inside a linearlayout -->
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="70dp">
+
+            <!-- We felt it was key to point out the override facility immediately and keeping a simple one to start with should help users. -->
+
+            <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/tools"
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card_getting_started_tips"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                app:cardUseCompatPadding="true"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="10dp">
+
+                <!-- The elevation values allow us to alter the density of the shadow effect while the layout_margin will affect how much distance appears
+                 between each unique card.-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/useful"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:text="Tip"
+                        android:textColor="@color/themeAccent"
+                        android:textSize="16sp"
+                        android:textStyle="italic" />
+
+                    <TextView
+                        android:id="@+id/time_alarm_tip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:text="@string/override_card_name"
+                        android:textColor="@color/themeAccent"
+                        android:textSize="20sp"
+                        android:textStyle="normal" />
+
+                    <TextView
+                        android:id="@+id/time_alarm_override"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/default_override"
+                        android:textColor="@color/themeAccent"
+                        android:textSize="30sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/time_alarm_tip_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/activity_vertical_margin"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginRight="@dimen/activity_horizontal_margin"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/getting_started_override_tip"
+                        android:textSize="16sp"
+                        android:textStyle="normal" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
 
             <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/tools"
@@ -54,15 +128,22 @@
                         android:textSize="16sp"
                         android:textStyle="italic" />
 
+
                     <TextView
                         android:id="@+id/time_alarm_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:text="Set a name and memo"
+                        android:text="@string/step_one_title"
                         android:textColor="@color/themeAccent"
                         android:textSize="20sp"
                         android:textStyle="normal" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@android:color/transparent" />
 
                     <TextView
                         android:id="@+id/time_alarm_memo"
@@ -71,8 +152,8 @@
                         android:layout_marginBottom="@dimen/activity_vertical_margin"
                         android:layout_marginLeft="@dimen/activity_horizontal_margin"
                         android:layout_marginRight="@dimen/activity_horizontal_margin"
-                        android:layout_marginTop="60dp"
-                        android:text="A name and memo will help you quickly choose what to scan "
+                        android:layout_marginTop="15dp"
+                        android:text="@string/step_one_description"
                         android:textSize="16sp"
                         android:textStyle="normal" />
 
@@ -115,10 +196,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:text="Scan a barcode or QR code of something you need to use each morning."
+                        android:text="@string/step_two_title"
                         android:textColor="@color/themeAccent"
                         android:textSize="20sp"
                         android:textStyle="normal" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@android:color/transparent" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -126,8 +213,8 @@
                         android:layout_marginBottom="@dimen/activity_vertical_margin"
                         android:layout_marginLeft="@dimen/activity_horizontal_margin"
                         android:layout_marginRight="@dimen/activity_horizontal_margin"
-                        android:layout_marginTop="60dp"
-                        android:text="A name and memo will help you quickly choose what to scan "
+                        android:layout_marginTop="15dp"
+                        android:text="@string/step_two_description"
                         android:textSize="16sp"
                         android:textStyle="normal" />
 
@@ -165,14 +252,19 @@
                         android:textStyle="italic" />
 
                     <TextView
-
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                        android:text="Wait for your alarm"
+                        android:text="@string/step_three_title"
                         android:textColor="@color/themeAccent"
                         android:textSize="20sp"
                         android:textStyle="normal" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@android:color/transparent" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -180,8 +272,8 @@
                         android:layout_marginBottom="@dimen/activity_vertical_margin"
                         android:layout_marginLeft="@dimen/activity_horizontal_margin"
                         android:layout_marginRight="@dimen/activity_horizontal_margin"
-                        android:layout_marginTop="60dp"
-                        android:text="Get the object and scan to deactivate the alarm. Now you're all set for the day!"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/step_three_description"
                         android:textSize="16sp"
                         android:textStyle="normal" />
 

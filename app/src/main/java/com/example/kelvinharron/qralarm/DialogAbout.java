@@ -1,7 +1,6 @@
 package com.example.kelvinharron.qralarm;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
@@ -10,10 +9,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 /**
+ * This Dialog is used to display the name of the app, the develoeprs and the logo. It is accessed
+ * through the menu main controls from the ActivityMain.class view.
+ * <p/>
+ * A cool little dialog as a treat that quite a few applications have.
+ * <p/>
  * Created by kelvinharron on 17/04/2016.
  */
-public class DialogAbout extends DialogFragment implements View.OnClickListener  {
+public class DialogAbout extends DialogFragment implements View.OnClickListener {
 
+    /**
+     * Button is used to dismiss the dialog once the user is ready to leave.
+     */
     private Button dismiss;
 
     /**
@@ -43,15 +50,16 @@ public class DialogAbout extends DialogFragment implements View.OnClickListener 
         return viewFragment;
     }
 
+    /**
+     * When the user is ready to leave the screen, we simply dismiss the dialog from view and return
+     * to the previous view/activity.
+     *
+     * @param viewFragment
+     */
     @Override
     public void onClick(View viewFragment) {
         if (viewFragment.getId() == R.id.dismissButton) {
             dismiss();
+        }
     }
-
 }
-
-
-}
-
-
