@@ -12,7 +12,6 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
@@ -32,6 +31,7 @@ import java.io.IOException;
 
 /**
  * Created by Hannah Butler (40004276)
+ * Edited by Conor Taggart (40164305)
  * <p/>
  * Class called when a scheduled alarm activates. The activity inflates the
  * dialog_dismiss_layout.xml, The alarm Id is extracted from the Bundle, passed to the
@@ -107,7 +107,6 @@ public class ActivityDismissAlarm extends AppCompatActivity implements OnComplet
     private static final long MIN_TIME_BW_UPDATES = 0;//1000 * 60 * 1; // 1 minute
     // Ignore time
     private static final int IGNORE_TIME = 5;
-
 
     /**
      * Overrides Activity onCreate method, calls methods to instantiate buttons and TextViews,
