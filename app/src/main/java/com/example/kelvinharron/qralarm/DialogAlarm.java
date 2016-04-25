@@ -9,6 +9,8 @@ import android.support.v4.app.DialogFragment;
 import android.widget.TimePicker;
 
 /**
+ * UNUSED CLASS FILE
+ * Used for testing early alarm implementation.
  * Created by Hannah on 12/04/2016.
  */
 public class DialogAlarm extends DialogFragment {

@@ -43,6 +43,8 @@
     <string name="cancel_button">Cancel</string>
     <string name="button_confirm">Confirm</string>
     <string name="step_three_description">Get the object and scan to deactivate the alarm. Now you\'re all set for the day!</string>
+    <string name="location_tip_description">Always make sure to set your home location in settings so that, should your alarm go off when you are not at home, you can easily dismiss it.</string>
+    <string name="location_in_alarms">Location in alarms</string>
 
 
 </resources>

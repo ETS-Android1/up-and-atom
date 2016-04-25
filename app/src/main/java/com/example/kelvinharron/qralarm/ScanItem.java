@@ -1,6 +1,9 @@
 package com.example.kelvinharron.qralarm;
 
 /**
+ * UNUSED CLASS FILE
+ * <p/>
+ * Created for use in the unused geo alarm feature that has not been implemented.
  * Created by Conor on 17/04/2016.
  */
 public class ScanItem {

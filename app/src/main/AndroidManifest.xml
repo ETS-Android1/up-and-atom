@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- The manifest file represents all the activities and permissions required for use to make the
+ application function. We can choose the system wide theme here as defined in the style and colors
+ xml files.
+
+ The permissions required to the use the app here will be read by the users device so they will be
+ aware that we need to use the camera and location features.
+
+ The api key for google maps is also held in the manifest.
+ -->
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.kelvinharron.qralarm">
 
@@ -14,16 +25,14 @@
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.CAMERA" />
 
-
     <application
         android:allowBackup="true"
         android:debuggable="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/atom_symbol"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme">
-        <activity
-            android:name=".ActivityMain">
+        <activity android:name=".ActivityMain">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

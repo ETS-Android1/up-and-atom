@@ -1,5 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?><!-- This fragment is displayed when the user selects the override option.
-Looks rough currently and crashes when the user hits submit. -->
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- This dialog contains a text view requesting a users override code and is displayed once the users
+  alarm goes off. This will display on the users screen and take focus until it is dismissed. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"

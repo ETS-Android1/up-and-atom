@@ -120,6 +120,8 @@ public class ActivityAddNewAlarmTime extends AppCompatActivity {
 
     private boolean scanClick;
 
+    private TimePicker timePicker;
+
     /**
      * Start of activity lifecycle. Sets the view of the ActivityAddNewAlarmTime activity and calls the methods enabling behavior.
      *
@@ -257,18 +259,16 @@ public class ActivityAddNewAlarmTime extends AppCompatActivity {
      * Sets the time of the alarm using a timepicker
      */
     private void setAlarm() {
-        final TimePicker timePicker = (TimePicker) findViewById(R.id.timeAlarmTimepicker);
+        timePicker = (TimePicker) findViewById(R.id.timeAlarmTimepicker);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             tpHour = timePicker.getHour();
         } else {
-            tpHour = 07;
-            timePicker.equals(tpHour);
+            tpHour = timePicker.getCurrentHour();
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             tpMinute = timePicker.getMinute();
         } else {
-            tpMinute = 30;
-            timePicker.equals(tpMinute);
+            tpMinute = timePicker.getCurrentMinute();
         }
         timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
@@ -303,9 +303,11 @@ public class ActivityAddNewAlarmTime extends AppCompatActivity {
         } else if (resultCode == Activity.RESULT_OK && requestCode == 5) {
             Uri uri = intent.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
             if (uri != null) {
-                this.chosenRingtone = uri;
+                chosenRingtone = uri;
+                Log.e(chosenRingtone.toString(), "set tone");
             } else {
-                this.chosenRingtone = null;
+                chosenRingtone = null;
+                Log.e(chosenRingtone.toString(), "null tone");
             }
             Ringtone ringtone = RingtoneManager.getRingtone(this, uri);
             alarmSound.setText(ringtone.getTitle(getApplicationContext()));
@@ -456,8 +458,60 @@ public class ActivityAddNewAlarmTime extends AppCompatActivity {
                 .setTitle("Warning")
                 .setMessage(message)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {}
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
                 }).setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
+    }
+
+    /**
+     * Handling changes between orientation and other state changes and saving the values in the
+     * class Bundle object to be retrieved by the onRestoreState
+     * @param savedInstanceState - previous instanceState
+     */
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putString("qrCode", qrResult);
+        savedInstanceState.putString("sound", chosenRingtone.toString());
+        savedInstanceState.putIntegerArrayList("dayArray", dayArray);
+        savedInstanceState.putInt("hour", timePicker.getCurrentHour());
+        savedInstanceState.putInt("min", timePicker.getCurrentMinute());
+    }
+
+    /**
+     * Retrieving and restoring instance vars to ensure data is not lost between orientation
+     * transition etc...
+     * @param savedInstanceState the store state of instance vars
+     */
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState.getString("qrCode") != null) {
+            qrResult = savedInstanceState.getString("qrCode");
+            scanClick = true;
+        }
+
+            Log.e(savedInstanceState.getString("sound"), "ORIENTATION SAVE SOUND");
+            chosenRingtone = Uri.parse(savedInstanceState.getString("sound"));
+            Ringtone ringtone = RingtoneManager.getRingtone(this, chosenRingtone);
+            alarmSound.setText(ringtone.getTitle(this));
+
+        if (savedInstanceState.getIntegerArrayList("dayArray") != null) {
+            dayArray = savedInstanceState.getIntegerArrayList("dayArray");
+            sunCB.setSelected(dayArray.contains(1));
+            monCB.setSelected(dayArray.contains(2));
+            tueCB.setSelected(dayArray.contains(3));
+            wedCB.setSelected(dayArray.contains(4));
+            thuCB.setSelected(dayArray.contains(5));
+            friCB.setSelected(dayArray.contains(6));
+            satCB.setSelected(dayArray.contains(7));
+        }
+
+        tpHour = savedInstanceState.getInt("hour");
+        timePicker.setCurrentHour(tpHour);
+
+        tpMinute = savedInstanceState.getInt("min");
+        timePicker.setCurrentMinute(tpMinute);
     }
 }

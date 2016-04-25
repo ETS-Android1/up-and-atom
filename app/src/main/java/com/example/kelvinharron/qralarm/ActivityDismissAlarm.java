@@ -59,7 +59,9 @@ public class ActivityDismissAlarm extends AppCompatActivity implements OnComplet
     // TextView of a memo/note or indication of the item required to be scanned.
     TextView scanItem;
     // MediaPlayer used to control the playback of audio or in this case alarm file
-    MediaPlayer mediaPlayer;
+    static MediaPlayer mediaPlayer;
+    // Var indicating media state
+    boolean mediaStop;
     // Used to play the ringtone in the event the media player fails
     Ringtone ring;
     // Utility class which helps ease integration with Barcode Scanner via {@link Intent}s
@@ -167,6 +169,7 @@ public class ActivityDismissAlarm extends AppCompatActivity implements OnComplet
                 mediaPlayer.prepare();
                 // start the sound
                 mediaPlayer.start();
+                mediaStop = false;
             }
             // play it as a ringtone if the mediaplayer is unable to find the sound file
         } catch (IOException iOException) {
@@ -283,6 +286,7 @@ public class ActivityDismissAlarm extends AppCompatActivity implements OnComplet
             }
         }
     }
+
     /**
      * Method instantiates the snooze button and sets up the onClickEvent handler and listener
      */
@@ -336,9 +340,10 @@ public class ActivityDismissAlarm extends AppCompatActivity implements OnComplet
      * Handles the result of other intent objects in the case of this activity, it handles the
      * result of QRCode/Barcode Scanner. If the scanned code matches the code stored in the alarm
      * object the alarm is dismissed. Otherwise, it request the code or anther code to be scanned.
+     *
      * @param requestCode - request code originally supplied to startActivity
-     * @param resultCode - integer result code returned by child actvity
-     * @param intent - the intent object which contains additional data.
+     * @param resultCode  - integer result code returned by child actvity
+     * @param intent      - the intent object which contains additional data.
      */
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         // parse the results of the activity
@@ -376,6 +381,7 @@ public class ActivityDismissAlarm extends AppCompatActivity implements OnComplet
             Toast.makeText(this, "Code not detected", Toast.LENGTH_SHORT).show();
         }
     }
+
     /**
      * Method instantiates the uverride button and sets up the onClickEvent handler and listener
      */
@@ -398,6 +404,7 @@ public class ActivityDismissAlarm extends AppCompatActivity implements OnComplet
      * to play the tone, it stops playing
      */
     public void stop() {
+        mediaStop = true;
         if (mediaPlayer != null) {
             mediaPlayer.stop();
             mediaPlayer.release();
@@ -411,6 +418,7 @@ public class ActivityDismissAlarm extends AppCompatActivity implements OnComplet
     /**
      * Method handles the intent integrator compiled from the XZing barcode scanner library to scan
      * QRCode/Barcodes - used start a scanning activity
+     *
      * @param prompt - message to be displayed when the scanner starts
      */
     public void startScanning(String prompt) {
@@ -431,6 +439,7 @@ public class ActivityDismissAlarm extends AppCompatActivity implements OnComplet
     /**
      * Implements the OnCompleteListener interface method onComplete which is used to pass
      * the code entered by the user when the override button is pressed
+     *
      * @param overrideCode - user specified String override code entered in dialog fragment when Override
      *                     butt is pressed
      */
@@ -450,6 +459,7 @@ public class ActivityDismissAlarm extends AppCompatActivity implements OnComplet
     /**
      * Implements the LocationListener method onLocationChanged which is called when a change in
      * user position is detected
+     *
      * @param location
      */
     // update the latitude and longitude if the location changes
@@ -463,6 +473,7 @@ public class ActivityDismissAlarm extends AppCompatActivity implements OnComplet
      * Called to determine if the user is currently in the homeLocation set in their User
      * Preferences and compare it the current location. Returns true if at home or Preferences
      * location
+     *
      * @return boolean indicating if user is currently at home location.
      */
     private boolean isPrefLocation() {
@@ -488,6 +499,38 @@ public class ActivityDismissAlarm extends AppCompatActivity implements OnComplet
             atPrefLocation = false;
         }
         return atPrefLocation;
+    }
+
+    /**
+     * @param outState
+     */
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt("posistion", mediaPlayer.getCurrentPosition());
+        outState.putBoolean("mediaStop", mediaStop);
+        super.onSaveInstanceState(outState);
+
+
+    }
+
+    /**
+     * Handle the transition or state change such as orientation to ensure
+     * @param savedInstanceState
+     */
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        int pos = savedInstanceState.getInt("posistion");
+        mediaStop = savedInstanceState.getBoolean("mediaStop");
+        if (mediaPlayer.isPlaying() & !mediaStop) {
+            mediaPlayer.seekTo(pos);
+        } else if (!mediaPlayer.isPlaying() && !mediaStop) {
+            mediaPlayer.start();
+            mediaPlayer.seekTo(pos);
+        } else if (mediaPlayer.isPlaying() && mediaStop) {
+            stop();
+        } else
+        super.onRestoreInstanceState(savedInstanceState);
+
     }
 
     /**
