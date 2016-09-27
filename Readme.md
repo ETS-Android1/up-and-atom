@@ -6,14 +6,14 @@ Android 6.0 Marshmallow. Tested succesfully on LG G3 and Samsung Galaxy Tab S
 
 ## Dependencies
 
-ZXing Android Embedded 3.0.2
-ZXing Core 3.2.0
-Gson 2.2.4
-Google Play Services 8.4.0
+- ZXing Android Embedded 3.0.2
+- ZXing Core 3.2.0
+- Gson 2.2.4
+- Google Play Services 8.4.0
 
 ## Credits
 
-Hannah Butler
-Kelvin Harron
-Peter McCaughey
-Conor Taggart
+- Hannah Butler
+- Kelvin Harron
+- Peter McCaughey
+- Conor Taggart
