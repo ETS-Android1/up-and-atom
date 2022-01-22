@@ -4,17 +4,16 @@
 UNUSED LAYOUT FILE
 XML Layout for the 'Add new (location) alarm screen' links to the ActivityAddNewAlarmLocation class<-->
 
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".ActivityAddNewAlarmTime"
-    android:theme="@android:style/Theme.Material.Light">
+    android:theme="@android:style/Theme.Material.Light"
+    tools:context=".ActivityAddNewAlarmTime">
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
@@ -28,7 +27,7 @@ XML Layout for the 'Add new (location) alarm screen' links to the ActivityAddNew
             android:background="@color/white"
             android:orientation="vertical">
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -36,19 +35,18 @@ XML Layout for the 'Add new (location) alarm screen' links to the ActivityAddNew
 
                 <!--> Text view widget that shows a floating label instead of a hint
                  Alarm name<-->
-                <android.support.design.widget.TextInputEditText
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/time_alarm_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
                     android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
                     android:hint="@string/alarm_name_hint"
-                    android:singleLine="true"
-                    />
-            </android.support.design.widget.TextInputLayout>
+                    android:singleLine="true" />
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/location_alarm_layout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -56,14 +54,14 @@ XML Layout for the 'Add new (location) alarm screen' links to the ActivityAddNew
                 android:background="@color/white">
 
                 <!-->Text view widget that shows a floating label instead of a hint<-->
-                <android.support.design.widget.TextInputEditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/location_alarm_memo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
                     android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
                     android:hint="@string/alarm_memo_hint"
-                    android:singleLine="true"/>
+                    android:singleLine="true" />
 
                 <!-->Google Map Fragment - will allow user to set their location<-->
                 <fragment
@@ -71,9 +69,8 @@ XML Layout for the 'Add new (location) alarm screen' links to the ActivityAddNew
                     android:name="com.google.android.gms.maps.MapFragment"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
-                    android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
                     android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
-                    ></fragment>
+                    android:layout_marginRight="@dimen/add_new_alarm_standard_padding" />
 
                 <!-->Linear, horizontal layout containing 7 checkboxes - one for each
                      day of the week<-->
@@ -81,15 +78,14 @@ XML Layout for the 'Add new (location) alarm screen' links to the ActivityAddNew
                     android:id="@+id/location_alarm_layout_4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_gravity="center"
                     android:layout_below="@+id/line3"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
                     android:layout_marginTop="@dimen/add_new_alarm_standard_padding"
                     android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
-                    android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
-                    android:paddingLeft="30dp"
                     android:background="?attr/colorPrimary"
-                    >
+                    android:orientation="horizontal"
+                    android:paddingLeft="30dp">
 
                     <!--> checkboxes to allow the user to set the days the alarm
                     should repeat on<-->
@@ -98,8 +94,8 @@ XML Layout for the 'Add new (location) alarm screen' links to the ActivityAddNew
                         android:id="@+id/locationMonday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="M"
                         android:buttonTint="@color/white"
+                        android:text="M"
                         android:textColor="@color/white" />
 
                     <!--> Checkbox for Tuesday<-->
@@ -107,8 +103,8 @@ XML Layout for the 'Add new (location) alarm screen' links to the ActivityAddNew
                         android:id="@+id/locationTuesday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="T"
                         android:buttonTint="@color/white"
+                        android:text="T"
                         android:textColor="@color/white" />
 
                     <!--> Checkbox for Wednesday<-->
@@ -116,8 +112,8 @@ XML Layout for the 'Add new (location) alarm screen' links to the ActivityAddNew
                         android:id="@+id/locationWednesday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="W"
                         android:buttonTint="@color/white"
+                        android:text="W"
                         android:textColor="@color/white" />
 
                     <!--> Checkbox for Thursday<-->
@@ -125,8 +121,8 @@ XML Layout for the 'Add new (location) alarm screen' links to the ActivityAddNew
                         android:id="@+id/locationThursday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Th"
                         android:buttonTint="@color/white"
+                        android:text="Th"
                         android:textColor="@color/white" />
 
                     <!--> Checkbox for Friday<-->
@@ -134,8 +130,8 @@ XML Layout for the 'Add new (location) alarm screen' links to the ActivityAddNew
                         android:id="@+id/locationFriday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="F"
                         android:buttonTint="@color/white"
+                        android:text="F"
                         android:textColor="@color/white" />
 
                     <!--> Checkbox for Saturday<-->
@@ -143,8 +139,8 @@ XML Layout for the 'Add new (location) alarm screen' links to the ActivityAddNew
                         android:id="@+id/locationSaturday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="S"
                         android:buttonTint="@color/white"
+                        android:text="S"
                         android:textColor="@color/white" />
 
                     <!--> Checkbox for Sunday<-->
@@ -152,8 +148,8 @@ XML Layout for the 'Add new (location) alarm screen' links to the ActivityAddNew
                         android:id="@+id/locationSunday"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="S"
                         android:buttonTint="@color/white"
+                        android:text="S"
                         android:textColor="@color/white" />
                 </LinearLayout>
 
@@ -162,26 +158,24 @@ XML Layout for the 'Add new (location) alarm screen' links to the ActivityAddNew
                     android:id="@+id/location_alarm_layout_5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/add_new_alarm_standard_padding"
-                    >
+                    android:layout_marginTop="@dimen/add_new_alarm_standard_padding">
 
                     <!-->Button that activates the QR Scanner, allowing the user to assign a
                      barcode or QR code to an alarm, the same barcode must be scanned
                        to deactivate the alarm<-->
                     <Button
                         android:id="@+id/QRButton"
+                        style="?android:attr/borderlessButtonStyle"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:text="@string/qr_button_text"
-                        android:textAllCaps="true"
-                        android:clickable="true"
-                        android:background="?attr/colorPrimary"
-                        android:textColor="@color/white"
                         android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
                         android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
-                        style="?android:attr/borderlessButtonStyle"
-                        />
+                        android:background="?attr/colorPrimary"
+                        android:clickable="true"
+                        android:text="@string/qr_button_text"
+                        android:textAllCaps="true"
+                        android:textColor="@color/white" />
                 </RelativeLayout>
 
                 <!--> Layout containing 2x TextViews, which allow the user to set their
@@ -190,8 +184,8 @@ XML Layout for the 'Add new (location) alarm screen' links to the ActivityAddNew
                     android:id="@+id/line8"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="15dp"
-                    android:layout_marginTop="@dimen/add_new_alarm_standard_padding">
+                    android:layout_marginTop="@dimen/add_new_alarm_standard_padding"
+                    android:paddingBottom="15dp">
 
                     <TextView
                         android:id="@+id/alarm_sound"
@@ -201,9 +195,9 @@ XML Layout for the 'Add new (location) alarm screen' links to the ActivityAddNew
                         android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
                         android:background="?attr/colorPrimary"
                         android:gravity="left"
-                        android:paddingBottom="5dp"
                         android:paddingLeft="10dp"
                         android:paddingTop="12dp"
+                        android:paddingBottom="5dp"
                         android:text="Alarm Sound"
                         android:textColor="@color/white"
                         android:textSize="16sp"
@@ -216,13 +210,13 @@ XML Layout for the 'Add new (location) alarm screen' links to the ActivityAddNew
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/alarm_sound"
-                        android:layout_marginBottom="@dimen/add_new_alarm_standard_padding"
                         android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
                         android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
+                        android:layout_marginBottom="@dimen/add_new_alarm_standard_padding"
                         android:background="?attr/colorPrimary"
                         android:gravity="left"
-                        android:paddingBottom="12dp"
                         android:paddingLeft="10dp"
+                        android:paddingBottom="12dp"
                         android:text="Alarm Sound"
                         android:textColor="@color/white"
                         android:textSize="20sp"
@@ -231,39 +225,39 @@ XML Layout for the 'Add new (location) alarm screen' links to the ActivityAddNew
                     <!-->Confirmation Button - saves the alarm settings, adds a new card
                       with alarm details to the main screen (activity_main.xml). The user
                       is then returned to the main menu<-->
-                    <android.support.design.widget.FloatingActionButton
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/confirmButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="bottom|end"
                         android:layout_below="@id/get_ringtone"
-                        android:src="@drawable/ic_done_white_36dp"
-                        app:backgroundTint="@color/confirm_green"
-                        app:layout_anchorGravity="end"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="bottom|end"
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="16dp"
-                        android:layout_centerHorizontal="true" />
+                        android:src="@drawable/ic_done_white_36dp"
+                        app:backgroundTint="@color/confirm_green"
+                        app:layout_anchorGravity="end" />
 
                 </RelativeLayout>
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
         </RelativeLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <!--> Coordinator layout containing the all the children in this layout. The coordinator is a
     super-powered Frame layout<-->
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <!--> Places a toolbar at the top of the screen<-->
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/anlToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-    </android.support.design.widget.AppBarLayout>
-</android.support.design.widget.CoordinatorLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
 

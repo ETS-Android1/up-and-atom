@@ -5,8 +5,9 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.DialogFragment;
 import android.widget.TimePicker;
+
+import androidx.fragment.app.DialogFragment;
 
 /**
  * UNUSED CLASS FILE
@@ -14,7 +15,6 @@ import android.widget.TimePicker;
  * Created by Hannah on 12/04/2016.
  */
 public class DialogAlarm extends DialogFragment {
-
 
     private int timeHour;
     private int timeMinute;

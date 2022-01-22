@@ -11,15 +11,12 @@ meaning we can adjust the look to suit. CardUseCompatPadding allows us to target
 the card view.
 -->
 
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-
-    xmlns:app="http://schemas.android.com/tools"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/time_alarm_card_view"
     android:layout_width="match_parent"
     android:layout_height="130dp"
     android:layout_margin="20dp"
-    app:cardUseCompatPadding="true"
     card_view:cardCornerRadius="4dp"
     card_view:cardElevation="10dp">
 
@@ -109,4 +106,4 @@ the card view.
 
     </RelativeLayout>
 
-</android.support.v7.widget.CardView>
+</androidx.cardview.widget.CardView>

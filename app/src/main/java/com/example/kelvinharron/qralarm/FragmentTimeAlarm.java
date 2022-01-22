@@ -1,13 +1,14 @@
 package com.example.kelvinharron.qralarm;
 
 import android.content.Context;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
@@ -74,7 +75,7 @@ public class FragmentTimeAlarm extends Fragment {
      * LinearLayoutManager is set by default to display data vertically, but can also show grids or staggered views of data.
      */
     private void createRecyclerView() {
-        recyclerView = (RecyclerView) layout.findViewById(R.id.time_alarm_recycler_view);
+        recyclerView = layout.findViewById(R.id.time_alarm_recycler_view);
         adapter = new AdapterTimeAlarm(getActivity(), getData());
         recyclerView.setAdapter(adapter);
         // Setting the layout to a simple linear layout allowing vertical display of the cards

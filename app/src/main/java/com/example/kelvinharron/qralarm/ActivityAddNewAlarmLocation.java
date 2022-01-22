@@ -5,9 +5,6 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.Toolbar;
-import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -16,12 +13,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.zxing.integration.android.IntentIntegrator;
 
 import java.util.ArrayList;
@@ -365,16 +366,13 @@ public class ActivityAddNewAlarmLocation extends AppCompatActivity implements On
 
     private void confirmAlarm() {
 
-        FloatingActionButton button = (FloatingActionButton) findViewById(R.id.confirmButton);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createAlarm();
-                storeAlarm();
-                scheduleAlarm();
-                Toast.makeText(getApplicationContext(), "Alarm created", Toast.LENGTH_SHORT).show();
-                finish();
-            }
+        FloatingActionButton button = findViewById(R.id.confirmButton);
+        button.setOnClickListener(v -> {
+            createAlarm();
+            storeAlarm();
+            scheduleAlarm();
+            Toast.makeText(getApplicationContext(), "Alarm created", Toast.LENGTH_SHORT).show();
+            finish();
         });
     }
 }

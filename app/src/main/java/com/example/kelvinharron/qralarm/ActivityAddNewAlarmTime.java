@@ -7,11 +7,7 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -22,6 +18,11 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -286,6 +287,8 @@ public class ActivityAddNewAlarmTime extends AppCompatActivity {
      * @param intent
      */
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+
         IntentResult scanResult = integrator.parseActivityResult(requestCode, resultCode, intent);
         if (requestCode == IntentIntegrator.REQUEST_CODE) {
             if (scanResult != null) {//todo try != null
@@ -430,20 +433,17 @@ public class ActivityAddNewAlarmTime extends AppCompatActivity {
 
     private void confirmAlarm() {
 
-        FloatingActionButton button = (FloatingActionButton) findViewById(R.id.confirmButton);
+        FloatingActionButton button = findViewById(R.id.confirmButton);
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                try {
-                    newAlarm();
-                    storeAlarm();
-                    scheduleAlarm();
-                    Toast.makeText(getApplicationContext(), "Alarm created", Toast.LENGTH_SHORT).show();
-                    finish();
-                } catch (IllegalArgumentException | NullPointerException e) {
-                    errorMessage(e.getMessage());
-                }
+        button.setOnClickListener(v -> {
+            try {
+                newAlarm();
+                storeAlarm();
+                scheduleAlarm();
+                Toast.makeText(getApplicationContext(), "Alarm created", Toast.LENGTH_SHORT).show();
+                finish();
+            } catch (IllegalArgumentException | NullPointerException e) {
+                errorMessage(e.getMessage());
             }
         });
     }

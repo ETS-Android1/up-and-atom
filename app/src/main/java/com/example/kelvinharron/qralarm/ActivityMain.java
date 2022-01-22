@@ -2,19 +2,21 @@ package com.example.kelvinharron.qralarm;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -161,7 +163,7 @@ public class ActivityMain extends AppCompatActivity {
      */
     private void setupToolBar() {
         Toolbar toolbar;
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }
 
@@ -171,14 +173,8 @@ public class ActivityMain extends AppCompatActivity {
      * extend the look and function of stock android applications. Opens create new alarm activity.
      */
     private void setupFAB() {
-        FloatingActionButton addAlarmFAB = (FloatingActionButton) findViewById(R.id.floating_action_button);
-        addAlarmFAB.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                intentNewAlarm();
-            }
-        });
+        FloatingActionButton addAlarmFAB = findViewById(R.id.floating_action_button);
+        addAlarmFAB.setOnClickListener(v -> intentNewAlarm());
     }
 
     /**

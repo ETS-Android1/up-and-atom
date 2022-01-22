@@ -2,12 +2,13 @@ package com.example.kelvinharron.qralarm;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+
+import androidx.fragment.app.DialogFragment;
 
 /**
  * This class is a fragment that when called, will allow the display of a custom dialog that is used in the ActivityAddNewAlarmTime class.

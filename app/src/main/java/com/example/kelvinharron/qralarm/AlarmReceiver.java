@@ -2,8 +2,9 @@ package com.example.kelvinharron.qralarm;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.content.WakefulBroadcastReceiver;
 import android.widget.Toast;
+
+import androidx.legacy.content.WakefulBroadcastReceiver;
 
 /**
  * Receiver for each scheduled alarm as stipulated in the app manifest.  It creates a toast to
