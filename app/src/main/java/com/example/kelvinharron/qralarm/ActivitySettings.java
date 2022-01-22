@@ -1,7 +1,8 @@
 package com.example.kelvinharron.qralarm;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * This class file allows us to setup an activity through an intent to access the standard

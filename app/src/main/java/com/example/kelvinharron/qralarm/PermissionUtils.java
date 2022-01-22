@@ -19,16 +19,19 @@ package com.example.kelvinharron.qralarm;
  * limitations under the License.
  */
 
-        import android.Manifest;
-        import android.app.AlertDialog;
-        import android.app.Dialog;
-        import android.content.DialogInterface;
-        import android.content.pm.PackageManager;
-        import android.os.Bundle;
-        import android.support.v4.app.ActivityCompat;
-        import android.support.v4.app.DialogFragment;
-        import android.support.v7.app.AppCompatActivity;
-        import android.widget.Toast;
+import android.Manifest;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.os.Bundle;
+import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.DialogFragment;
 
 /**
  * Utility class for access to runtime permissions.
@@ -39,16 +42,16 @@ public abstract class PermissionUtils {
      * Requests the fine location permission. If a rationale with an additional explanation should
      * be shown to the user, displays a dialog that triggers the request.
      */
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public static void requestPermission(AppCompatActivity activity, int requestId,
                                          String permission, boolean finishActivity) {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)) {
-            // Display a dialog with rationale.
+        if (activity.shouldShowRequestPermissionRationale(permission)) {
+//             Display a dialog with rationale.
             PermissionUtils.RationaleDialog.newInstance(requestId, finishActivity)
                     .show(activity.getSupportFragmentManager(), "dialog");
         } else {
             // Location permission has not been granted yet, request it.
-            ActivityCompat.requestPermissions(activity, new String[]{permission}, requestId);
-
+            activity.requestPermissions(new String[]{permission}, requestId);
         }
     }
 
@@ -56,7 +59,6 @@ public abstract class PermissionUtils {
      * Checks if the result contains a {@link PackageManager#PERMISSION_GRANTED} result for a
      * permission from a runtime permissions request.
      *
-     * @see android.support.v4.app.ActivityCompat.OnRequestPermissionsResultCallback
      */
     public static boolean isPermissionGranted(String[] grantPermissions, int[] grantResults,
                                               String permission) {
@@ -116,7 +118,6 @@ public abstract class PermissionUtils {
      * permission.
      * <p>
      * The activity should implement
-     * {@link android.support.v4.app.ActivityCompat.OnRequestPermissionsResultCallback}
      * to handle permit or denial of this permission request.
      */
     public static class RationaleDialog extends DialogFragment {
@@ -135,7 +136,6 @@ public abstract class PermissionUtils {
          *
          * @param requestCode    Id of the request that is used to request the permission. It is
          *                       returned to the
-         *                       {@link android.support.v4.app.ActivityCompat.OnRequestPermissionsResultCallback}.
          * @param finishActivity Whether the calling Activity should be finished if the dialog is
          *                       cancelled.
          */

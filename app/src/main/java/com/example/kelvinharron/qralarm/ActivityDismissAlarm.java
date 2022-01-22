@@ -14,13 +14,15 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -347,6 +349,7 @@ public class ActivityDismissAlarm extends AppCompatActivity implements OnComplet
      */
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         // parse the results of the activity
+        super.onActivityResult(requestCode, resultCode, intent);
         IntentResult scanResult = integrator.parseActivityResult(requestCode, resultCode, intent);
         try {
             // if result or contains of result is not null convert the data array into a string
@@ -392,7 +395,7 @@ public class ActivityDismissAlarm extends AppCompatActivity implements OnComplet
         override.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final android.support.v4.app.FragmentManager manager = getSupportFragmentManager(); // fragment manager allows us to instantiate the dialog fragment
+                final FragmentManager manager = getSupportFragmentManager(); // fragment manager allows us to instantiate the dialog fragment
                 final DialogAlarmOverride dialogFragment = new DialogAlarmOverride(); // create an object of the dialogfragment that will allow us to display it once a button is pressed.
                 dialogFragment.show(manager, "fragment");
             }
@@ -515,6 +518,7 @@ public class ActivityDismissAlarm extends AppCompatActivity implements OnComplet
 
     /**
      * Handle the transition or state change such as orientation to ensure
+     *
      * @param savedInstanceState
      */
     @Override
@@ -529,7 +533,7 @@ public class ActivityDismissAlarm extends AppCompatActivity implements OnComplet
         } else if (mediaPlayer.isPlaying() && mediaStop) {
             stop();
         } else
-        super.onRestoreInstanceState(savedInstanceState);
+            super.onRestoreInstanceState(savedInstanceState);
 
     }
 

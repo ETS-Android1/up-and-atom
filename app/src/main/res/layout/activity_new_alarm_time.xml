@@ -4,7 +4,7 @@
 
 <!--> Coordinator layout containing the all the children in this layout. The coordinator is a
 super-powered Frame layout<-->
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -16,7 +16,7 @@ super-powered Frame layout<-->
     <!--> Layout allowing the user to scroll, also hides the toolbar so more of the screen real
      estate is visible, nested scroll view fits the overall material feel of the app.
      NestedScrollViews can contain only one child<-->
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
@@ -30,7 +30,7 @@ super-powered Frame layout<-->
             android:background="@color/white"
             android:orientation="vertical">
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/timeTIL1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -39,7 +39,7 @@ super-powered Frame layout<-->
 
                 <!--> An enhanced Text view widget that shows a floating label instead of a hint,
                  it links to the Alarm name on the 'Add New Alarm' Screen<-->
-                <android.support.design.widget.TextInputEditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/time_alarm_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -49,10 +49,10 @@ super-powered Frame layout<-->
                     android:hint="@string/alarm_name_hint"
                     android:singleLine="true"
                     android:textColorHighlight="@color/themeBlue" />
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
             <!-->Text view widget that shows a floating label instead of a hint<-->
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
 
                 android:id="@+id/timeTIL2"
                 android:layout_width="match_parent"
@@ -62,7 +62,7 @@ super-powered Frame layout<-->
 
                 <!--> An enhanced Text view widget that shows a floating label instead of a hint,
                  it links to the Alarm memo on the 'Add New Alarm' Screen<-->
-                <android.support.design.widget.TextInputEditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/time_alarm_memo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -94,8 +94,8 @@ super-powered Frame layout<-->
                     android:layout_below="@+id/line3"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
-                    android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
                     android:layout_marginTop="@dimen/add_new_alarm_standard_padding"
+                    android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
                     android:background="?attr/colorPrimary"
                     android:gravity="center_horizontal"
                     android:orientation="horizontal">
@@ -210,9 +210,9 @@ super-powered Frame layout<-->
                         android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
                         android:background="?attr/colorPrimary"
                         android:gravity="left"
-                        android:paddingBottom="5dp"
                         android:paddingLeft="10dp"
                         android:paddingTop="12dp"
+                        android:paddingBottom="5dp"
                         android:text="@string/alarm_sound"
                         android:textColor="@color/white"
                         android:textSize="16sp"
@@ -225,13 +225,13 @@ super-powered Frame layout<-->
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/alarm_sound"
-                        android:layout_marginBottom="@dimen/add_new_alarm_standard_padding"
                         android:layout_marginLeft="@dimen/add_new_alarm_standard_padding"
                         android:layout_marginRight="@dimen/add_new_alarm_standard_padding"
+                        android:layout_marginBottom="@dimen/add_new_alarm_standard_padding"
                         android:background="?attr/colorPrimary"
                         android:gravity="left"
-                        android:paddingBottom="12dp"
                         android:paddingLeft="10dp"
+                        android:paddingBottom="12dp"
                         android:text="Alarm Sound"
                         android:textColor="@color/white"
                         android:textSize="20sp"
@@ -240,41 +240,41 @@ super-powered Frame layout<-->
                     <!-->Confirmation Button - saves the alarm settings, adds a new card
                     with alarm details to the main screen (activity_main.xml). The user
                     is then returned to the main menu<-->
-                    <android.support.design.widget.FloatingActionButton
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/confirmButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/get_ringtone"
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="bottom|end"
-                        android:layout_marginBottom="4dp"
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="16dp"
+                        android:layout_marginBottom="4dp"
                         android:src="@drawable/ic_done_white_36dp"
                         app:backgroundTint="@color/confirm_green"
                         app:layout_anchorGravity="end" />
 
                 </RelativeLayout>
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
         </RelativeLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <!--> A Vertical linear layout with many 'material' design features
     especially scrolling features,'material' look, must be used as a child
     within a Coordinator Layout<-->
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <!--> Places a toolbar at the top of the screen to ensure the app has a
         'material' look, it also contains the screen title & a back button<-->
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-    </android.support.design.widget.AppBarLayout>
-</android.support.design.widget.CoordinatorLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -16,7 +16,6 @@
     <permission
         android:name="com.example.googlemaps.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
-     
     <uses-permission android:name="com.example.googlemaps.permission.MAPS_RECEIVE" />
     <uses-feature android:name="android.hardware.camera" />
 
@@ -27,12 +26,13 @@
 
     <application
         android:allowBackup="true"
-        android:debuggable="true"
         android:icon="@mipmap/atom_symbol"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme">
-        <activity android:name=".ActivityMain">
+        <activity
+            android:name=".ActivityMain"
+            android:exported="true">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,6 +42,7 @@
 
         <activity
             android:name=".ActivitySettings"
+            android:exported="true"
             android:label="Settings"
             android:parentActivityName=".ActivityMain">
 
@@ -52,30 +53,36 @@
         </activity>
 
         <activity
+            android:exported="true"
             android:name=".ActivityMaps"
             android:label="@string/title_activity_maps"
             android:parentActivityName=".ActivitySettings" />
         <activity
+            android:exported="true"
             android:name=".ActivityAddNewAlarmTime"
             android:label="@string/add_new_alarm"
             android:parentActivityName=".ActivityMain" />
 
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
-
         <activity
+            android:exported="true"
             android:name=".ActivityDismissAlarm"
             android:theme="@style/DismissTheme" />
 
-        <receiver android:name=".AlarmReceiver" />
+        <receiver
+            android:name=".AlarmReceiver"
+            android:exported="true" />
         <receiver
             android:name=".BootReceiver"
-            android:enabled="false" />
+            android:enabled="false"
+            android:exported="true" />
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyAMwEl3VmYcUeXwTSxQ3wKD6n9vG8x--8E" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
     </application>
 

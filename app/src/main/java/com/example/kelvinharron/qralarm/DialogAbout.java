@@ -2,11 +2,12 @@ package com.example.kelvinharron.qralarm;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import androidx.fragment.app.DialogFragment;
 
 /**
  * This Dialog is used to display the name of the app, the develoeprs and the logo. It is accessed
@@ -45,7 +46,7 @@ public class DialogAbout extends DialogFragment implements View.OnClickListener 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View viewFragment = inflater.inflate(R.layout.dialog_about, container);
         getDialog().setTitle("About");
-        dismiss = (Button) viewFragment.findViewById(R.id.dismissButton);
+        dismiss = viewFragment.findViewById(R.id.dismissButton);
         dismiss.setOnClickListener(this);
         return viewFragment;
     }
