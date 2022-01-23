@@ -13,7 +13,7 @@ android {
     buildTypes {
         debug {
             debuggable true
-            manifestPlaceholders = [google_map_key: "AIzaSyAMwEl3VmYcUeXwTSxQ3wKD6n9vG8x--8E"]
+            manifestPlaceholders = [google_map_key: "REPLACE WITH API KEY"]
         }
         release {
             minifyEnabled false
