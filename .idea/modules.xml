@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/qrAlarm.iml" filepath="$PROJECT_DIR$/qrAlarm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/up-and-atom.iml" filepath="$PROJECT_DIR$/.idea/modules/up-and-atom.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/up-and-atom.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/up-and-atom.app.iml" />
     </modules>
   </component>
 </project>
